@@ -277,6 +277,8 @@ func _parse_variable_names(value: String):
 	return results
 
 
+
+
 # FIXME : Length calculation is borked when the value has [, ] unrelated to any bbcodes.
 # Updates all the [wait] bbcode tags in the given text to include additional info about the text
 func _update_wait_tags(node : RichTextLabel, value : String):

@@ -4,9 +4,12 @@ using System.Collections.Generic;
 
 public partial class Player : Node2D
 {
+	[Export] public float HP;
+	[Export] public float maxHP;
 	[Export] public float MP;
 	[Export] public float maxMP;
 	public ProgressBar magicBar;
+	public ProgressBar healthBar;
 	public AnimationPlayer anim;
 	[Export] public Godot.Collections.Dictionary<String, PackedScene> gems;
 
@@ -15,15 +18,20 @@ public partial class Player : Node2D
 	public Godot.Collections.Array<String> removedGems;
 	public Godot.Collections.Array<String> removedGemsTemp;
 	public Godot.Collections.Array<Gem> pocketedGems;
-	
+	public AnimationPlayer hitFXAnim;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		//anim = GetNode<Sprite2D>("HitFX").GetNode<AnimationPlayer>("AnimationPlayer");
 		magicBar = GetNode<ProgressBar>("Description/MagicBar");
+		healthBar = GetNode<ProgressBar>("Description/HPBar");
 		MP = maxMP;
+		HP = maxHP;
 		magicBar.GetNode<Label>("Mult").Text = "Magic: " + MP.ToString() + " / " + maxMP.ToString();
+		healthBar.GetNode<Label>("Mult").Text = "Health: " + HP.ToString() + " / " + maxHP.ToString();
+
+		hitFXAnim = GetNode<Sprite2D>("HitFX").GetNode<AnimationPlayer>("AnimationPlayer");
 
 		gemPool = new Godot.Collections.Array<String>();
 		removedGems = new Godot.Collections.Array<String>();
@@ -39,6 +47,15 @@ public partial class Player : Node2D
 		MP = Mathf.Clamp(MP + amount, 0, maxMP);
 		magicBar.Value = MP/maxMP;
 		magicBar.GetNode<Label>("Mult").Text = "Magic: " + MP.ToString() + " / " + maxMP.ToString();
+	}
+	public void ChangeHP(float amount) {
+		HP = Mathf.Clamp(HP + amount, 0, maxHP);
+		healthBar.Value = HP/maxHP;
+		healthBar.GetNode<Label>("Mult").Text = "Health: " + HP.ToString() + " / " + maxHP.ToString();
+		if(amount < 0) {
+			hitFXAnim.Play("default");
+			hitFXAnim.Play("Hit");
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

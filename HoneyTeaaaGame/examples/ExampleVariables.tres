@@ -24,7 +24,7 @@ Like: You have {{COINS}} coins!",
 "text": ""
 }
 },
-"size": Vector2(300, 241),
+"size": Vector2(300, 274),
 "speaker": "Greg"
 },
 "1_2": {
@@ -47,7 +47,7 @@ Like: You have {{COINS}} coins!",
 "text": "Nothing"
 }
 },
-"size": Vector2(300, 308),
+"size": Vector2(300, 394),
 "speaker": "Greg"
 },
 "1_3": {
@@ -62,7 +62,7 @@ Current value: {{COINS}}
 "text": ""
 }
 },
-"size": Vector2(300, 241),
+"size": Vector2(300, 274),
 "speaker": "Greg"
 },
 "1_4": {
@@ -75,7 +75,7 @@ Current value: {{COINS}}
 "text": ""
 }
 },
-"size": Vector2(300, 241),
+"size": Vector2(300, 274),
 "speaker": "Greg"
 },
 "1_5": {
@@ -93,12 +93,12 @@ Current value: {{COINS}}
 "text": "Bye"
 }
 },
-"size": Vector2(300, 275),
+"size": Vector2(300, 354),
 "speaker": "Greg"
 },
 "1_6": {
 "dialogue": "You can use the condition node to show dialogues based on a condition.",
-"offset": Vector2(1040, 280),
+"offset": Vector2(1040, 440),
 "options": {
 0: {
 "condition": {},
@@ -106,7 +106,7 @@ Current value: {{COINS}}
 "text": ""
 }
 },
-"size": Vector2(300, 241),
+"size": Vector2(300, 274),
 "speaker": "Greg"
 },
 "1_7": {
@@ -119,7 +119,7 @@ Current value: {{COINS}}
 "text": ""
 }
 },
-"size": Vector2(300, 241.001),
+"size": Vector2(300, 274),
 "speaker": "Greg"
 },
 "1_8": {
@@ -132,7 +132,7 @@ Current value: {{COINS}}
 "text": ""
 }
 },
-"size": Vector2(300, 241),
+"size": Vector2(300, 274),
 "speaker": "Greg"
 },
 "1_9": {
@@ -150,7 +150,7 @@ Current value: {{COINS}}
 "text": "Bye"
 }
 },
-"size": Vector2(300, 275),
+"size": Vector2(300, 354),
 "speaker": "Greg"
 },
 "4_1": {

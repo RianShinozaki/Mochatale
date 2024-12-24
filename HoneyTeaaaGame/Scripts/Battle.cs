@@ -101,7 +101,13 @@ public partial class Battle : Node2D
 
 				battleOptions.Visible = false;
 
-				//currentPhase = Phase.PlayerChoice;
+				SwitchState(Phase.EnemyChoice);
+				break;
+			case Phase.EnemyChoice:
+				enemy.CallDeferred("EnemyTurn");
+				await ToSignal(enemy, "EnemyTurnFinished");
+				SwitchState(Phase.ToPlayerChoice);
+
 				break;
 		}
 	}
@@ -139,7 +145,7 @@ public partial class Battle : Node2D
 		mult.Visible = false;
 		multFX.QueueFree();
 
-		SwitchState(Phase.ToPlayerChoice);
+		SwitchState(Phase.ToEnemyChoice);
 	}
 	public void PrimeGem(Gem gem) {
 		hand.RemoveChild(gem);
@@ -163,4 +169,6 @@ public partial class Battle : Node2D
 			battleOptions.GetNode<Button>("Pocket").Disabled = true;
 		}
 	}
+
+	
 }

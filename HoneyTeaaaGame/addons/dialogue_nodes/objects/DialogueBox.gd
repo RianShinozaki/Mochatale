@@ -312,6 +312,47 @@ func _on_dialogue_processed(speaker : Variant, dialogue : String, options : Arra
 	options_container.hide()
 	
 	dialogue_processed.emit(speaker, dialogue, options)
+	
+func set_variable(var_name: String, type: int, value, operator = 0):
+
+	# Set datatype of value
+	match type:
+		TYPE_STRING:
+			value = str(value)
+
+			# Check for invalud operators
+			if operator > 2:
+				printerr('Invalid operator for type: String')
+				return
+		TYPE_INT:
+			value = int(value)
+		TYPE_FLOAT:
+			value = float(value)
+		TYPE_BOOL:
+			value = (value == 'true') if value is String else bool(value)
+
+			# Check for invalid operators
+			if operator > 0:
+				printerr('Invalid operator for type: Boolean')
+				return
+
+	# Perform operation
+	match operator:
+		0:
+			# =
+			variables[var_name] = value
+		1:
+			# +=
+			variables[var_name] += value
+		2:
+			# -=
+			variables[var_name] -= value
+		3:
+			# *=
+			variables[var_name] *= value
+		4:
+			# /=
+			variables[var_name] /= value
 
 
 func _on_option_selected(idx : int):
