@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b43e50t1rppkk"]
+
+[ext_resource type="Script" path="res://Scripts/GameController.cs" id="1_snxej"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_snxej")
+atkDialogueResPath = "res://Data/Attacks/AttackDialogue.tres"

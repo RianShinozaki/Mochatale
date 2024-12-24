@@ -1,17 +1,30 @@
-[gd_scene load_steps=26 format=3 uid="uid://3kebc13gykxj"]
+[gd_scene load_steps=38 format=3 uid="uid://3kebc13gykxj"]
 
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_yetnv"]
 [ext_resource type="Texture2D" uid="uid://do6ak2xogjlst" path="res://Art/MochaBack.png" id="3_0p7lf"]
 [ext_resource type="PackedScene" uid="uid://8coe3hjahvt7" path="res://Objects/Gems/RedGem.tscn" id="3_5pqxf"]
+[ext_resource type="Script" path="res://Data/Enemies/Mel/Mel.cs" id="3_icdqv"]
 [ext_resource type="Texture2D" uid="uid://26apshtbh5eo" path="res://Art/Enemy.png" id="4_6y8nw"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/BasicAttack.cs" id="4_b6rb1"]
 [ext_resource type="PackedScene" uid="uid://cflcdwqvudlhq" path="res://Objects/Gems/BlackGem.tscn" id="4_pjs1f"]
 [ext_resource type="PackedScene" uid="uid://dmo0lwb4wwo2x" path="res://Objects/Gems/WhiteGem.tscn" id="5_dxhe1"]
 [ext_resource type="Texture2D" uid="uid://dfjqsn5ethtp1" path="res://Art/Bash.png" id="5_suju4"]
-[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="6_pavtp"]
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/DialogueBox.gd" id="7_g04hh"]
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/bbcodeWait.gd" id="8_2xx2r"]
 [ext_resource type="Theme" uid="uid://ddsjysqmrnx18" path="res://Themes/QuirkyRPG.tres" id="8_0312b"]
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/bbcodeGhost.gd" id="9_mmw7a"]
 [ext_resource type="PackedScene" uid="uid://bfd4q8o6andct" path="res://Objects/FX/PowerParticle.tscn" id="10_7vofg"]
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="10_l0ya0"]
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/bbcodeMatrix.gd" id="10_mklvv"]
 [ext_resource type="PackedScene" uid="uid://c4hjuiitiu1te" path="res://Objects/Gems/BlueGem.tscn" id="11_br5gh"]
+[ext_resource type="PackedScene" uid="uid://uxlonj1t05vu" path="res://Objects/Gems/GreenGem.tscn" id="13_r01al"]
+[ext_resource type="PackedScene" uid="uid://do063x0tonmta" path="res://Objects/System/DialogueBridge.tscn" id="18_lufk5"]
+
+[sub_resource type="Resource" id="Resource_38hga"]
+script = ExtResource("4_b6rb1")
+DamageValue = 16
+Range = 3
+DialogueID = "Swinging"
 
 [sub_resource type="Animation" id="Animation_0onjk"]
 resource_name = "Hit"
@@ -179,6 +192,32 @@ expand_margin_bottom = 6.0
 shadow_size = 3
 shadow_offset = Vector2(2.5, 5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvvf1"]
+bg_color = Color(0.0937179, 0.01189, 0.0335677, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 15.0
+expand_margin_top = 6.0
+expand_margin_right = 15.0
+expand_margin_bottom = 6.0
+shadow_size = 3
+shadow_offset = Vector2(2.5, 5)
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_mhq8w"]
+script = ExtResource("8_2xx2r")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_257xk"]
+script = ExtResource("9_mmw7a")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_mmxrj"]
+script = ExtResource("10_mklvv")
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -196,36 +235,39 @@ script = ExtResource("1_yetnv")
 hand = NodePath("PlayerUI/Hand/Hand")
 activeHand = NodePath("PlayerUI/Active/ActiveHand")
 itemDescription = NodePath("Description/RichTextLabel")
-enemy = NodePath("Enemy")
+enemy = NodePath("Mel Enemy")
 player = NodePath("Player")
 mult = NodePath("Mult")
 battleOptions = NodePath("PlayerUI/PlayerOptions")
 playerUI = NodePath("PlayerUI")
 powerFX = ExtResource("10_7vofg")
 
-[node name="Enemy" type="Node2D" parent="Battle"]
+[node name="Mel Enemy" type="Node2D" parent="Battle"]
 position = Vector2(808, 67)
-script = ExtResource("6_pavtp")
-maxHP = 100.0
+script = ExtResource("3_icdqv")
+myAttack = SubResource("Resource_38hga")
+MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
+maxHP = 80.0
+name = "Mel"
 
-[node name="Sprite" type="Sprite2D" parent="Battle/Enemy"]
+[node name="Sprite" type="Sprite2D" parent="Battle/Mel Enemy"]
 texture_filter = 1
 scale = Vector2(6, 6)
 texture = ExtResource("4_6y8nw")
 
-[node name="HitFX" type="Sprite2D" parent="Battle/Enemy"]
+[node name="HitFX" type="Sprite2D" parent="Battle/Mel Enemy"]
 visible = false
 texture_filter = 1
 scale = Vector2(6, 6)
 texture = ExtResource("5_suju4")
 hframes = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Enemy/HitFX"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Mel Enemy/HitFX"]
 libraries = {
 "": SubResource("AnimationLibrary_qwsgx")
 }
 
-[node name="ProgressBar" type="ProgressBar" parent="Battle/Enemy"]
+[node name="ProgressBar" type="ProgressBar" parent="Battle/Mel Enemy"]
 offset_left = -117.0
 offset_top = -175.0
 offset_right = 123.0
@@ -237,7 +279,7 @@ value = 1.0
 fill_mode = 1
 show_percentage = false
 
-[node name="Label" type="Label" parent="Battle/Enemy"]
+[node name="Label" type="Label" parent="Battle/Mel Enemy"]
 visible = false
 offset_right = 63.0
 offset_bottom = 67.0
@@ -257,11 +299,14 @@ text = "Mult:"
 [node name="Player" type="Node2D" parent="Battle"]
 position = Vector2(40, 299)
 script = ExtResource("10_l0ya0")
+HP = 100.0
+maxHP = 100.0
 MP = 30.0
 maxMP = 60.0
 gems = {
 "Black": ExtResource("4_pjs1f"),
 "Blue": ExtResource("11_br5gh"),
+"Green": ExtResource("13_r01al"),
 "Red": ExtResource("3_5pqxf"),
 "White": ExtResource("5_dxhe1")
 }
@@ -278,6 +323,19 @@ libraries = {
 "": SubResource("AnimationLibrary_6e567")
 }
 autoplay = "default"
+
+[node name="HitFX" type="Sprite2D" parent="Battle/Player"]
+visible = false
+texture_filter = 1
+position = Vector2(34, 66)
+scale = Vector2(6, 6)
+texture = ExtResource("5_suju4")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Player/HitFX"]
+libraries = {
+"": SubResource("AnimationLibrary_qwsgx")
+}
 
 [node name="Description" type="Panel" parent="Battle/Player"]
 offset_left = -128.0
@@ -328,7 +386,7 @@ max_value = 1.0
 value = 1.0
 show_percentage = false
 
-[node name="Health" type="Label" parent="Battle/Player/Description/HPBar"]
+[node name="Mult" type="Label" parent="Battle/Player/Description/HPBar"]
 layout_mode = 0
 offset_top = -24.0
 offset_right = 117.0
@@ -455,6 +513,21 @@ text = "ATTACK"
 layout_mode = 2
 theme = ExtResource("8_0312b")
 text = "POCKET"
+
+[node name="DialogueBox" type="Panel" parent="Battle"]
+visible = false
+custom_minimum_size = Vector2(700, 200)
+offset_left = 240.0
+offset_top = 259.0
+offset_right = 940.0
+offset_bottom = 459.0
+theme = ExtResource("8_0312b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vvvf1")
+script = ExtResource("7_g04hh")
+custom_effects = Array[RichTextEffect]([SubResource("RichTextEffect_mhq8w"), SubResource("RichTextEffect_257xk"), SubResource("RichTextEffect_mmxrj")])
+
+[node name="Node" parent="." node_paths=PackedStringArray("dialogueBox") instance=ExtResource("18_lufk5")]
+dialogueBox = NodePath("../Battle/DialogueBox")
 
 [connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Attack" to="Battle" method="_on_attack_pressed"]
 [connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Pocket" to="Battle" method="_on_pocket_pressed"]

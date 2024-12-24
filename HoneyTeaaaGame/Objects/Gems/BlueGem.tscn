@@ -7,7 +7,7 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]
 blend_mode = 1
 
-[node name="RedGem" type="TextureRect"]
+[node name="BlueGem" type="TextureRect"]
 texture_filter = 1
 custom_minimum_size = Vector2(80, 80)
 offset_right = 80.0
@@ -17,9 +17,9 @@ pivot_offset = Vector2(40, 40)
 texture = ExtResource("1_bqrhf")
 expand_mode = 2
 script = ExtResource("2_nryvv")
-magicHeal = 6.0
+magicHeal = 8.0
 description = "[color=red][b] BLUE FLOURITE [/b]
-[color=white] Recovers [color=cyan] 6 magic [/color]
+[color=white] Recovers [color=cyan] 8 magic [/color]
 
 [u]Sequence modifier (x[/0])[/u]
 [color=white] Recovers [color=cyan] [/1] magic [/color]"

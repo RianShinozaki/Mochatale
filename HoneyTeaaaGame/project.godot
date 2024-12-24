@@ -15,6 +15,10 @@ run/main_scene="res://Battle.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameController="*res://Objects/System/GameController.tscn"
+
 [display]
 
 window/stretch/mode="viewport"
@@ -22,3 +26,7 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="HoneyTeaaaGame"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_nodes/plugin.cfg")

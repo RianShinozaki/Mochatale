@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://uxlonj1t05vu"]
+
+[ext_resource type="Texture2D" uid="uid://b32opy6nmbkyo" path="res://Art/gemss1.png" id="1_o3tkf"]
+[ext_resource type="Texture2D" uid="uid://0uq3fm1sgyjp" path="res://Art/gemss10.png" id="1_ovume"]
+[ext_resource type="Script" path="res://Scripts/GreenGem.cs" id="2_ics21"]
+[ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_2fwmk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]
+blend_mode = 1
+
+[node name="GreenGem" type="TextureRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(40, 40)
+texture = ExtResource("1_ovume")
+expand_mode = 2
+script = ExtResource("2_ics21")
+damage = 8.0
+description = "[color=green][b] GREEN FLOURITE [/b]
+[color=white] Heals [color=green] 8 damage [/color]
+[color=white] Costs [color=cyan] 4 magic [/color]
+
+[u]Sequence modifier (x[/0])[/u]
+[color=white] Heals [color=green] [/1] damage [/color]
+[color=white] Costs [color=cyan] [/2] magic [/color]"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"Gems": ExtResource("3_2fwmk")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_m0x8l")
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("1_o3tkf")

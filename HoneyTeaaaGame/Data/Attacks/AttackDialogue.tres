@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3 uid="uid://cqcoig4rtsvpg"]
+
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/DialogueData.gd" id="1_cb1df"]
+
+[resource]
+script = ExtResource("1_cb1df")
+starts = {
+"Swinging": &"0_1"
+}
+nodes = {
+"0_1": {
+"link": &"1_1",
+"offset": Vector2(-920, -320),
+"start_id": "Swinging"
+},
+"1_1": {
+"dialogue": "{{EnemyName}} goes in swinging!",
+"offset": Vector2(-640, -320),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": ""
+}
+}
+variables = {
+"EnemyName": {
+"type": 4,
+"value": ""
+}
+}
+strays = Array[String]([])
+characters = ""

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://do063x0tonmta"]
+
+[ext_resource type="Script" path="res://Scripts/Dialogue/DialogueBridge.cs" id="1_5so20"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_5so20")

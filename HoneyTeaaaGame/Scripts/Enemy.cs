@@ -3,8 +3,12 @@ using System;
 
 public partial class Enemy : Node2D
 {
-	[Export] public float HP;
+	[Signal]
+	public delegate void EnemyTurnFinishedEventHandler();
+	[Export] public string MyDialogueDataResource;
+	float HP;
 	[Export] public float maxHP;
+	[Export] public string name;
 	ProgressBar progBar;
 	public AnimationPlayer anim;
 	public Label Damage;
@@ -14,6 +18,7 @@ public partial class Enemy : Node2D
 		progBar = GetNode<ProgressBar>("ProgressBar");
 		HP = maxHP;
 		Damage = GetNode<Label>("Label");
+		
     }
     public void TakeDamage(float damage) {
 		anim.Play("default");
@@ -24,4 +29,6 @@ public partial class Enemy : Node2D
 		//Damage.Visible = true;
 		//Damage.Text = "-" + damage.ToString("");
 	}
+
+	public async virtual void EnemyTurn() {}
 }
