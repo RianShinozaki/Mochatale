@@ -1,0 +1,460 @@
+[gd_scene load_steps=26 format=3 uid="uid://3kebc13gykxj"]
+
+[ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_yetnv"]
+[ext_resource type="Texture2D" uid="uid://do6ak2xogjlst" path="res://Art/MochaBack.png" id="3_0p7lf"]
+[ext_resource type="PackedScene" uid="uid://8coe3hjahvt7" path="res://Objects/Gems/RedGem.tscn" id="3_5pqxf"]
+[ext_resource type="Texture2D" uid="uid://26apshtbh5eo" path="res://Art/Enemy.png" id="4_6y8nw"]
+[ext_resource type="PackedScene" uid="uid://cflcdwqvudlhq" path="res://Objects/Gems/BlackGem.tscn" id="4_pjs1f"]
+[ext_resource type="PackedScene" uid="uid://dmo0lwb4wwo2x" path="res://Objects/Gems/WhiteGem.tscn" id="5_dxhe1"]
+[ext_resource type="Texture2D" uid="uid://dfjqsn5ethtp1" path="res://Art/Bash.png" id="5_suju4"]
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="6_pavtp"]
+[ext_resource type="Theme" uid="uid://ddsjysqmrnx18" path="res://Themes/QuirkyRPG.tres" id="8_0312b"]
+[ext_resource type="PackedScene" uid="uid://bfd4q8o6andct" path="res://Objects/FX/PowerParticle.tscn" id="10_7vofg"]
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="10_l0ya0"]
+[ext_resource type="PackedScene" uid="uid://c4hjuiitiu1te" path="res://Objects/Gems/BlueGem.tscn" id="11_br5gh"]
+
+[sub_resource type="Animation" id="Animation_0onjk"]
+resource_name = "Hit"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_bjjmr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mbujq"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qwsgx"]
+_data = {
+"Hit": SubResource("Animation_0onjk"),
+"RESET": SubResource("Animation_bjjmr"),
+"default": SubResource("Animation_mbujq")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v58im"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpcv6"]
+bg_color = Color(0.893746, 0, 0.3249, 1)
+
+[sub_resource type="Animation" id="Animation_wvkkk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(26, 12)]
+}
+
+[sub_resource type="Animation" id="Animation_ivviy"]
+resource_name = "default"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(26, 12), Vector2(26, 24)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6e567"]
+_data = {
+"RESET": SubResource("Animation_wvkkk"),
+"default": SubResource("Animation_ivviy")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r62xu"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtf62"]
+bg_color = Color(0.0109872, 0.664691, 0.792382, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7nlv"]
+bg_color = Color(0.894118, 0, 0.32549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m57tr"]
+bg_color = Color(0.270108, 0.102424, 0.0613367, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+shadow_size = 3
+shadow_offset = Vector2(2.5, 5)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Battle" type="Node2D" parent="." node_paths=PackedStringArray("hand", "activeHand", "itemDescription", "enemy", "player", "mult", "battleOptions", "playerUI")]
+position = Vector2(95, 159)
+script = ExtResource("1_yetnv")
+hand = NodePath("PlayerUI/Hand/Hand")
+activeHand = NodePath("PlayerUI/Active/ActiveHand")
+itemDescription = NodePath("Description/RichTextLabel")
+enemy = NodePath("Enemy")
+player = NodePath("Player")
+mult = NodePath("Mult")
+battleOptions = NodePath("PlayerUI/PlayerOptions")
+playerUI = NodePath("PlayerUI")
+powerFX = ExtResource("10_7vofg")
+
+[node name="Enemy" type="Node2D" parent="Battle"]
+position = Vector2(808, 67)
+script = ExtResource("6_pavtp")
+maxHP = 100.0
+
+[node name="Sprite" type="Sprite2D" parent="Battle/Enemy"]
+texture_filter = 1
+scale = Vector2(6, 6)
+texture = ExtResource("4_6y8nw")
+
+[node name="HitFX" type="Sprite2D" parent="Battle/Enemy"]
+visible = false
+texture_filter = 1
+scale = Vector2(6, 6)
+texture = ExtResource("5_suju4")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Enemy/HitFX"]
+libraries = {
+"": SubResource("AnimationLibrary_qwsgx")
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="Battle/Enemy"]
+offset_left = -117.0
+offset_top = -175.0
+offset_right = 123.0
+offset_bottom = -145.0
+theme_override_styles/background = SubResource("StyleBoxFlat_v58im")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpcv6")
+max_value = 1.0
+value = 1.0
+fill_mode = 1
+show_percentage = false
+
+[node name="Label" type="Label" parent="Battle/Enemy"]
+visible = false
+offset_right = 63.0
+offset_bottom = 67.0
+theme = ExtResource("8_0312b")
+theme_override_colors/font_color = Color(1, 0.457592, 0.389236, 1)
+theme_override_font_sizes/font_size = 70
+text = "-5"
+
+[node name="Mult" type="Label" parent="Battle"]
+offset_left = 232.0
+offset_top = 196.0
+offset_right = 349.0
+offset_bottom = 234.0
+theme = ExtResource("8_0312b")
+text = "Mult:"
+
+[node name="Player" type="Node2D" parent="Battle"]
+position = Vector2(40, 299)
+script = ExtResource("10_l0ya0")
+MP = 30.0
+maxMP = 60.0
+gems = {
+"Black": ExtResource("4_pjs1f"),
+"Blue": ExtResource("11_br5gh"),
+"Red": ExtResource("3_5pqxf"),
+"White": ExtResource("5_dxhe1")
+}
+gemPool = Array[String]([])
+
+[node name="MochaBack" type="Sprite2D" parent="Battle/Player"]
+texture_filter = 1
+position = Vector2(26, 12)
+scale = Vector2(6, 6)
+texture = ExtResource("3_0p7lf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Player/MochaBack"]
+libraries = {
+"": SubResource("AnimationLibrary_6e567")
+}
+autoplay = "default"
+
+[node name="Description" type="Panel" parent="Battle/Player"]
+offset_left = -128.0
+offset_top = -420.0
+offset_right = 172.0
+offset_bottom = -170.0
+theme = ExtResource("8_0312b")
+
+[node name="Name" type="Label" parent="Battle/Player/Description"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 13.0
+offset_right = 203.0
+offset_bottom = 51.0
+theme = ExtResource("8_0312b")
+text = "Mochaccino Lv. 1"
+
+[node name="MagicBar" type="ProgressBar" parent="Battle/Player/Description"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 188.0
+offset_right = 269.0
+offset_bottom = 218.0
+theme_override_styles/background = SubResource("StyleBoxFlat_r62xu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vtf62")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="Mult" type="Label" parent="Battle/Player/Description/MagicBar"]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 117.0
+offset_bottom = 14.0
+theme = ExtResource("8_0312b")
+theme_override_font_sizes/font_size = 25
+text = "Magic: 30 / 30"
+
+[node name="HPBar" type="ProgressBar" parent="Battle/Player/Description"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 105.0
+offset_right = 269.0
+offset_bottom = 135.0
+theme_override_styles/background = SubResource("StyleBoxFlat_r62xu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p7nlv")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="Health" type="Label" parent="Battle/Player/Description/HPBar"]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 117.0
+offset_bottom = 14.0
+theme = ExtResource("8_0312b")
+theme_override_font_sizes/font_size = 25
+text = "Health: 100 / 100"
+
+[node name="Description" type="Panel" parent="Battle"]
+visible = false
+offset_left = -88.0
+offset_top = -121.0
+offset_right = 212.0
+offset_bottom = 129.0
+theme = ExtResource("8_0312b")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Battle/Description"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_0312b")
+bbcode_enabled = true
+
+[node name="PlayerUI" type="Control" parent="Battle"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Hand" type="Panel" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 375.0
+offset_right = 936.0
+offset_bottom = 455.0
+pivot_offset = Vector2(350, 0)
+theme = ExtResource("8_0312b")
+
+[node name="Hand" type="HBoxContainer" parent="Battle/PlayerUI/Hand"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RedGem" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
+layout_mode = 2
+
+[node name="RedGem2" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
+layout_mode = 2
+
+[node name="RedGem3" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Battle/PlayerUI/Hand"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 109.0
+offset_bottom = 98.0
+theme = ExtResource("8_0312b")
+text = "HAND"
+
+[node name="Active" type="Panel" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 266.0
+offset_right = 936.0
+offset_bottom = 346.0
+pivot_offset = Vector2(350, 0)
+theme = ExtResource("8_0312b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_m57tr")
+
+[node name="ActiveHand" type="HBoxContainer" parent="Battle/PlayerUI/Active"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Battle/PlayerUI/Active"]
+layout_mode = 0
+offset_top = 61.0
+offset_right = 109.0
+offset_bottom = 99.0
+theme = ExtResource("8_0312b")
+text = "PRIMED"
+
+[node name="PlayerOptions" type="HBoxContainer" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 196.0
+offset_right = 342.0
+offset_bottom = 241.0
+theme_override_constants/separation = 20
+
+[node name="Attack" type="Button" parent="Battle/PlayerUI/PlayerOptions"]
+layout_mode = 2
+theme = ExtResource("8_0312b")
+text = "ATTACK"
+
+[node name="Pocket" type="Button" parent="Battle/PlayerUI/PlayerOptions"]
+layout_mode = 2
+theme = ExtResource("8_0312b")
+text = "POCKET"
+
+[connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Attack" to="Battle" method="_on_attack_pressed"]
+[connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Pocket" to="Battle" method="_on_pocket_pressed"]

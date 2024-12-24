@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4hjuiitiu1te"]
+
+[ext_resource type="Texture2D" uid="uid://bmktyncu8iksv" path="res://Art/gemss5.png" id="1_bqrhf"]
+[ext_resource type="Script" path="res://Scripts/BlueGem.cs" id="2_nryvv"]
+[ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_30v35"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]
+blend_mode = 1
+
+[node name="RedGem" type="TextureRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(40, 40)
+texture = ExtResource("1_bqrhf")
+expand_mode = 2
+script = ExtResource("2_nryvv")
+magicHeal = 6.0
+description = "[color=red][b] BLUE FLOURITE [/b]
+[color=white] Recovers [color=cyan] 6 magic [/color]
+
+[u]Sequence modifier (x[/0])[/u]
+[color=white] Recovers [color=cyan] [/1] magic [/color]"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"Gems": ExtResource("3_30v35")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_m0x8l")
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("1_bqrhf")

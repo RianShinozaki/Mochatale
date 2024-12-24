@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfd4q8o6andct"]
+
+[ext_resource type="Texture2D" uid="uid://bo8op4rqge160" path="res://Art/GemParticle.png" id="1_y2tex"]
+[ext_resource type="Theme" uid="uid://ddsjysqmrnx18" path="res://Themes/QuirkyRPG.tres" id="2_wj4q2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3rxul"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_qvcn2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.998452, 0.000471592), -1.66375, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_pcxbb"]
+offsets = PackedFloat32Array(0, 0.770833, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.802083, 0.802083, 0.802083, 1, 0, 0, 0, 1)
+
+[node name="PowerParticle" type="CPUParticles2D"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_3rxul")
+scale = Vector2(0.5, 0.5)
+amount = 32
+lifetime = 0.4
+explosiveness = 0.2
+local_coords = true
+texture = ExtResource("1_y2tex")
+emission_shape = 1
+emission_sphere_radius = 0.01
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 186.21
+initial_velocity_max = 370.12
+orbit_velocity_min = 1.0
+orbit_velocity_max = 2.0
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_qvcn2")
+color_ramp = SubResource("Gradient_pcxbb")
+
+[node name="TrailingParticles" type="CPUParticles2D" parent="."]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_3rxul")
+amount = 64
+lifetime = 0.4
+explosiveness = 0.2
+texture = ExtResource("1_y2tex")
+emission_shape = 1
+emission_sphere_radius = 0.01
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 186.21
+initial_velocity_max = 370.12
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_qvcn2")
+color_ramp = SubResource("Gradient_pcxbb")
+
+[node name="Number" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -28.5
+offset_right = 49.5
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_wj4q2")
+theme_override_font_sizes/font_size = 90
+text = "15"
+horizontal_alignment = 1
