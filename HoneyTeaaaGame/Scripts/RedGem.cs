@@ -8,6 +8,14 @@ public partial class RedGem : Gem
 	
     public async override void Trigger()
     {
+		if(Battle.Instance.enemies.GetChildCount() == 0) {
+			GetParent<Node>().RemoveChild(this);
+			QueueFree();
+			EmitSignal(SignalName.FinishedTrigger);
+		}
+		if(Battle.Instance.SelectedEnemyIndex > Battle.Instance.enemies.GetChildCount()) {
+			Battle.Instance.SelectedEnemyIndex = 0;
+		}
 		anim.Play("Gems/Trigger");
         await ToSignal(anim, "animation_finished");
 		Visible = false;
@@ -23,12 +31,13 @@ public partial class RedGem : Gem
 
 		//Create the white mult particles
 		pos = Battle.Instance.mult.GlobalPosition + new Vector2(165, 20);
-		Node2D multFX = CreatePowerParticles(Colors.White, pos, (Node2D)Battle.Instance, "", 0.25f, -1);
+		Node2D multFX = CreatePowerParticles(Colors.White, pos, Battle.Instance.playerUI, "", 0.25f, -1);
 
 		//Move the white mult particles to red power
 		tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear);
 		tween.TweenProperty(multFX, "global_position", powerFX.GlobalPosition, 0.25f * Battle.Instance.speedMult);
 		await ToSignal(tween, "finished");
+		GD.Print("White particles moved??");
 		multFX.QueueFree();
 
 		powerFX.GetNode<Label>("Number").Text = (damage * GetMult()).ToString();
@@ -62,12 +71,13 @@ public partial class RedGem : Gem
 
 		//Move the red power particles to enemy
 		tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Quint);
-		tween.TweenProperty(powerFX, "global_position", Battle.Instance.enemy.GlobalPosition, 0.5f * Battle.Instance.speedMult);
+		tween.TweenProperty(powerFX, "global_position", Battle.Instance.GetEnemy(-1).GlobalPosition, 0.5f * Battle.Instance.speedMult);
 		await ToSignal(tween, "finished");
 		powerFX.QueueFree();
 
 		//Inflict damage on enemy
-		Battle.Instance.enemy.TakeDamage(damage * GetMult());
+		Battle.Instance.GetEnemy(-1).TakeDamage(damage * GetMult());
+		
 		GetParent<Node>().RemoveChild(this);
 		QueueFree();
 		EmitSignal(SignalName.FinishedTrigger);

@@ -5,17 +5,55 @@
 [resource]
 script = ExtResource("1_cb1df")
 starts = {
-"Swinging": &"0_1"
+"Swinging": &"0_1",
+"WinGeneric": &"0_3",
+"introTeeter": &"0_2"
 }
 nodes = {
 "0_1": {
 "link": &"1_1",
-"offset": Vector2(-920, -320),
+"offset": Vector2(-880, 100),
 "start_id": "Swinging"
+},
+"0_2": {
+"link": &"1_2",
+"offset": Vector2(-920, -640),
+"start_id": "introTeeter"
+},
+"0_3": {
+"link": &"1_3",
+"offset": Vector2(-200, -660),
+"start_id": "WinGeneric"
 },
 "1_1": {
 "dialogue": "{{EnemyName}} goes in swinging!",
-"offset": Vector2(-640, -320),
+"offset": Vector2(-600, 100),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_2": {
+"dialogue": "{{EnemyName}} teeters forward menacingly!",
+"offset": Vector2(-620, -660),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_3": {
+"dialogue": "Mochaccino wins the battle!",
+"offset": Vector2(85.4081, -642.907),
 "options": {
 0: {
 "condition": {},

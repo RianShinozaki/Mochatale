@@ -21,6 +21,8 @@ public partial class BasicAttack : AttackResource
 
 		await ToSignal(DialogueBridge.Instance.dialogueBox, "dialogue_ended");
 		Battle.Instance.player.ChangeHP(-DamageValue + rand.RandiRange(-Range, Range));
+
+		await ToSignal(Battle.Instance.player, "AnimationEnded");
 		EmitSignal(SignalName.AttackEnded);
 	}
 }

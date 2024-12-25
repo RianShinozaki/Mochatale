@@ -4,9 +4,11 @@ using System.Collections.Generic;
 
 public partial class Player : Node2D
 {
-	[Export] public float HP;
+	[Signal]
+	public delegate void AnimationEndedEventHandler();
+	public float HP;
 	[Export] public float maxHP;
-	[Export] public float MP;
+	public float MP;
 	[Export] public float maxMP;
 	public ProgressBar magicBar;
 	public ProgressBar healthBar;
@@ -48,13 +50,16 @@ public partial class Player : Node2D
 		magicBar.Value = MP/maxMP;
 		magicBar.GetNode<Label>("Mult").Text = "Magic: " + MP.ToString() + " / " + maxMP.ToString();
 	}
-	public void ChangeHP(float amount) {
+	public async void ChangeHP(float amount) {
 		HP = Mathf.Clamp(HP + amount, 0, maxHP);
 		healthBar.Value = HP/maxHP;
 		healthBar.GetNode<Label>("Mult").Text = "Health: " + HP.ToString() + " / " + maxHP.ToString();
 		if(amount < 0) {
 			hitFXAnim.Play("default");
 			hitFXAnim.Play("Hit");
+			
+			await ToSignal(hitFXAnim, "animation_finished");
+			EmitSignal(SignalName.AnimationEnded);
 		}
 	}
 

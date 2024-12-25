@@ -134,14 +134,17 @@ func _enter_tree():
 		bbcode_enabled = true
 		fit_content = true
 		size = Vector2.ZERO
-		text = 'Sample dialogue.'
+		text = 'Sample dialogueeeeeeeeeeeeeeeeeeee.'
 		autowrap_mode = TextServer.AUTOWRAP_OFF
+		set_anchors_preset(Control.PRESET_TOP_RIGHT)
 		clip_contents = false
 		for effect in dialogue_custom_effects:
 			if not custom_effects.has(effect):
 				custom_effects.append(effect)
 		if not theme:
 			theme = load('res://addons/dialogue_nodes/themes/bubblyClean.theme')
+	
+	set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	
 	tail = Polygon2D.new()
 	add_child(tail)
@@ -153,17 +156,12 @@ func _enter_tree():
 	]
 	tail.show_behind_parent = true
 	
-	speaker_label = Label.new()
-	add_child(speaker_label)
-	speaker_label.text = 'Speaker'
-	speaker_label.position = Vector2(6, -32)
-	
 	options_container = BoxContainer.new()
 	add_child(options_container)
 	options_container.alignment = BoxContainer.ALIGNMENT_CENTER
 	max_options_count = max_options_count
-	options_container.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	options_container.set_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	options_container.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	options_container.set_offsets_preset(Control.PRESET_TOP_RIGHT)
 	options_container.position.y = 32
 	
 	_visible_on_screen_notifier = VisibleOnScreenNotifier3D.new()
@@ -202,44 +200,6 @@ func _process(delta):
 	if Engine.is_editor_hint(): return
 	if not _running: return
 	if not follow_node: return
-	
-	var camera
-	var screen_center : Vector2
-	var follow_pos : Vector2
-	var target_pos : Vector2
-	
-	if follow_node is Node2D:
-		camera = get_viewport().get_camera_2d()
-		screen_center = camera.global_position if camera else get_viewport_rect().size * 0.5
-		follow_pos = follow_node.global_position
-	elif follow_node is Node3D:
-		camera = get_viewport().get_camera_3d()
-		screen_center = get_viewport_rect().size * 0.5
-		follow_pos = camera.unproject_position(follow_node.global_position)
-		_visible_on_screen_notifier.global_position = follow_node.global_position
-	
-	var angle := screen_center.angle_to_point(follow_pos)
-	var size_offset := Vector2(cos(angle) * size.x * 0.5, sin(angle) * size.y * 0.5)
-	target_pos = follow_pos + follow_pos.direction_to(screen_center) * (bubble_offset) - size_offset
-	if follow_pos == screen_center:
-		target_pos += Vector2(1, -1).normalized() * bubble_offset
-	
-	if follow_node is Node3D and target_pos.distance_to(position) > screen_center.distance_to(Vector2.ZERO) * 1.8:
-		position = target_pos
-	
-	pivot_offset = follow_pos - position
-	position = lerp(position, target_pos - size * 0.5, smooth_follow * delta)
-	var viewport_rect = get_viewport_rect()
-	var min_clamp = screen_center - viewport_rect.size * 0.45
-	var max_clamp = screen_center + viewport_rect.size * 0.45
-	position.x = clamp(position.x, min_clamp.x, max_clamp.x - size.x * 0.5)
-	position.y = clamp(position.y, min_clamp.y, max_clamp.y - size.y * 0.5)
-	
-	var dir : Vector2 = follow_pos.direction_to(position + size * 0.5)
-	var perp = dir.rotated(PI * 0.5)
-	tail.polygon[0] = follow_pos - position + dir * tail_offset
-	tail.polygon[1] = size * 0.5 + perp * (size.y * 0.4 + tail_base)
-	tail.polygon[2] = size * 0.5 - perp * (size.y * 0.4 + tail_base)
 
 
 func _input(_event):
@@ -284,14 +244,6 @@ func _on_dialogue_started(id : String):
 
 func _on_dialogue_processed(speaker : Variant, dialogue : String, options : Array[String]):
 	# set speaker
-	speaker_label.text = ''
-	if speaker is Character:
-		speaker_label.text = speaker.name
-		speaker_label.modulate = speaker.color
-	elif speaker is String:
-		speaker_label.text = speaker
-		speaker_label.modulate = Color.WHITE
-	speaker_label.size = Vector2.ZERO
 	
 	# set dialogue
 	text = _dialogue_parser._update_wait_tags(self, dialogue)
@@ -327,7 +279,6 @@ func _on_variable_changed(variable_name : String, value):
 func _on_dialogue_ended():
 	_running = false
 	var tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-	tween.parallel().tween_property(self, 'scale', Vector2.ZERO, 0.3)
 	tween.parallel().tween_property(self, 'modulate', Color.TRANSPARENT, 0.3)
 	await tween.finished
 	hide()

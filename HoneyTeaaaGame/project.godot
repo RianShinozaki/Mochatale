@@ -29,4 +29,4 @@ project/assembly_name="HoneyTeaaaGame"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_nodes/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_nodes/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg")

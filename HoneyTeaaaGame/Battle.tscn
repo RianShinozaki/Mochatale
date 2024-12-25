@@ -1,11 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://3kebc13gykxj"]
+[gd_scene load_steps=42 format=3 uid="uid://3kebc13gykxj"]
 
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_yetnv"]
 [ext_resource type="Texture2D" uid="uid://do6ak2xogjlst" path="res://Art/MochaBack.png" id="3_0p7lf"]
 [ext_resource type="PackedScene" uid="uid://8coe3hjahvt7" path="res://Objects/Gems/RedGem.tscn" id="3_5pqxf"]
-[ext_resource type="Script" path="res://Data/Enemies/Mel/Mel.cs" id="3_icdqv"]
-[ext_resource type="Texture2D" uid="uid://26apshtbh5eo" path="res://Art/Enemy.png" id="4_6y8nw"]
-[ext_resource type="Script" path="res://Data/Attacks/Scripts/BasicAttack.cs" id="4_b6rb1"]
+[ext_resource type="PackedScene" uid="uid://cp0jxxx8krtd1" path="res://Objects/Enemies/mel_enemy.tscn" id="3_8rrfx"]
 [ext_resource type="PackedScene" uid="uid://cflcdwqvudlhq" path="res://Objects/Gems/BlackGem.tscn" id="4_pjs1f"]
 [ext_resource type="PackedScene" uid="uid://dmo0lwb4wwo2x" path="res://Objects/Gems/WhiteGem.tscn" id="5_dxhe1"]
 [ext_resource type="Texture2D" uid="uid://dfjqsn5ethtp1" path="res://Art/Bash.png" id="5_suju4"]
@@ -18,13 +16,69 @@
 [ext_resource type="Script" path="res://addons/dialogue_nodes/objects/bbcodeMatrix.gd" id="10_mklvv"]
 [ext_resource type="PackedScene" uid="uid://c4hjuiitiu1te" path="res://Objects/Gems/BlueGem.tscn" id="11_br5gh"]
 [ext_resource type="PackedScene" uid="uid://uxlonj1t05vu" path="res://Objects/Gems/GreenGem.tscn" id="13_r01al"]
+[ext_resource type="Texture2D" uid="uid://cxr5idn871vj8" path="res://Art/Reticle.png" id="17_bxs8u"]
 [ext_resource type="PackedScene" uid="uid://do063x0tonmta" path="res://Objects/System/DialogueBridge.tscn" id="18_lufk5"]
+[ext_resource type="Texture2D" uid="uid://wiv031qeytk4" path="res://Art/Grid.png" id="19_ehile"]
+[ext_resource type="Script" path="res://Scripts/Battle/Environment/SpinningSurface.cs" id="19_rj6s6"]
 
-[sub_resource type="Resource" id="Resource_38hga"]
-script = ExtResource("4_b6rb1")
-DamageValue = 16
-Range = 3
-DialogueID = "Swinging"
+[sub_resource type="ViewportTexture" id="ViewportTexture_20gu1"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r62xu"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtf62"]
+bg_color = Color(0.0109872, 0.664691, 0.792382, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7nlv"]
+bg_color = Color(0.894118, 0, 0.32549, 1)
+
+[sub_resource type="Animation" id="Animation_wvkkk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(26, 12)]
+}
+
+[sub_resource type="Animation" id="Animation_ivviy"]
+resource_name = "default"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(26, -10), Vector2(26, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6e567"]
+_data = {
+"RESET": SubResource("Animation_wvkkk"),
+"default": SubResource("Animation_ivviy")
+}
 
 [sub_resource type="Animation" id="Animation_0onjk"]
 resource_name = "Hit"
@@ -104,77 +158,6 @@ _data = {
 "default": SubResource("Animation_mbujq")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v58im"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0, 0, 0, 1)
-expand_margin_left = 6.0
-expand_margin_top = 6.0
-expand_margin_right = 6.0
-expand_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpcv6"]
-bg_color = Color(0.893746, 0, 0.3249, 1)
-
-[sub_resource type="Animation" id="Animation_wvkkk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(26, 12)]
-}
-
-[sub_resource type="Animation" id="Animation_ivviy"]
-resource_name = "default"
-length = 1.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(26, 12), Vector2(26, 24)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6e567"]
-_data = {
-"RESET": SubResource("Animation_wvkkk"),
-"default": SubResource("Animation_ivviy")
-}
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r62xu"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(1, 1, 1, 1)
-expand_margin_left = 6.0
-expand_margin_top = 6.0
-expand_margin_right = 6.0
-expand_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtf62"]
-bg_color = Color(0.0109872, 0.664691, 0.792382, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7nlv"]
-bg_color = Color(0.894118, 0, 0.32549, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m57tr"]
 bg_color = Color(0.270108, 0.102424, 0.0613367, 1)
 border_width_left = 6
@@ -218,90 +201,73 @@ script = ExtResource("9_mmw7a")
 [sub_resource type="RichTextEffect" id="RichTextEffect_mmxrj"]
 script = ExtResource("10_mklvv")
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_spdy3"]
+sky_top_color = Color(0.774881, 0.129148, 0.486681, 1)
+ground_bottom_color = Color(0.245268, 0.0644872, 0.355622, 1)
+
+[sub_resource type="Sky" id="Sky_1ascf"]
+sky_material = SubResource("ProceduralSkyMaterial_spdy3")
+
+[sub_resource type="Environment" id="Environment_jfidn"]
+background_mode = 2
+sky = SubResource("Sky_1ascf")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bvo5x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ew20d"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.996055, 0.555616, 0.710296, 1)
+albedo_texture = ExtResource("19_ehile")
+uv1_scale = Vector3(10, 10, 10)
+texture_filter = 0
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+offset_left = 14.0
+offset_top = 13.0
+offset_right = 14.0
+offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="Battle" type="Node2D" parent="." node_paths=PackedStringArray("hand", "activeHand", "itemDescription", "enemy", "player", "mult", "battleOptions", "playerUI")]
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1000
+layout_mode = 0
+offset_left = -23.0
+offset_top = -10.0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = SubResource("ViewportTexture_20gu1")
+
+[node name="Battle" type="Node2D" parent="." node_paths=PackedStringArray("hand", "activeHand", "itemDescription", "player", "mult", "battleOptions", "playerUI")]
 position = Vector2(95, 159)
 script = ExtResource("1_yetnv")
 hand = NodePath("PlayerUI/Hand/Hand")
 activeHand = NodePath("PlayerUI/Active/ActiveHand")
 itemDescription = NodePath("Description/RichTextLabel")
-enemy = NodePath("Mel Enemy")
 player = NodePath("Player")
-mult = NodePath("Mult")
+mult = NodePath("PlayerUI/Mult")
 battleOptions = NodePath("PlayerUI/PlayerOptions")
 playerUI = NodePath("PlayerUI")
 powerFX = ExtResource("10_7vofg")
+introDialogueID = "introTeeter"
 
-[node name="Mel Enemy" type="Node2D" parent="Battle"]
-position = Vector2(808, 67)
-script = ExtResource("3_icdqv")
-myAttack = SubResource("Resource_38hga")
-MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
-maxHP = 80.0
-name = "Mel"
+[node name="Enemies" type="Node2D" parent="Battle"]
 
-[node name="Sprite" type="Sprite2D" parent="Battle/Mel Enemy"]
-texture_filter = 1
-scale = Vector2(6, 6)
-texture = ExtResource("4_6y8nw")
+[node name="Mel Enemy2" parent="Battle/Enemies" instance=ExtResource("3_8rrfx")]
+position = Vector2(546, 51)
 
-[node name="HitFX" type="Sprite2D" parent="Battle/Mel Enemy"]
-visible = false
-texture_filter = 1
-scale = Vector2(6, 6)
-texture = ExtResource("5_suju4")
-hframes = 4
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Mel Enemy/HitFX"]
-libraries = {
-"": SubResource("AnimationLibrary_qwsgx")
-}
-
-[node name="ProgressBar" type="ProgressBar" parent="Battle/Mel Enemy"]
-offset_left = -117.0
-offset_top = -175.0
-offset_right = 123.0
-offset_bottom = -145.0
-theme_override_styles/background = SubResource("StyleBoxFlat_v58im")
-theme_override_styles/fill = SubResource("StyleBoxFlat_bpcv6")
-max_value = 1.0
-value = 1.0
-fill_mode = 1
-show_percentage = false
-
-[node name="Label" type="Label" parent="Battle/Mel Enemy"]
-visible = false
-offset_right = 63.0
-offset_bottom = 67.0
-theme = ExtResource("8_0312b")
-theme_override_colors/font_color = Color(1, 0.457592, 0.389236, 1)
-theme_override_font_sizes/font_size = 70
-text = "-5"
-
-[node name="Mult" type="Label" parent="Battle"]
-offset_left = 232.0
-offset_top = 196.0
-offset_right = 349.0
-offset_bottom = 234.0
-theme = ExtResource("8_0312b")
-text = "Mult:"
+[node name="Mel Enemy" parent="Battle/Enemies" instance=ExtResource("3_8rrfx")]
 
 [node name="Player" type="Node2D" parent="Battle"]
 position = Vector2(40, 299)
 script = ExtResource("10_l0ya0")
-HP = 100.0
-maxHP = 100.0
-MP = 30.0
+maxHP = 140.0
 maxMP = 60.0
 gems = {
 "Black": ExtResource("4_pjs1f"),
@@ -312,36 +278,11 @@ gems = {
 }
 gemPool = Array[String]([])
 
-[node name="MochaBack" type="Sprite2D" parent="Battle/Player"]
-texture_filter = 1
-position = Vector2(26, 12)
-scale = Vector2(6, 6)
-texture = ExtResource("3_0p7lf")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Player/MochaBack"]
-libraries = {
-"": SubResource("AnimationLibrary_6e567")
-}
-autoplay = "default"
-
-[node name="HitFX" type="Sprite2D" parent="Battle/Player"]
-visible = false
-texture_filter = 1
-position = Vector2(34, 66)
-scale = Vector2(6, 6)
-texture = ExtResource("5_suju4")
-hframes = 4
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Player/HitFX"]
-libraries = {
-"": SubResource("AnimationLibrary_qwsgx")
-}
-
 [node name="Description" type="Panel" parent="Battle/Player"]
 offset_left = -128.0
-offset_top = -420.0
+offset_top = -466.0
 offset_right = 172.0
-offset_bottom = -170.0
+offset_bottom = -216.0
 theme = ExtResource("8_0312b")
 
 [node name="Name" type="Label" parent="Battle/Player/Description"]
@@ -395,12 +336,37 @@ theme = ExtResource("8_0312b")
 theme_override_font_sizes/font_size = 25
 text = "Health: 100 / 100"
 
+[node name="MochaBack" type="Sprite2D" parent="Battle/Player"]
+texture_filter = 1
+position = Vector2(26, 12)
+scale = Vector2(6, 6)
+texture = ExtResource("3_0p7lf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Player/MochaBack"]
+libraries = {
+"": SubResource("AnimationLibrary_6e567")
+}
+autoplay = "default"
+
+[node name="HitFX" type="Sprite2D" parent="Battle/Player"]
+visible = false
+texture_filter = 1
+position = Vector2(34, 66)
+scale = Vector2(6, 6)
+texture = ExtResource("5_suju4")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battle/Player/HitFX"]
+libraries = {
+"": SubResource("AnimationLibrary_qwsgx")
+}
+
 [node name="Description" type="Panel" parent="Battle"]
 visible = false
 offset_left = -88.0
-offset_top = -121.0
+offset_top = -167.0
 offset_right = 212.0
-offset_bottom = 129.0
+offset_bottom = 83.0
 theme = ExtResource("8_0312b")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Battle/Description"]
@@ -421,6 +387,15 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Mult" type="Label" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 196.0
+offset_right = 349.0
+offset_bottom = 234.0
+theme = ExtResource("8_0312b")
+text = "Mult:"
 
 [node name="Hand" type="Panel" parent="Battle/PlayerUI"]
 layout_mode = 0
@@ -526,8 +501,49 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vvvf1")
 script = ExtResource("7_g04hh")
 custom_effects = Array[RichTextEffect]([SubResource("RichTextEffect_mhq8w"), SubResource("RichTextEffect_257xk"), SubResource("RichTextEffect_mmxrj")])
 
+[node name="Reticle" type="Sprite2D" parent="Battle"]
+texture_filter = 1
+position = Vector2(546, 71)
+scale = Vector2(6, 6)
+texture = ExtResource("17_bxs8u")
+
 [node name="Node" parent="." node_paths=PackedStringArray("dialogueBox") instance=ExtResource("18_lufk5")]
 dialogueBox = NodePath("../Battle/DialogueBox")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Node3D" type="Node3D" parent="SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
+transform = Transform3D(0.991445, -0.130526, 0, 0.118774, 0.902176, -0.414693, 0.0541283, 0.411145, 0.909961, 0, 0, 4.21)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/Node3D"]
+environment = SubResource("Environment_jfidn")
+
+[node name="Node3D" type="Node3D" parent="SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.847817, -0.530289, 0, 0.530289, 0.847817, 0, 0.971559, 0)
+
+[node name="Node3D" type="Node3D" parent="SubViewport/Node3D/Node3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+script = ExtResource("19_rj6s6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_bvo5x")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ew20d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewport/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.002, 0)
+mesh = SubResource("PlaneMesh_bvo5x")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ew20d")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewport/Node3D/Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.002, 0)
+mesh = SubResource("PlaneMesh_bvo5x")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ew20d")
 
 [connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Attack" to="Battle" method="_on_attack_pressed"]
 [connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Pocket" to="Battle" method="_on_pocket_pressed"]

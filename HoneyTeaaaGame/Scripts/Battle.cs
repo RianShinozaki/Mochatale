@@ -4,20 +4,20 @@ using System;
 public partial class Battle : Node2D
 {
 	public enum Phase {
+		BattleIntro,
 		ToPlayerChoice,
 		PlayerChoice,
 		PocketingGems,
 		PlayerAttacking,
-		ToEnemyChoice,
 		EnemyChoice,
-		EnemyAttacking
+		EnemyAttacking,
+		PlayerWins
 	}
 	public Phase currentPhase = Phase.PlayerChoice;
 	public static Battle Instance;
 	[Export] public HBoxContainer hand;
 	[Export] public HBoxContainer activeHand;
 	[Export] public RichTextLabel itemDescription;
-	[Export] public Enemy enemy;
 	[Export] public Player player;
 	[Export] public Label mult;
 	[Export] public Control battleOptions;
@@ -27,31 +27,38 @@ public partial class Battle : Node2D
 	public float multIncrement = 0.5f;
 	public float speedMult = 1f;
 	[Export] public PackedScene powerFX; 
+	[Export] string introDialogueID;
+	public Node2D enemies;
+	public int SelectedEnemyIndex = 0;
 
 	public bool attacking = false;
-	public Gem focusedGem;
+	public Node focusedObject;
+	public Sprite2D reticle;
 
     public override void _Ready()
     {
 		Instance = this;
         base._Ready();
-		mult = GetNode<Label>("Mult");
+		mult = GetNode<Label>("PlayerUI/Mult");
 		mult.Visible = false;
-		SwitchState(Phase.ToPlayerChoice);
+		enemies = GetNode<Node2D>("Enemies");
+		reticle = GetNode<Sprite2D>("Reticle");
+		
+		reticle.Visible = false;
+		SwitchState(Phase.BattleIntro);
     }
     public override void _Process(double delta)
     {
         
     }
-    public void SetFocusedGem(Gem gem) {
-		focusedGem = gem;
-		if(gem != null) {
-			itemDescription.Text = gem.GetDescription();
+    public void SetDescription(Node node, String display = "") {
+		focusedObject = node;
+		if(node != null) {
+			itemDescription.Text = display;
 			itemDescription.GetParent<Control>().Visible = true;
 		} else {
 			itemDescription.Text = null;
 			itemDescription.GetParent<Control>().Visible = false;
-
 		}
 	}
 	public void _on_attack_pressed() {
@@ -70,8 +77,30 @@ public partial class Battle : Node2D
 		currentPhase = newState;
 		Tween tween;
 		switch(currentPhase) {
+			case Phase.BattleIntro:
+				Vector2 playerToPos = player.GlobalPosition;
+				player.GlobalPosition -= Vector2.Right * 400;
+				Vector2 enemyToPos = enemies.GlobalPosition;
+				enemies.GlobalPosition += Vector2.Right * 400;
+
+				playerUI.Position = new Vector2(0, 330);
+				player.GetNode<Control>("Description").Visible = false;
+				
+				tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Cubic).SetParallel(true);
+				tween.TweenProperty(player, "global_position", playerToPos, 1f);
+				tween.TweenProperty(enemies, "global_position", enemyToPos, 1f);
+
+				DialogueBridge.Instance.SwapDialogueBoxData(GameController.Instance.atkDialogueResPath);
+				DialogueBridge.Instance.SetVariable("EnemyName", 0, GetEnemy(0).name);
+				DialogueBridge.Instance.StartDialogueID(introDialogueID);
+				await ToSignal(DialogueBridge.Instance.dialogueBox, "dialogue_ended");
+
+				player.GetNode<Control>("Description").Visible = true;
+				SwitchState(Phase.ToPlayerChoice);
+				break;
+
 			case Phase.ToPlayerChoice:
-				battleOptions.Visible = true;
+				battleOptions.Visible = false;
 				playerUI.Position = new Vector2(0, 330);
 				battleOptions.GetNode<Button>("Attack").Text = "SKIP";
 				battleOptions.GetNode<Button>("Pocket").Disabled = true;
@@ -83,15 +112,18 @@ public partial class Battle : Node2D
 				await ToSignal(tween, "finished");
 
 				//player.ChangeMagic(player.maxMP/4);
-				currentPhase = Phase.PlayerChoice;
+				SwitchState(Phase.PlayerChoice);
 				break;
 			case Phase.PlayerChoice:
+				reticle.GlobalPosition = enemies.GetChild<Node2D>(SelectedEnemyIndex).GlobalPosition;
+				reticle.Visible = true;
 				battleOptions.Visible = true;
 				break;
 			case Phase.PlayerAttacking:
+				reticle.Visible = false;
 				battleOptions.Visible = false;
 				break;
-			case Phase.ToEnemyChoice:
+			case Phase.EnemyChoice:
 				
 				playerUI.Position = new Vector2(0, 0);
 
@@ -99,15 +131,22 @@ public partial class Battle : Node2D
 				tween.TweenProperty(playerUI, "position", new Vector2(0, 330), 0.5f);
 				await ToSignal(tween, "finished");
 
-				battleOptions.Visible = false;
+				for(int i = 0; i < enemies.GetChildCount(); i++) {
+					Enemy enemy = GetEnemy(i);
+					enemy.CallDeferred("EnemyTurn");
+					await ToSignal(enemy, "EnemyTurnFinished");
+				}
 
-				SwitchState(Phase.EnemyChoice);
+				if(enemies.GetChildCount() == 0) SwitchState(Phase.PlayerWins);
+				else SwitchState(Phase.ToPlayerChoice);
+
 				break;
-			case Phase.EnemyChoice:
-				enemy.CallDeferred("EnemyTurn");
-				await ToSignal(enemy, "EnemyTurnFinished");
-				SwitchState(Phase.ToPlayerChoice);
+			case Phase.PlayerWins:
+				DialogueBridge.Instance.SwapDialogueBoxData(GameController.Instance.atkDialogueResPath);
+				player.GetNode<Control>("Description").Visible = false;
+				DialogueBridge.Instance.StartDialogueID("WinGeneric");
 
+				await ToSignal(DialogueBridge.Instance.dialogueBox, "dialogue_ended");
 				break;
 		}
 	}
@@ -145,7 +184,7 @@ public partial class Battle : Node2D
 		mult.Visible = false;
 		multFX.QueueFree();
 
-		SwitchState(Phase.ToEnemyChoice);
+		SwitchState(Phase.EnemyChoice);
 	}
 	public void PrimeGem(Gem gem) {
 		hand.RemoveChild(gem);
@@ -168,6 +207,14 @@ public partial class Battle : Node2D
 		} else {
 			battleOptions.GetNode<Button>("Pocket").Disabled = true;
 		}
+	}
+	public Enemy GetEnemy(int ind) {
+		if(ind == -1) ind = SelectedEnemyIndex;
+		return enemies.GetChild<Enemy>(ind);
+	}
+	public void SetEnemySelection(int ind) {
+		SelectedEnemyIndex = ind;
+		reticle.GlobalPosition = enemies.GetChild<Node2D>(ind).GlobalPosition;
 	}
 
 	

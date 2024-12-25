@@ -18,9 +18,9 @@ pivot_offset = Vector2(40, 40)
 texture = ExtResource("1_ovume")
 expand_mode = 2
 script = ExtResource("2_ics21")
-damage = 8.0
+damage = 6.0
 description = "[color=green][b] GREEN FLOURITE [/b]
-[color=white] Heals [color=green] 8 damage [/color]
+[color=white] Heals [color=green] 6 damage [/color]
 [color=white] Costs [color=cyan] 4 magic [/color]
 
 [u]Sequence modifier (x[/0])[/u]

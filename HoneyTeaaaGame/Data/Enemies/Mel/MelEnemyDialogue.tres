@@ -5,17 +5,23 @@
 [resource]
 script = ExtResource("1_bhcsr")
 starts = {
-"Attack": &"0_1"
+"Threaten": &"0_1",
+"WinGeneric": &"0_2"
 }
 nodes = {
 "0_1": {
-"link": &"1_1",
+"link": &"1_2",
 "offset": Vector2(-1054, -255),
-"start_id": "Attack"
+"start_id": "Threaten"
+},
+"0_2": {
+"link": &"1_3",
+"offset": Vector2(-1000, 240),
+"start_id": "WinGeneric"
 },
 "1_1": {
-"dialogue": "Mel goes in swinging!",
-"offset": Vector2(-720, -280),
+"dialogue": "Oh? You're approaching ME?",
+"offset": Vector2(-300, -280),
 "options": {
 0: {
 "condition": {},
@@ -24,6 +30,32 @@ nodes = {
 }
 },
 "size": Vector2(300, 280),
+"speaker": ""
+},
+"1_2": {
+"dialogue": "Sample dialogueeeee.",
+"offset": Vector2(-700, -240),
+"options": {
+0: {
+"condition": {},
+"link": &"1_1",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": ""
+},
+"1_3": {
+"dialogue": "Mochaccino wins!",
+"offset": Vector2(-680, 220),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
 "speaker": ""
 }
 }
