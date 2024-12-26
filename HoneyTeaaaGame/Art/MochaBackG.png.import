@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://do6ak2xogjlst"
-path="res://.godot/imported/MochaBack.png-ccdc7d6d2c3eb26146e25980c50ab129.ctex"
+uid="uid://d2m071jaisbmi"
+path="res://.godot/imported/MochaBackG.png-5143016d5cc0ba8e6e119dfbde324f0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/MochaBack.png"
-dest_files=["res://.godot/imported/MochaBack.png-ccdc7d6d2c3eb26146e25980c50ab129.ctex"]
+source_file="res://Art/MochaBackG.png"
+dest_files=["res://.godot/imported/MochaBackG.png-5143016d5cc0ba8e6e119dfbde324f0d.ctex"]
 
 [params]
 

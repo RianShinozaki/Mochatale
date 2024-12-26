@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class Battle : Node2D
 {
@@ -11,7 +12,8 @@ public partial class Battle : Node2D
 		PlayerAttacking,
 		EnemyChoice,
 		EnemyAttacking,
-		PlayerWins
+		PlayerWins,
+		PlayerLose
 	}
 	public Phase currentPhase = Phase.PlayerChoice;
 	public static Battle Instance;
@@ -78,6 +80,7 @@ public partial class Battle : Node2D
 		Tween tween;
 		switch(currentPhase) {
 			case Phase.BattleIntro:
+				GetNode<ColorRect>("Fade").Color = new Color(0, 0, 0, 0);
 				Vector2 playerToPos = player.GlobalPosition;
 				player.GlobalPosition -= Vector2.Right * 400;
 				Vector2 enemyToPos = enemies.GlobalPosition;
@@ -111,7 +114,8 @@ public partial class Battle : Node2D
 				tween.TweenProperty(playerUI, "position", new Vector2(0, 0), 1f);
 				await ToSignal(tween, "finished");
 
-				//player.ChangeMagic(player.maxMP/4);
+				if(player.MP < player.maxMP/5)
+					player.ChangeMagic(player.maxMP/5 - player.MP);
 				SwitchState(Phase.PlayerChoice);
 				break;
 			case Phase.PlayerChoice:
@@ -132,12 +136,14 @@ public partial class Battle : Node2D
 				await ToSignal(tween, "finished");
 
 				for(int i = 0; i < enemies.GetChildCount(); i++) {
+					if(!player.alive) break;
 					Enemy enemy = GetEnemy(i);
 					enemy.CallDeferred("EnemyTurn");
 					await ToSignal(enemy, "EnemyTurnFinished");
 				}
 
-				if(enemies.GetChildCount() == 0) SwitchState(Phase.PlayerWins);
+				if(!player.alive) SwitchState(Phase.PlayerLose);
+				else if(enemies.GetChildCount() == 0) SwitchState(Phase.PlayerWins);
 				else SwitchState(Phase.ToPlayerChoice);
 
 				break;
@@ -145,6 +151,19 @@ public partial class Battle : Node2D
 				DialogueBridge.Instance.SwapDialogueBoxData(GameController.Instance.atkDialogueResPath);
 				player.GetNode<Control>("Description").Visible = false;
 				DialogueBridge.Instance.StartDialogueID("WinGeneric");
+
+				await ToSignal(DialogueBridge.Instance.dialogueBox, "dialogue_ended");
+				break;
+
+			case Phase.PlayerLose:
+				GetNode<ColorRect>("Fade").Color = Colors.Black;
+				player.GetNode<Control>("Description").Visible = false;
+
+				var timer = GetTree().CreateTimer(1);
+				await ToSignal(timer, "timeout");
+
+				DialogueBridge.Instance.SwapDialogueBoxData(GameController.Instance.atkDialogueResPath);
+				DialogueBridge.Instance.StartDialogueID("Lose");
 
 				await ToSignal(DialogueBridge.Instance.dialogueBox, "dialogue_ended");
 				break;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://3kebc13gykxj"]
+[gd_scene load_steps=44 format=3 uid="uid://3kebc13gykxj"]
 
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_yetnv"]
 [ext_resource type="Texture2D" uid="uid://do6ak2xogjlst" path="res://Art/MochaBack.png" id="3_0p7lf"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="10_l0ya0"]
 [ext_resource type="Script" path="res://addons/dialogue_nodes/objects/bbcodeMatrix.gd" id="10_mklvv"]
 [ext_resource type="PackedScene" uid="uid://c4hjuiitiu1te" path="res://Objects/Gems/BlueGem.tscn" id="11_br5gh"]
+[ext_resource type="Texture2D" uid="uid://d2m071jaisbmi" path="res://Art/MochaBackG.png" id="12_jx6dk"]
 [ext_resource type="PackedScene" uid="uid://uxlonj1t05vu" path="res://Objects/Gems/GreenGem.tscn" id="13_r01al"]
 [ext_resource type="Texture2D" uid="uid://cxr5idn871vj8" path="res://Art/Reticle.png" id="17_bxs8u"]
 [ext_resource type="PackedScene" uid="uid://do063x0tonmta" path="res://Objects/System/DialogueBridge.tscn" id="18_lufk5"]
@@ -23,6 +24,49 @@
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_20gu1"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m57tr"]
+bg_color = Color(0.270108, 0.102424, 0.0613367, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+shadow_size = 3
+shadow_offset = Vector2(2.5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvvf1"]
+bg_color = Color(0.0937179, 0.01189, 0.0335677, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 15.0
+expand_margin_top = 6.0
+expand_margin_right = 15.0
+expand_margin_bottom = 6.0
+shadow_size = 3
+shadow_offset = Vector2(2.5, 5)
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_mhq8w"]
+script = ExtResource("8_2xx2r")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_257xk"]
+script = ExtResource("9_mmw7a")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_mmxrj"]
+script = ExtResource("10_mklvv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r62xu"]
 bg_color = Color(0, 0, 0, 1)
@@ -42,6 +86,21 @@ bg_color = Color(0.0109872, 0.664691, 0.792382, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7nlv"]
 bg_color = Color(0.894118, 0, 0.32549, 1)
 
+[sub_resource type="Animation" id="Animation_8pr0k"]
+resource_name = "Die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_jx6dk")]
+}
+
 [sub_resource type="Animation" id="Animation_wvkkk"]
 length = 0.001
 tracks/0/type = "value"
@@ -55,6 +114,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(26, 12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_0p7lf")]
 }
 
 [sub_resource type="Animation" id="Animation_ivviy"]
@@ -76,6 +147,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6e567"]
 _data = {
+"Die": SubResource("Animation_8pr0k"),
 "RESET": SubResource("Animation_wvkkk"),
 "default": SubResource("Animation_ivviy")
 }
@@ -158,49 +230,6 @@ _data = {
 "default": SubResource("Animation_mbujq")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m57tr"]
-bg_color = Color(0.270108, 0.102424, 0.0613367, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 6.0
-expand_margin_top = 6.0
-expand_margin_right = 6.0
-expand_margin_bottom = 6.0
-shadow_size = 3
-shadow_offset = Vector2(2.5, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvvf1"]
-bg_color = Color(0.0937179, 0.01189, 0.0335677, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 15.0
-expand_margin_top = 6.0
-expand_margin_right = 15.0
-expand_margin_bottom = 6.0
-shadow_size = 3
-shadow_offset = Vector2(2.5, 5)
-
-[sub_resource type="RichTextEffect" id="RichTextEffect_mhq8w"]
-script = ExtResource("8_2xx2r")
-
-[sub_resource type="RichTextEffect" id="RichTextEffect_257xk"]
-script = ExtResource("9_mmw7a")
-
-[sub_resource type="RichTextEffect" id="RichTextEffect_mmxrj"]
-script = ExtResource("10_mklvv")
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_spdy3"]
 sky_top_color = Color(0.774881, 0.129148, 0.486681, 1)
 ground_bottom_color = Color(0.245268, 0.0644872, 0.355622, 1)
@@ -261,13 +290,148 @@ introDialogueID = "introTeeter"
 
 [node name="Mel Enemy2" parent="Battle/Enemies" instance=ExtResource("3_8rrfx")]
 position = Vector2(546, 51)
+name = "Mel A"
 
 [node name="Mel Enemy" parent="Battle/Enemies" instance=ExtResource("3_8rrfx")]
+name = "Mel B"
+
+[node name="PlayerUI" type="Control" parent="Battle"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Mult" type="Label" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 196.0
+offset_right = 349.0
+offset_bottom = 234.0
+theme = ExtResource("8_0312b")
+text = "Mult:"
+
+[node name="Hand" type="Panel" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 375.0
+offset_right = 936.0
+offset_bottom = 455.0
+pivot_offset = Vector2(350, 0)
+theme = ExtResource("8_0312b")
+
+[node name="Hand" type="HBoxContainer" parent="Battle/PlayerUI/Hand"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RedGem" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
+layout_mode = 2
+
+[node name="RedGem2" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
+layout_mode = 2
+
+[node name="RedGem3" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Battle/PlayerUI/Hand"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 109.0
+offset_bottom = 98.0
+theme = ExtResource("8_0312b")
+text = "HAND"
+
+[node name="Active" type="Panel" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 266.0
+offset_right = 936.0
+offset_bottom = 346.0
+pivot_offset = Vector2(350, 0)
+theme = ExtResource("8_0312b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_m57tr")
+
+[node name="ActiveHand" type="HBoxContainer" parent="Battle/PlayerUI/Active"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Battle/PlayerUI/Active"]
+layout_mode = 0
+offset_top = 61.0
+offset_right = 109.0
+offset_bottom = 99.0
+theme = ExtResource("8_0312b")
+text = "PRIMED"
+
+[node name="PlayerOptions" type="HBoxContainer" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 196.0
+offset_right = 342.0
+offset_bottom = 241.0
+theme_override_constants/separation = 20
+
+[node name="Attack" type="Button" parent="Battle/PlayerUI/PlayerOptions"]
+layout_mode = 2
+theme = ExtResource("8_0312b")
+text = "ATTACK"
+
+[node name="Pocket" type="Button" parent="Battle/PlayerUI/PlayerOptions"]
+layout_mode = 2
+theme = ExtResource("8_0312b")
+text = "POCKET"
+
+[node name="Reticle" type="Sprite2D" parent="Battle"]
+texture_filter = 1
+position = Vector2(546, 71)
+scale = Vector2(6, 6)
+texture = ExtResource("17_bxs8u")
+
+[node name="Fade" type="ColorRect" parent="Battle"]
+offset_left = -126.0
+offset_top = -203.0
+offset_right = 1098.0
+offset_bottom = 516.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="DialogueBox" type="Panel" parent="Battle"]
+visible = false
+custom_minimum_size = Vector2(700, 200)
+offset_left = 240.0
+offset_top = 259.0
+offset_right = 940.0
+offset_bottom = 459.0
+theme = ExtResource("8_0312b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vvvf1")
+script = ExtResource("7_g04hh")
+custom_effects = Array[RichTextEffect]([SubResource("RichTextEffect_mhq8w"), SubResource("RichTextEffect_257xk"), SubResource("RichTextEffect_mmxrj")])
 
 [node name="Player" type="Node2D" parent="Battle"]
 position = Vector2(40, 299)
 script = ExtResource("10_l0ya0")
-maxHP = 140.0
+maxHP = 1.0
 maxMP = 60.0
 gems = {
 "Black": ExtResource("4_pjs1f"),
@@ -382,131 +546,6 @@ grow_vertical = 2
 theme = ExtResource("8_0312b")
 bbcode_enabled = true
 
-[node name="PlayerUI" type="Control" parent="Battle"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Mult" type="Label" parent="Battle/PlayerUI"]
-layout_mode = 0
-offset_left = 232.0
-offset_top = 196.0
-offset_right = 349.0
-offset_bottom = 234.0
-theme = ExtResource("8_0312b")
-text = "Mult:"
-
-[node name="Hand" type="Panel" parent="Battle/PlayerUI"]
-layout_mode = 0
-offset_left = 236.0
-offset_top = 375.0
-offset_right = 936.0
-offset_bottom = 455.0
-pivot_offset = Vector2(350, 0)
-theme = ExtResource("8_0312b")
-
-[node name="Hand" type="HBoxContainer" parent="Battle/PlayerUI/Hand"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -40.0
-offset_right = 40.0
-offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="RedGem" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
-layout_mode = 2
-
-[node name="RedGem2" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
-layout_mode = 2
-
-[node name="RedGem3" parent="Battle/PlayerUI/Hand/Hand" instance=ExtResource("3_5pqxf")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Battle/PlayerUI/Hand"]
-layout_mode = 0
-offset_top = 60.0
-offset_right = 109.0
-offset_bottom = 98.0
-theme = ExtResource("8_0312b")
-text = "HAND"
-
-[node name="Active" type="Panel" parent="Battle/PlayerUI"]
-layout_mode = 0
-offset_left = 236.0
-offset_top = 266.0
-offset_right = 936.0
-offset_bottom = 346.0
-pivot_offset = Vector2(350, 0)
-theme = ExtResource("8_0312b")
-theme_override_styles/panel = SubResource("StyleBoxFlat_m57tr")
-
-[node name="ActiveHand" type="HBoxContainer" parent="Battle/PlayerUI/Active"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -40.0
-offset_right = 40.0
-offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="Battle/PlayerUI/Active"]
-layout_mode = 0
-offset_top = 61.0
-offset_right = 109.0
-offset_bottom = 99.0
-theme = ExtResource("8_0312b")
-text = "PRIMED"
-
-[node name="PlayerOptions" type="HBoxContainer" parent="Battle/PlayerUI"]
-layout_mode = 0
-offset_left = 236.0
-offset_top = 196.0
-offset_right = 342.0
-offset_bottom = 241.0
-theme_override_constants/separation = 20
-
-[node name="Attack" type="Button" parent="Battle/PlayerUI/PlayerOptions"]
-layout_mode = 2
-theme = ExtResource("8_0312b")
-text = "ATTACK"
-
-[node name="Pocket" type="Button" parent="Battle/PlayerUI/PlayerOptions"]
-layout_mode = 2
-theme = ExtResource("8_0312b")
-text = "POCKET"
-
-[node name="DialogueBox" type="Panel" parent="Battle"]
-visible = false
-custom_minimum_size = Vector2(700, 200)
-offset_left = 240.0
-offset_top = 259.0
-offset_right = 940.0
-offset_bottom = 459.0
-theme = ExtResource("8_0312b")
-theme_override_styles/panel = SubResource("StyleBoxFlat_vvvf1")
-script = ExtResource("7_g04hh")
-custom_effects = Array[RichTextEffect]([SubResource("RichTextEffect_mhq8w"), SubResource("RichTextEffect_257xk"), SubResource("RichTextEffect_mmxrj")])
-
-[node name="Reticle" type="Sprite2D" parent="Battle"]
-texture_filter = 1
-position = Vector2(546, 71)
-scale = Vector2(6, 6)
-texture = ExtResource("17_bxs8u")
-
 [node name="Node" parent="." node_paths=PackedStringArray("dialogueBox") instance=ExtResource("18_lufk5")]
 dialogueBox = NodePath("../Battle/DialogueBox")
 
@@ -544,6 +583,10 @@ transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.002
 mesh = SubResource("PlaneMesh_bvo5x")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_ew20d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D"]
+transform = Transform3D(0.551937, 0.689691, 0.468714, 0, -0.562084, 0.82708, 0.833886, -0.456496, -0.310235, 0, 0, 0)
+light_color = Color(0.930468, 0.819524, 0.598096, 1)
 
 [connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Attack" to="Battle" method="_on_attack_pressed"]
 [connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Pocket" to="Battle" method="_on_pocket_pressed"]

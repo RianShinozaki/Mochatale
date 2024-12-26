@@ -21,6 +21,10 @@ public partial class Player : Node2D
 	public Godot.Collections.Array<String> removedGemsTemp;
 	public Godot.Collections.Array<Gem> pocketedGems;
 	public AnimationPlayer hitFXAnim;
+	public Sprite2D sprite;
+	float shakeLevel;
+	RandomNumberGenerator rand;
+	public bool alive = true;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -34,6 +38,8 @@ public partial class Player : Node2D
 		healthBar.GetNode<Label>("Mult").Text = "Health: " + HP.ToString() + " / " + maxHP.ToString();
 
 		hitFXAnim = GetNode<Sprite2D>("HitFX").GetNode<AnimationPlayer>("AnimationPlayer");
+		sprite = GetNode<Sprite2D>("MochaBack");
+		rand = new RandomNumberGenerator();
 
 		gemPool = new Godot.Collections.Array<String>();
 		removedGems = new Godot.Collections.Array<String>();
@@ -55,17 +61,26 @@ public partial class Player : Node2D
 		healthBar.Value = HP/maxHP;
 		healthBar.GetNode<Label>("Mult").Text = "Health: " + HP.ToString() + " / " + maxHP.ToString();
 		if(amount < 0) {
+			shakeLevel = 10;
+
 			hitFXAnim.Play("default");
 			hitFXAnim.Play("Hit");
 			
+			if(HP <= 0) {
+				alive = false;
+				sprite.GetNode<AnimationPlayer>("AnimationPlayer").Play("Die");
+			}
+
 			await ToSignal(hitFXAnim, "animation_finished");
 			EmitSignal(SignalName.AnimationEnded);
+			
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		shakeLevel = Mathf.MoveToward(shakeLevel, 0, (float)delta*20);
+		sprite.Offset = new Vector2(rand.RandfRange(-shakeLevel, shakeLevel), 0);
 	}
 	public void DrawHand() {
 		//Clear any gems from before

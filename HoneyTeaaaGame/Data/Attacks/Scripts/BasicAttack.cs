@@ -20,7 +20,11 @@ public partial class BasicAttack : AttackResource
 		DialogueBridge.Instance.StartDialogueID(DialogueID);
 
 		await ToSignal(DialogueBridge.Instance.dialogueBox, "dialogue_ended");
+
 		Battle.Instance.player.ChangeHP(-DamageValue + rand.RandiRange(-Range, Range));
+		var tween = enemy.GetTree().CreateTween().BindNode(enemy).SetTrans(Tween.TransitionType.Linear);
+		tween.TweenProperty(enemy.sprite, "offset", new Vector2(-5f, 0), 0.05f);
+		tween.TweenProperty(enemy.sprite, "offset", new Vector2(0, 0), 0.1f);
 
 		await ToSignal(Battle.Instance.player, "AnimationEnded");
 		EmitSignal(SignalName.AttackEnded);

@@ -8,13 +8,9 @@ public partial class Mel : Enemy
 	public override void _Ready()
 	{
 		base._Ready();
-		//dialogueBridge = GetNode<DialogueBridge>("DialogueBridge");
-		//dialogueBridge.StartDialogueID("Threaten");
+
 	}
 
-	public override void _Process(double delta)
-	{
-	}
 	public async override void EnemyTurn() {
 		base.EnemyTurn();
 		
@@ -22,5 +18,7 @@ public partial class Mel : Enemy
 		myAttack.Execute(this);
 		await ToSignal(myAttack, "AttackEnded");
 		EmitSignal(SignalName.EnemyTurnFinished);
+
+		
 	}
 }

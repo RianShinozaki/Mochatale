@@ -19,6 +19,10 @@ public partial class Enemy : Node2D
 	public AnimationPlayer anim;
 	public Label Damage;
 	public bool active = true;
+
+	public Sprite2D sprite;
+	float shakeLevel;
+	RandomNumberGenerator rand;
     public override void _Ready()
     {
         anim = GetNode<Sprite2D>("HitFX").GetNode<AnimationPlayer>("AnimationPlayer");
@@ -33,6 +37,15 @@ public partial class Enemy : Node2D
 		clickBox.MouseEntered += _on_mouse_entered;
 		clickBox.MouseExited += _on_mouse_exited;
 
+		sprite = GetNode<Sprite2D>("Sprite");
+		rand = new RandomNumberGenerator();
+
+    }
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+		shakeLevel = Mathf.MoveToward(shakeLevel, 0, (float)delta*20);
+		sprite.Offset = new Vector2(rand.RandfRange(-shakeLevel, shakeLevel), 0);
     }
     public void TakeDamage(float damage) {
 		anim.Play("default");
@@ -40,7 +53,7 @@ public partial class Enemy : Node2D
 		HP = Mathf.Clamp(HP - damage, 0, maxHP);
 		progBar.Value = HP/maxHP;
 		progBar.GetNode<Label>("Mult").Text = "Health: " + HP + " / " + maxHP;
-
+		shakeLevel = 10;
 		if(HP <= 0) Die();
 	}
 	public virtual string GetDescription() { return description;}

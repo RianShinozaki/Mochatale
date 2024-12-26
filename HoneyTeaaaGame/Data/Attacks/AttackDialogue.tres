@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_cb1df")
 starts = {
+"Lose": &"0_4",
 "Swinging": &"0_1",
 "WinGeneric": &"0_3",
 "introTeeter": &"0_2"
@@ -24,6 +25,11 @@ nodes = {
 "link": &"1_3",
 "offset": Vector2(-200, -660),
 "start_id": "WinGeneric"
+},
+"0_4": {
+"link": &"1_4",
+"offset": Vector2(-1779.51, -468.312),
+"start_id": "Lose"
 },
 "1_1": {
 "dialogue": "{{EnemyName}} goes in swinging!",
@@ -54,6 +60,19 @@ nodes = {
 "1_3": {
 "dialogue": "Mochaccino wins the battle!",
 "offset": Vector2(85.4081, -642.907),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": ""
+},
+"1_4": {
+"dialogue": "Mochaccino got their ass beat..",
+"offset": Vector2(-1400, -460),
 "options": {
 0: {
 "condition": {},
