@@ -5,6 +5,12 @@ public partial class WhiteGem : Gem
 {
 	[Export] public float addMult = 0.5f;
 	[Export] public float cost = 2;
+	AudioStream triggerSound;
+    public override void _Ready()
+    {
+        base._Ready();
+		triggerSound = GD.Load<AudioStream>("res://Audio/Sounds/093 Shield Reflect.wav");
+    }
     public async override void Trigger()
     {
 		//Play the animation
@@ -13,6 +19,8 @@ public partial class WhiteGem : Gem
 
 		//Add multiplier on enemy
 		Battle.Instance.multAmount += addMult * GetMult() - Battle.Instance.multIncrement;
+		SFXController.PlaySound(triggerSound);
+
 		GetParent<Node>().RemoveChild(this);
 		QueueFree();
 		EmitSignal(SignalName.FinishedTrigger);

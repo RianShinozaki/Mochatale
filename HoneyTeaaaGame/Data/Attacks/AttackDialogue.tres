@@ -6,6 +6,7 @@
 script = ExtResource("1_cb1df")
 starts = {
 "Lose": &"0_4",
+"MenacingGlare": &"0_5",
 "Swinging": &"0_1",
 "WinGeneric": &"0_3",
 "introTeeter": &"0_2"
@@ -13,27 +14,32 @@ starts = {
 nodes = {
 "0_1": {
 "link": &"1_1",
-"offset": Vector2(-880, 100),
+"offset": Vector2(-700, -580),
 "start_id": "Swinging"
 },
 "0_2": {
 "link": &"1_2",
-"offset": Vector2(-920, -640),
+"offset": Vector2(-1700, -700),
 "start_id": "introTeeter"
 },
 "0_3": {
 "link": &"1_3",
-"offset": Vector2(-200, -660),
+"offset": Vector2(-1640, -20),
 "start_id": "WinGeneric"
 },
 "0_4": {
 "link": &"1_4",
-"offset": Vector2(-1779.51, -468.312),
+"offset": Vector2(-1640, -380),
 "start_id": "Lose"
+},
+"0_5": {
+"link": &"1_5",
+"offset": Vector2(-720, -200),
+"start_id": "MenacingGlare"
 },
 "1_1": {
 "dialogue": "{{EnemyName}} goes in swinging!",
-"offset": Vector2(-600, 100),
+"offset": Vector2(-380, -580),
 "options": {
 0: {
 "condition": {},
@@ -46,7 +52,20 @@ nodes = {
 },
 "1_2": {
 "dialogue": "{{EnemyName}} teeters forward menacingly!",
-"offset": Vector2(-620, -660),
+"offset": Vector2(-1260, -720),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(340, 300),
+"speaker": ""
+},
+"1_3": {
+"dialogue": "Mochaccino wins the battle!",
+"offset": Vector2(-1260, 0),
 "options": {
 0: {
 "condition": {},
@@ -57,22 +76,22 @@ nodes = {
 "size": Vector2(300, 274),
 "speaker": ""
 },
-"1_3": {
-"dialogue": "Mochaccino wins the battle!",
-"offset": Vector2(85.4081, -642.907),
-"options": {
-0: {
-"condition": {},
-"link": "END",
-"text": ""
-}
-},
-"size": Vector2(300, 240),
-"speaker": ""
-},
 "1_4": {
 "dialogue": "Mochaccino got their ass beat..",
-"offset": Vector2(-1400, -460),
+"offset": Vector2(-1260, -360),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_5": {
+"dialogue": "{{EnemyName}} activates a curse, giving you a menacing glare...",
+"offset": Vector2(-380, -180),
 "options": {
 0: {
 "condition": {},
@@ -82,6 +101,16 @@ nodes = {
 },
 "size": Vector2(300, 240),
 "speaker": ""
+},
+"2_1": {
+"comment": "Battle status",
+"offset": Vector2(-1240, -960),
+"size": Vector2(360, 180)
+},
+"2_2": {
+"comment": "Attacks",
+"offset": Vector2(-500, -960),
+"size": Vector2(440, 240)
 }
 }
 variables = {
@@ -90,5 +119,5 @@ variables = {
 "value": ""
 }
 }
-strays = Array[String]([])
+strays = Array[String](["2_1", "2_2"])
 characters = ""

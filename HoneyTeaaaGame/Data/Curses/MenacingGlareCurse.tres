@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MenacingGlareCurse" load_steps=2 format=3 uid="uid://bx33uqhfju2kr"]
+
+[ext_resource type="Script" path="res://Data/Curses/MenacingGlareCurse.cs" id="1_hwe1g"]
+
+[resource]
+script = ExtResource("1_hwe1g")
+tag = "Fluorite have a 1 in 3 chance of failing!"

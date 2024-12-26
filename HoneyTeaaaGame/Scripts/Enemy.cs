@@ -3,6 +3,13 @@ using System;
 
 public partial class Enemy : Node2D
 {
+	public enum StatusEffect {
+		None,
+		Burn,
+		Shock,
+		Drench,
+		Bind
+	}
 	[Signal]
 	public delegate void EnemyTurnFinishedEventHandler();
 
@@ -15,6 +22,9 @@ public partial class Enemy : Node2D
 	[Export] public int level;
 	[Export(PropertyHint.MultilineText)] public string description;
 
+	[Export] public StatusEffect currentEffect;
+	[Export] public float effectLevel = 0;
+
 	ProgressBar progBar;
 	public AnimationPlayer anim;
 	public Label Damage;
@@ -23,6 +33,9 @@ public partial class Enemy : Node2D
 	public Sprite2D sprite;
 	float shakeLevel;
 	RandomNumberGenerator rand;
+	[Export] AudioStream hurtSound;
+	public AudioStreamPlayer audio;
+
     public override void _Ready()
     {
         anim = GetNode<Sprite2D>("HitFX").GetNode<AnimationPlayer>("AnimationPlayer");
@@ -39,6 +52,8 @@ public partial class Enemy : Node2D
 
 		sprite = GetNode<Sprite2D>("Sprite");
 		rand = new RandomNumberGenerator();
+		audio = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+
 
     }
     public override void _Process(double delta)
@@ -55,6 +70,9 @@ public partial class Enemy : Node2D
 		progBar.GetNode<Label>("Mult").Text = "Health: " + HP + " / " + maxHP;
 		shakeLevel = 10;
 		if(HP <= 0) Die();
+		else {
+			SFXController.PlaySound(hurtSound);
+		}
 	}
 	public virtual string GetDescription() { return description;}
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ckwfvj6ksvhde"
+path="res://.godot/imported/Moe Shop - Notice (w TORIENA).mp3-9ae5308c5cfa237c9eb72f8c3b15d1a0.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Moe Shop - Notice (w TORIENA).mp3"
+dest_files=["res://.godot/imported/Moe Shop - Notice (w TORIENA).mp3-9ae5308c5cfa237c9eb72f8c3b15d1a0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

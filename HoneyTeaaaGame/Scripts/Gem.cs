@@ -10,6 +10,7 @@ public partial class Gem : TextureRect
     public delegate void FinishedTriggerEventHandler();
 	[Signal]
 	public delegate void AnimationFinishedEventHandler();
+	public AudioStream selectSound;
 	public float scaleup = 0.5f;
 	public override void _Ready()
 	{
@@ -17,6 +18,7 @@ public partial class Gem : TextureRect
 		MouseExited += _on_mouse_exited;
 		GuiInput += _on_gui_input;
 		anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		selectSound = GD.Load<AudioStream>("res://Audio/Sounds/Select.wav");
 	}
 
 	public override void _Process(double delta)
@@ -30,6 +32,7 @@ public partial class Gem : TextureRect
 				if(GetParent().Name == "Hand") {
 					Battle.Instance.PrimeGem(this);
 					anim.Play("Gems/Select");
+					SFXController.PlaySound(selectSound);
 				} else {
 					Battle.Instance.DeprimeGem(this);
 					anim.Play("Gems/Deselect");
@@ -39,6 +42,16 @@ public partial class Gem : TextureRect
 		}
 	}
 	public async virtual void Trigger() {}
+	public async virtual void Fail() {
+		anim.Play("Gems/Trigger");
+        await ToSignal(anim, "animation_finished");
+		Visible = false;
+		
+		//Inflict damage on enemy
+		GetParent<Node>().RemoveChild(this);
+		QueueFree();
+		EmitSignal(SignalName.FinishedTrigger);
+	}
 	public virtual void _on_mouse_entered() {
 		Battle.Instance.SetDescription(this, GetDescription());
 		Position += Godot.Vector2.Up*10;
@@ -82,17 +95,6 @@ public partial class Gem : TextureRect
 		var tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Sine);
 		tween.TweenProperty(powerFX, "global_position", Battle.Instance.mult.GlobalPosition + new Vector2(300, 20), 0.25f * Battle.Instance.speedMult);
 		await ToSignal(tween, "finished");
-
-		/*//Create the white mult particles
-		pos = Battle.Instance.mult.GlobalPosition + new Vector2(165, 20);
-		Node2D multFX = CreatePowerParticles(Colors.White, pos, Battle.Instance.playerUI, "", 0.25f, -1);
-
-		//Move the white mult particles to parts1
-		tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear);
-		tween.TweenProperty(multFX, "global_position", powerFX.GlobalPosition, 0.25f * Battle.Instance.speedMult);
-		await ToSignal(tween, "finished");
-		GD.Print("White particles moved??");
-		multFX.QueueFree();*/
 
 		await ToSignal(GetTree().CreateTimer(0.25f * Battle.Instance.speedMult), "timeout");
 

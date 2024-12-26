@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://3kebc13gykxj"]
+[gd_scene load_steps=45 format=3 uid="uid://3kebc13gykxj"]
 
 [ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_yetnv"]
 [ext_resource type="Texture2D" uid="uid://do6ak2xogjlst" path="res://Art/MochaBack.png" id="3_0p7lf"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://do063x0tonmta" path="res://Objects/System/DialogueBridge.tscn" id="18_lufk5"]
 [ext_resource type="Texture2D" uid="uid://wiv031qeytk4" path="res://Art/Grid.png" id="19_ehile"]
 [ext_resource type="Script" path="res://Scripts/Battle/Environment/SpinningSurface.cs" id="19_rj6s6"]
+[ext_resource type="AudioStream" uid="uid://ckwfvj6ksvhde" path="res://Audio/Music/Moe Shop - Notice (w TORIENA).mp3" id="22_kmt4o"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_20gu1"]
 viewport_path = NodePath("SubViewport")
@@ -268,9 +269,9 @@ size_flags_horizontal = 3
 z_index = -1000
 layout_mode = 0
 offset_left = -23.0
-offset_top = -10.0
+offset_top = -14.0
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 644.0
 texture = SubResource("ViewportTexture_20gu1")
 
 [node name="Battle" type="Node2D" parent="." node_paths=PackedStringArray("hand", "activeHand", "itemDescription", "player", "mult", "battleOptions", "playerUI")]
@@ -402,6 +403,18 @@ layout_mode = 2
 theme = ExtResource("8_0312b")
 text = "POCKET"
 
+[node name="StatusFX" type="RichTextLabel" parent="Battle/PlayerUI"]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 196.0
+offset_right = 953.0
+offset_bottom = 259.0
+theme = ExtResource("8_0312b")
+theme_override_constants/outline_size = 11
+bbcode_enabled = true
+text = "[wave amp=25.0 freq=5.0 connected=1]Witchy curses go here!
+[/wave]"
+
 [node name="Reticle" type="Sprite2D" parent="Battle"]
 texture_filter = 1
 position = Vector2(546, 71)
@@ -431,7 +444,7 @@ custom_effects = Array[RichTextEffect]([SubResource("RichTextEffect_mhq8w"), Sub
 [node name="Player" type="Node2D" parent="Battle"]
 position = Vector2(40, 299)
 script = ExtResource("10_l0ya0")
-maxHP = 1.0
+maxHP = 140.0
 maxMP = 60.0
 gems = {
 "Black": ExtResource("4_pjs1f"),
@@ -587,6 +600,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ew20d")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D"]
 transform = Transform3D(0.551937, 0.689691, 0.468714, 0, -0.562084, 0.82708, 0.833886, -0.456496, -0.310235, 0, 0, 0)
 light_color = Color(0.930468, 0.819524, 0.598096, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_kmt4o")
+volume_db = -4.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Attack" to="Battle" method="_on_attack_pressed"]
 [connection signal="pressed" from="Battle/PlayerUI/PlayerOptions/Pocket" to="Battle" method="_on_pocket_pressed"]

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bhtjwgb832psj"
+path="res://.godot/imported/028 Pray.wav-3a7cffb7c1a8a6c4e9bbd916ff2d52ad.sample"
+
+[deps]
+
+source_file="res://Audio/Sounds/028 Pray.wav"
+dest_files=["res://.godot/imported/028 Pray.wav-3a7cffb7c1a8a6c4e9bbd916ff2d52ad.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

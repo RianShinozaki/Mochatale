@@ -1,18 +1,26 @@
-[gd_scene load_steps=17 format=3 uid="uid://cp0jxxx8krtd1"]
+[gd_scene load_steps=21 format=3 uid="uid://cp0jxxx8krtd1"]
 
 [ext_resource type="Script" path="res://Data/Enemies/Mel/Mel.cs" id="1_6xtn6"]
 [ext_resource type="Script" path="res://Data/Attacks/Scripts/BasicAttack.cs" id="2_6odn8"]
+[ext_resource type="AudioStream" uid="uid://b2mrmhhg68ep8" path="res://Audio/Sounds/Hurt.wav" id="3_a8sk7"]
+[ext_resource type="Resource" uid="uid://bx33uqhfju2kr" path="res://Data/Curses/MenacingGlareCurse.tres" id="3_ltdf8"]
 [ext_resource type="Texture2D" uid="uid://26apshtbh5eo" path="res://Art/Enemy.png" id="3_xxlcl"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/CastCurse.cs" id="4_ctb4a"]
 [ext_resource type="Texture2D" uid="uid://dfjqsn5ethtp1" path="res://Art/Bash.png" id="4_niw16"]
 [ext_resource type="Theme" uid="uid://ddsjysqmrnx18" path="res://Themes/QuirkyRPG.tres" id="5_wfgbt"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f8lg8"]
 
-[sub_resource type="Resource" id="Resource_38hga"]
+[sub_resource type="Resource" id="Resource_4l4jr"]
 script = ExtResource("2_6odn8")
-DamageValue = 16
-Range = 3
+DamageValue = 18
+Range = 4
 DialogueID = "Swinging"
+
+[sub_resource type="Resource" id="Resource_86ia4"]
+script = ExtResource("4_ctb4a")
+DialogueID = "MenacingGlare"
+myCurse = ExtResource("3_ltdf8")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2wmyg"]
 resource_local_to_scene = true
@@ -120,7 +128,8 @@ Panel/styles/panel = SubResource("StyleBoxFlat_fr8p0")
 material = SubResource("CanvasItemMaterial_f8lg8")
 position = Vector2(808, 67)
 script = ExtResource("1_6xtn6")
-myAttack = SubResource("Resource_38hga")
+basicAttack = SubResource("Resource_4l4jr")
+curseAttack = SubResource("Resource_86ia4")
 MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
 maxHP = 40.0
 name = "Mel"
@@ -128,6 +137,7 @@ description = "[b]Lv. 1 Mel[/b]
 Max HP: 100
 
 Things have been rough for this guy lately. He's locked in a legal battle over the rights to his own existence. "
+hurtSound = ExtResource("3_a8sk7")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -193,3 +203,5 @@ offset_right = -57.0
 offset_bottom = -69.0
 scale = Vector2(5.21797, 6.61599)
 theme = SubResource("Theme_8gj0h")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

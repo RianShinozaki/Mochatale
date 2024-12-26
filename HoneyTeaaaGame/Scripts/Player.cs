@@ -26,6 +26,11 @@ public partial class Player : Node2D
 	RandomNumberGenerator rand;
 	public bool alive = true;
 
+	// SOUNDS
+
+	AudioStream hurtSound;
+	AudioStream dieSound;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -49,6 +54,9 @@ public partial class Player : Node2D
 				gemPool.Add(gem.Key);
 			}
 		}
+
+		hurtSound = GD.Load<AudioStream>("res://Audio/Sounds/Hurt.wav");
+		dieSound = GD.Load<AudioStream>("res://Audio/Sounds/032 Player die.wav");
 	}
 
 	public void ChangeMagic(float amount) {
@@ -69,12 +77,20 @@ public partial class Player : Node2D
 			if(HP <= 0) {
 				alive = false;
 				sprite.GetNode<AnimationPlayer>("AnimationPlayer").Play("Die");
+				SFXController.PlaySound(dieSound);
+			} else {
+				SFXController.PlaySound(hurtSound);
+
 			}
 
 			await ToSignal(hitFXAnim, "animation_finished");
 			EmitSignal(SignalName.AnimationEnded);
 			
 		}
+	}
+
+	public void GetCursed(Curse curse) {
+		EmitSignal(SignalName.AnimationEnded);
 	}
 
 	public override void _Process(double delta)
