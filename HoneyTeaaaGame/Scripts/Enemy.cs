@@ -18,15 +18,23 @@ public partial class Enemy : Node2D
 	public delegate void AnimationFinishedEventHandler();
 
 	// EXPORT VARIABLES
+	[ExportGroup("Constant Variables")]
 	[Export] public string MyDialogueDataResource;
 	[Export] public string name;
 	[Export] public float maxHP;
 	[Export] public int level;
 	[Export(PropertyHint.MultilineText)] public string description;
+	[Export] public int expWorth;
+
+	[ExportGroup("Dynamic Variables")]
 	[Export] public float effectLevel = 0;
+
 	[Export] public StatusEffect currentEffect;
 
+
 	// EXPORT REFERENCES
+	[ExportGroup("Constant References")]
+
 	[Export] public Texture2D battleImage;
 	[Export] AudioStream hurtSound;
 	[Export] AudioStream dieSound;
@@ -71,17 +79,21 @@ public partial class Enemy : Node2D
 		shakeLevel = Mathf.MoveToward(shakeLevel, 0, (float)delta*20);
 		sprite.Offset = new Vector2(rand.RandfRange(-shakeLevel, shakeLevel), 0);
     }
-    public void TakeDamage(float damage) {
+    public bool TakeDamage(float damage) {
 		anim.Play("default");
 		anim.Play("Hit");
 		HP = Mathf.Clamp(HP - damage, 0, maxHP);
 		progBar.Value = HP/maxHP;
 		progBar.GetNode<Label>("Mult").Text = "Health: " + HP + " / " + maxHP;
 		shakeLevel = 10;
-		if(HP <= 0) Die();
+		if(HP <= 0) {
+			Die();
+			return true;
+		}
 		else {
 			SFXController.PlaySound(hurtSound);
 			EmitSignal(SignalName.AnimationFinished);
+			return false;
 		}
 	}
 	public virtual string GetDescription() { return description;}
@@ -92,6 +104,7 @@ public partial class Enemy : Node2D
 	public async void Die() {
 		SFXController.PlaySound(dieSound);
 		active = false;
+		Battle.Instance.expEarned += expWorth;
 		GetNode<Sprite2D>("EnemyData/Sprite").Material.Set("blend_mode", 1);
 		progBar.Visible = false;
 		GetParent().RemoveChild(this);

@@ -3,6 +3,7 @@ using System;
 
 public partial class GameController : Node
 {
+	[Export] public bool godMode = false;
 	public enum GameMode {
 		Overworld,
 		Battle,
@@ -27,9 +28,13 @@ public partial class GameController : Node
 		currentGameMode = GameMode.Battle;
 		battleNode = battleScene.Instantiate() as Node;
 		Instance.AddChild(battleNode);
-		battleNode.GetNode<Battle>("Battle").PrepareEnemes(enemySet.enemies);
-		
+		battleNode.GetNode<Battle>("Battle").PrepareBattle(enemySet);
 		battleNode.GetNode<Battle>("Battle").SwitchState(Battle.Phase.BattleIntro);
+
+	}
+	public static void EndBattle(bool won) {
+		Instance.EmitSignal(SignalName.BattleEnded, won);
+		currentGameMode = GameMode.Overworld;
 
 	}
 

@@ -37,12 +37,13 @@ basicAttack = SubResource("Resource_4l4jr")
 curseAttack = SubResource("Resource_86ia4")
 MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
 name = "Boba Slime"
-maxHP = 1.0
+maxHP = 25.0
 level = 1
 description = "[b]Lv. 1 Boba Slime[/b]
 Max HP: 20
 
 Are the tapioca bubbles its eyes? Its brain? Its organelles? Either way, smells delicious."
+expWorth = 3
 battleImage = ExtResource("5_jt13l")
 hurtSound = ExtResource("5_butou")
 

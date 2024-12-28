@@ -75,7 +75,7 @@ nodes = {
 "options": {
 0: {
 "condition": {},
-"link": "END",
+"link": &"1_7",
 "text": ""
 }
 },
@@ -105,12 +105,54 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(300, 240),
+"size": Vector2(300, 274),
 "speaker": ""
 },
 "1_6": {
 "dialogue": "{{EnemyName}} {{Text}}",
 "offset": Vector2(700, -640),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_7": {
+"dialogue": "They won {{var1}} EXP!",
+"offset": Vector2(-880, 340),
+"options": {
+0: {
+"condition": {},
+"link": &"5_1",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": ""
+},
+"1_8": {
+"dialogue": "[p]LEVEL UP![/p]
+[p]Level: {{lvPrev}} -> {{lvNew}}[/p]
+[p]HP: {{hpPrev}} -> {{hpNew}}[/p]
+[p]MP: {{mpPrev}} -> {{mpNew}}[/p] ",
+"offset": Vector2(-20, 360),
+"options": {
+0: {
+"condition": {},
+"link": &"5_2",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": ""
+},
+"1_9": {
+"dialogue": "Hand size increased!",
+"offset": Vector2(936.478, 658.026),
 "options": {
 0: {
 "condition": {},
@@ -130,6 +172,22 @@ nodes = {
 "comment": "Attacks",
 "offset": Vector2(-500, -960),
 "size": Vector2(440, 240)
+},
+"5_1": {
+"false": "END",
+"offset": Vector2(-488.218, 563.366),
+"operator": 0,
+"true": &"1_8",
+"value1": "{{bool1}}",
+"value2": "1"
+},
+"5_2": {
+"false": "END",
+"offset": Vector2(544.215, 624.868),
+"operator": 0,
+"true": &"1_9",
+"value1": "{{handIncrease}}",
+"value2": "true"
 }
 }
 variables = {
@@ -140,6 +198,42 @@ variables = {
 "Text": {
 "type": 4,
 "value": ""
+},
+"bool1": {
+"type": 2,
+"value": 0
+},
+"handIncrease": {
+"type": 1,
+"value": false
+},
+"hpNew": {
+"type": 2,
+"value": 0
+},
+"hpPrev": {
+"type": 2,
+"value": 0
+},
+"lvNew": {
+"type": 2,
+"value": 0
+},
+"lvPrev": {
+"type": 2,
+"value": 0
+},
+"mpNew": {
+"type": 2,
+"value": 0
+},
+"mpPrev": {
+"type": 2,
+"value": 0
+},
+"var1": {
+"type": 2,
+"value": 5
 }
 }
 strays = Array[String](["2_1", "2_2"])

@@ -5,4 +5,5 @@ using System;
 public partial class EnemySet : Resource
 {
 	[Export] public Godot.Collections.Array<PackedScene> enemies;
+	[Export] public AudioStream battleMusic;
 }

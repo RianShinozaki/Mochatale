@@ -15,34 +15,51 @@ public partial class Battle : Node2D
 		PlayerWins,
 		PlayerLose
 	}
-	public Phase currentPhase = Phase.PlayerChoice;
-	public static Battle Instance;
+
+	[ExportGroup("Constant Variables")]
+	[Export] public Godot.Collections.Array<Vector2> spawnPos;
+
+	[ExportGroup("Dynamic Variables")]
+	[Export] string introDialogueID;
+	[Export] public int SelectedEnemyIndex = 0;
+	[Export] public Label mult;
+
+
+	[ExportGroup("Constant References")]
+	[Export] public PackedScene powerFX; 
 	[Export] public HBoxContainer hand;
 	[Export] public HBoxContainer activeHand;
 	[Export] public RichTextLabel itemDescription;
 	[Export] public Player player;
-	[Export] public Label mult;
 	[Export] public Control battleOptions;
 	[Export] public Control playerUI;
-	public float seqPowerMult = 1;
-	public float seqCostMult = 1;
-	public float multIncrement = 0.5f;
-	public float speedMult = 1f;
-	[Export] public PackedScene powerFX; 
-	[Export] string introDialogueID;
-	public Node2D enemies;
-	[Export] public int SelectedEnemyIndex = 0;
 
+	[ExportGroup("Dynamic References")]
+	[Export] public Godot.Collections.Array<Curse> curses;
+
+	//Dynamic Variables
 	public bool attacking = false;
+	public float seqPowerMult = 1;
+	public float speedMult = 1f;
+	public Phase currentPhase = Phase.PlayerChoice;
+	public float seqCostMult = 1;
+	[Export] public int expEarned;
+
+
+	//Constant Variables
+
+	public float multIncrement = 0.5f;
+
+
+	//Dynamic References
+
+	public Node2D enemies;
+	public static Battle Instance;
 	public Node focusedObject;
 	public Sprite2D reticle;
 
-	[Export] public Godot.Collections.Array<Curse> curses;
 	Godot.Collections.Array<PackedScene> theseEnemies;
 	Node2D GameOver;
-
-	// EXPORT VARIABLES
-	[Export] public Godot.Collections.Array<Vector2> spawnPos;
 
 	// SOUNDS
 
@@ -209,13 +226,50 @@ public partial class Battle : Node2D
 				break;
 			case Phase.PlayerWins:
 				DialogueBridge.Instance.SwapDialogueBoxData(GameController.atkDialogueResPath);
+				DialogueBridge.Instance.SetVariable("var1", 2, expEarned);
+
+				int oldLevel = PlayerData.GetLevel();
+				PlayerData.Instance.exp += expEarned;
+				int newLevel = PlayerData.GetLevel();
+				GD.Print(oldLevel, " -> ", newLevel);
+				GD.Print(newLevel > oldLevel ? 1 : 0);
+				DialogueBridge.Instance.SetVariable("bool1", 2, newLevel > oldLevel ? 1 : 0);
+
+				if(newLevel > oldLevel) {
+					PlayerLevelData oldLevelData = PlayerData.GetLevelData(oldLevel);
+					PlayerLevelData newLevelData = PlayerData.GetLevelData(newLevel);
+
+					DialogueBridge.Instance.SetVariable("lvPrev", 2, oldLevel);
+					DialogueBridge.Instance.SetVariable("lvNew", 2, newLevel);
+					DialogueBridge.Instance.SetVariable("hpPrev", 2, oldLevelData.maxHP);
+					DialogueBridge.Instance.SetVariable("hpNew", 2, newLevelData.maxHP);
+					DialogueBridge.Instance.SetVariable("mpPrev", 2, oldLevelData.maxMP);
+					DialogueBridge.Instance.SetVariable("mpNew", 2, newLevelData.maxMP);
+					DialogueBridge.Instance.SetVariable("handIncrease", 1, newLevelData.handSize > oldLevelData.handSize);
+				}
+
 				player.GetNode<Control>("Description").Visible = false;
 				DialogueBridge.Instance.StartDialogueID("WinGeneric");
 
 				await ToSignal(DialogueBridge.Instance.dialogueBox, "dialogue_ended");
+				MusicController.StopMusic();
+
+				tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Quart);
+				tween.TweenProperty(GetNode<ColorRect>("Fade"), "color", new Color(0, 0, 0, 1), 0.5f);
+				await ToSignal(tween, "finished");
+
+				tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Quart);
+				tween.TweenProperty(player, "modulate", new Color(1, 1, 1, 0), 0.5f);
+				await ToSignal(tween, "finished");
+
+				GetParent().GetParent().RemoveChild(GetParent());
+				GetParent().CallDeferred("queue_free");
+				GameController.EndBattle(true);
+
 				break;
 
 			case Phase.PlayerLose:
+				MusicController.StopMusic(0);
 				GetNode<ColorRect>("Fade").Color = Colors.Black;
 				player.GetNode<Control>("Description").Visible = false;
 
@@ -254,6 +308,8 @@ public partial class Battle : Node2D
 		AddChild(multFX);
 		multFX.GlobalPosition = mult.GlobalPosition + new Vector2(155, 20);
 		speedMult = 0.8f;
+		if(GameController.Instance.godMode) speedMult = 0.1f;
+
 		Gem thisGem;
 
 		while(attacking && activeHand.GetChildCount() > 0) {
@@ -278,6 +334,7 @@ public partial class Battle : Node2D
 				thisGem.SetMult(curseCostMult, cursePowerMult);
 				thisGem.CallDeferred("Trigger");
 				await ToSignal(thisGem, "FinishedTrigger");
+				GD.Print("GemFinished");
 				thisGem.SetMult(1, 1);
 
 				if(attacking) {
@@ -307,14 +364,14 @@ public partial class Battle : Node2D
 		SwitchState(Phase.EnemyChoice);
 	}
 
-	public void PrepareEnemes(Godot.Collections.Array<PackedScene> spawnEnemies) {
-		theseEnemies = spawnEnemies;
+	public void PrepareBattle(EnemySet enemySet) {
+		MusicController.StartMusic(enemySet.battleMusic, 0);
 		for(int i = 0; i < enemies.GetChildCount(); i++) {
 			enemies.GetChild(i).QueueFree();
 		}
-		for(int i = 0; i < spawnEnemies.Count; i++) {
+		for(int i = 0; i < enemySet.enemies.Count; i++) {
 			GD.Print("spawningEnemies");
-			Enemy thisEnemy = spawnEnemies[i].Instantiate() as Enemy;
+			Enemy thisEnemy = enemySet.enemies[i].Instantiate() as Enemy;
 			enemies.AddChild(thisEnemy);
 			thisEnemy.Position = spawnPos[i];
 		}
@@ -366,7 +423,7 @@ public partial class Battle : Node2D
 	public void _on_try_again_pressed() {
 		GetParent().GetParent().RemoveChild(GetParent());
 		GetParent().CallDeferred("queue_free");
-		GameController.Instance.EmitSignal("BattleEnded", false);
+		GameController.EndBattle(false);
 	}
 	
 }

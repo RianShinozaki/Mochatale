@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://dp3pvy7i0eem3"]
+[gd_scene load_steps=35 format=4 uid="uid://dp3pvy7i0eem3"]
 
 [ext_resource type="TileSet" uid="uid://cmvcae1f5ywhi" path="res://Art/Tilesets/CafeTileset.tres" id="1_frl3o"]
 [ext_resource type="Script" path="res://Scripts/PlayerOverworld.cs" id="1_rrqmr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/OverworldEnemy.cs" id="4_bgsr8"]
 [ext_resource type="Texture2D" uid="uid://57iyxrnbcyls" path="res://Art/Overworld/Characters/Mel.png" id="4_oa1vj"]
 [ext_resource type="PackedScene" uid="uid://crtw0rpmcmk" path="res://Objects/Enemies/bobaslime_enemy.tscn" id="5_eb4cb"]
+[ext_resource type="AudioStream" uid="uid://dtdseng8yyg3h" path="res://Audio/Music/Deltarune - Rude Buster [Remix].mp3" id="5_qm7x0"]
 [ext_resource type="PackedScene" uid="uid://cp0jxxx8krtd1" path="res://Objects/Enemies/mel_enemy.tscn" id="6_4q7yb"]
 [ext_resource type="Script" path="res://Data/EnemySet.cs" id="7_ng3qg"]
 
@@ -203,9 +204,15 @@ states/Walk/position = Vector2(563, 101.832)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_25dbl"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_6ouim"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_rkvms")]
 graph_offset = Vector2(3, -1)
 
+[sub_resource type="Resource" id="Resource_bhuqv"]
+script = ExtResource("7_ng3qg")
+enemies = Array[PackedScene]([ExtResource("5_eb4cb"), ExtResource("5_eb4cb")])
+battleMusic = ExtResource("5_qm7x0")
+
 [sub_resource type="Resource" id="Resource_pf1bl"]
 script = ExtResource("7_ng3qg")
 enemies = Array[PackedScene]([ExtResource("5_eb4cb"), ExtResource("6_4q7yb"), ExtResource("6_4q7yb")])
+battleMusic = ExtResource("5_qm7x0")
 
 [node name="Overworld" type="Node2D"]
 scale = Vector2(3, 3)
@@ -257,11 +264,11 @@ position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_0iiu3")
 
 [node name="MelEnemy" type="CharacterBody2D" parent="."]
-position = Vector2(69.3333, 34.6667)
+position = Vector2(77.3333, 10.6667)
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("4_bgsr8")
-myEnemySet = SubResource("Resource_pf1bl")
+myEnemySet = SubResource("Resource_bhuqv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MelEnemy"]
 position = Vector2(0, 8)
@@ -277,5 +284,53 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MelEnemy/Hitbox"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_0iiu3")
+
+[node name="MelEnemy3" type="CharacterBody2D" parent="."]
+position = Vector2(53.3333, 29.3333)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("4_bgsr8")
+myEnemySet = SubResource("Resource_bhuqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MelEnemy3"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_0iiu3")
+
+[node name="Sprite2D" type="Sprite2D" parent="MelEnemy3"]
+texture_filter = 1
+position = Vector2(0, -2.66667)
+texture = ExtResource("4_oa1vj")
+
+[node name="Hitbox" type="Area2D" parent="MelEnemy3"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MelEnemy3/Hitbox"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_0iiu3")
+
+[node name="MelEnemy2" type="CharacterBody2D" parent="."]
+position = Vector2(29.3333, 42.6667)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("4_bgsr8")
+myEnemySet = SubResource("Resource_pf1bl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MelEnemy2"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_0iiu3")
+
+[node name="Sprite2D" type="Sprite2D" parent="MelEnemy2"]
+texture_filter = 1
+position = Vector2(0, -2.66667)
+texture = ExtResource("4_oa1vj")
+
+[node name="Hitbox" type="Area2D" parent="MelEnemy2"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MelEnemy2/Hitbox"]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_0iiu3")

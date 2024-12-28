@@ -15,6 +15,8 @@ public partial class OverworldEnemy : CharacterBody2D
 		GameController.StartBattle(myEnemySet);
 	}
 	public void _onBattleEnded(bool won) {
+		GameController.Instance.BattleEnded -= _onBattleEnded;
+
 		if(!won) {
 			GameController.StartBattle(myEnemySet);
 		}

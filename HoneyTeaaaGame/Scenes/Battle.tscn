@@ -260,19 +260,19 @@ offset_right = 1152.0
 offset_bottom = 648.0
 texture = SubResource("ViewportTexture_20gu1")
 
-[node name="Battle" type="Node2D" parent="." node_paths=PackedStringArray("hand", "activeHand", "itemDescription", "player", "mult", "battleOptions", "playerUI")]
+[node name="Battle" type="Node2D" parent="." node_paths=PackedStringArray("mult", "hand", "activeHand", "itemDescription", "player", "battleOptions", "playerUI")]
 position = Vector2(95, 159)
 script = ExtResource("1_n175y")
+spawnPos = Array[Vector2]([Vector2(808, 67), Vector2(587, 27), Vector2(365, 50)])
+introDialogueID = "introTeeter"
+mult = NodePath("PlayerUI/Mult")
+powerFX = ExtResource("2_tm61y")
 hand = NodePath("PlayerUI/Hand/Hand")
 activeHand = NodePath("PlayerUI/Active/ActiveHand")
 itemDescription = NodePath("Description/RichTextLabel")
 player = NodePath("Player")
-mult = NodePath("PlayerUI/Mult")
 battleOptions = NodePath("PlayerUI/PlayerOptions")
 playerUI = NodePath("PlayerUI")
-powerFX = ExtResource("2_tm61y")
-introDialogueID = "introTeeter"
-spawnPos = Array[Vector2]([Vector2(808, 67), Vector2(587, 27), Vector2(365, 50)])
 
 [node name="Enemies" type="Node2D" parent="Battle"]
 position = Vector2(25, 21)

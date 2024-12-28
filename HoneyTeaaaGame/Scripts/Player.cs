@@ -37,8 +37,16 @@ public partial class Player : Node2D
 		//anim = GetNode<Sprite2D>("HitFX").GetNode<AnimationPlayer>("AnimationPlayer");
 		magicBar = GetNode<ProgressBar>("Description/MagicBar");
 		healthBar = GetNode<ProgressBar>("Description/HPBar");
+
+		PlayerLevelData currentLevel = PlayerData.GetLevelData();
+		maxMP = currentLevel.maxMP;
+		maxHP = currentLevel.maxHP;
+		pullNumber = currentLevel.handSize;
 		MP = maxMP;
 		HP = maxHP;
+		if(GameController.Instance.godMode) {
+			pullNumber = 12;
+		}
 		magicBar.GetNode<Label>("Mult").Text = "Magic: " + MP.ToString() + " / " + maxMP.ToString();
 		healthBar.GetNode<Label>("Mult").Text = "Health: " + HP.ToString() + " / " + maxHP.ToString();
 

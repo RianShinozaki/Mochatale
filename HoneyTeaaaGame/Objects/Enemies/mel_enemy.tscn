@@ -31,12 +31,13 @@ basicAttack = SubResource("Resource_4l4jr")
 curseAttack = SubResource("Resource_86ia4")
 MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
 name = "Mel"
-maxHP = 1.0
-level = 1
+maxHP = 45.0
+level = 2
 description = "[b]Lv. 1 Mel[/b]
 Max HP: 30
 
 Things have been rough for this guy lately. He's locked in a legal battle over the rights to his own existence. "
+expWorth = 5
 battleImage = ExtResource("3_xxlcl")
 hurtSound = ExtResource("3_a8sk7")
 

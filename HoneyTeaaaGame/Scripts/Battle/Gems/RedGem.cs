@@ -24,9 +24,17 @@ public partial class RedGem : Gem
 
 		//Inflict damage on enemy
 		Enemy theEnemy = Battle.Instance.GetEnemy(-1);
-		theEnemy.TakeDamage(damage * GetPowerMult());
+
+		bool wait = false;
+		if(GameController.Instance.godMode) {
+			wait = theEnemy.TakeDamage(9999);
+		}
+		else
+			wait = theEnemy.TakeDamage(damage * GetPowerMult());
+		
 		GetParent<Node>().RemoveChild(this);
-		await ToSignal(theEnemy, "AnimationFinished");
+		if(wait)
+			await ToSignal(theEnemy, "AnimationFinished");
 		EmitSignal(SignalName.FinishedTrigger);
 		QueueFree();
 
