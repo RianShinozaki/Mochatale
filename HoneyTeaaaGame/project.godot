@@ -11,13 +11,12 @@ config_version=5
 [application]
 
 config/name="HoneyTeaaaGame"
-run/main_scene="res://Battle.tscn"
+run/main_scene="res://Scenes/game.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameController="*res://Objects/System/GameController.tscn"
 SfxController="*res://Objects/System/SFXController.tscn"
 
 [display]
@@ -31,3 +30,13 @@ project/assembly_name="HoneyTeaaaGame"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogue_nodes/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg")
+
+[layer_names]
+
+2d_physics/layer_1="Environment"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

@@ -8,15 +8,15 @@ public partial class BasicAttack : AttackResource
 	[Export] int DamageValue;
 	[Export] int Range;
 	[Export] String DialogueID;
+	[Export] String customText = "";
 	RandomNumberGenerator rand;
 	
 	public override async void Execute(Enemy enemy) {
 		rand = new RandomNumberGenerator();
-		GD.Print("Starting Dialogue");
-
 		
-		DialogueBridge.Instance.SwapDialogueBoxData(GameController.Instance.atkDialogueResPath);
+		DialogueBridge.Instance.SwapDialogueBoxData(GameController.atkDialogueResPath);
 		DialogueBridge.Instance.SetVariable("EnemyName", 0, enemy.name);
+		DialogueBridge.Instance.SetVariable("Text", 0, customText);
 		DialogueBridge.Instance.StartDialogueID(DialogueID);
 
 		await ToSignal(DialogueBridge.Instance.dialogueBox, "dialogue_ended");

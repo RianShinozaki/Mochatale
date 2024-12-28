@@ -10,51 +10,60 @@ public partial class Enemy : Node2D
 		Drench,
 		Bind
 	}
+
+	// SIGNALS
 	[Signal]
 	public delegate void EnemyTurnFinishedEventHandler();
-
 	[Signal]
 	public delegate void AnimationFinishedEventHandler();
+
+	// EXPORT VARIABLES
 	[Export] public string MyDialogueDataResource;
-	float HP;
-	[Export] public float maxHP;
 	[Export] public string name;
+	[Export] public float maxHP;
 	[Export] public int level;
 	[Export(PropertyHint.MultilineText)] public string description;
-
-	[Export] public StatusEffect currentEffect;
 	[Export] public float effectLevel = 0;
+	[Export] public StatusEffect currentEffect;
 
+	// EXPORT REFERENCES
+	[Export] public Texture2D battleImage;
+	[Export] AudioStream hurtSound;
+	[Export] AudioStream dieSound;
+
+	// MEMBER VARIABLES
+	float HP;
+	public bool active = true;
+	float shakeLevel;
+
+	// MEMBER REFERENCES
 	ProgressBar progBar;
 	public AnimationPlayer anim;
 	public Label Damage;
-	public bool active = true;
-
 	public Sprite2D sprite;
-	float shakeLevel;
 	RandomNumberGenerator rand;
-	[Export] AudioStream hurtSound;
 	public AudioStreamPlayer audio;
 
     public override void _Ready()
     {
-        anim = GetNode<Sprite2D>("HitFX").GetNode<AnimationPlayer>("AnimationPlayer");
-		progBar = GetNode<ProgressBar>("ProgressBar");
+        anim = GetNode<AnimationPlayer>("EnemyData/HitFX/AnimationPlayer");
+		progBar = GetNode<ProgressBar>("EnemyData/ProgressBar");
 		HP = maxHP;
 		progBar.Value = HP/maxHP;
 		progBar.GetNode<Label>("Mult").Text = "Health: " + HP + " / " + maxHP;
-		Damage = GetNode<Label>("Label");
 
-		Panel clickBox = GetNode<Panel>("ClickBox");
+		Panel clickBox = GetNode<Panel>("EnemyData/ClickBox");
 		clickBox.GuiInput += _on_panel_gui_input;
 		clickBox.MouseEntered += _on_mouse_entered;
 		clickBox.MouseExited += _on_mouse_exited;
 
-		sprite = GetNode<Sprite2D>("Sprite");
+		sprite = GetNode<Sprite2D>("EnemyData/Sprite");
+		sprite.Texture = battleImage;
 		rand = new RandomNumberGenerator();
-		audio = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
-
-
+		audio = GetNode<AudioStreamPlayer>("EnemyData/AudioStreamPlayer");
+		dieSound = GD.Load<AudioStream>("res://Audio/Sounds/033 Enemy die.wav");
+		
+		GetNode<Label>("EnemyData/Name").Text = "Lv. " + level + " " + name;
     }
     public override void _Process(double delta)
     {
@@ -72,6 +81,7 @@ public partial class Enemy : Node2D
 		if(HP <= 0) Die();
 		else {
 			SFXController.PlaySound(hurtSound);
+			EmitSignal(SignalName.AnimationFinished);
 		}
 	}
 	public virtual string GetDescription() { return description;}
@@ -80,17 +90,19 @@ public partial class Enemy : Node2D
 		
 	}
 	public async void Die() {
+		SFXController.PlaySound(dieSound);
 		active = false;
-		GetNode<Sprite2D>("Sprite").Material.Set("blend_mode", 1);
+		GetNode<Sprite2D>("EnemyData/Sprite").Material.Set("blend_mode", 1);
 		progBar.Visible = false;
 		GetParent().RemoveChild(this);
 		Battle.Instance.AddChild(this);
+		Battle.Instance.SelectedEnemyIndex -= 1;
 		
 		var tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear);
-		tween.TweenProperty(GetNode<Sprite2D>("Sprite"), "modulate", new Color(1, 1, 1, 0), 1f);
+		tween.TweenProperty(GetNode<Sprite2D>("EnemyData/Sprite"), "modulate", new Color(1, 1, 1, 0), 1f);
 		await ToSignal(tween, "finished");
+		EmitSignal(SignalName.AnimationFinished);
 		QueueFree();
-		EmitSignal(SignalName.EnemyTurnFinished);
 	}
 	private void _on_panel_gui_input(InputEvent @event) {
 		if(Battle.Instance.currentPhase != Battle.Phase.PlayerChoice) return;

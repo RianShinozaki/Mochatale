@@ -4,19 +4,4 @@
 
 [node name="SFXController" type="Node"]
 script = ExtResource("1_xqe8m")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer6" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer7" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer8" type="AudioStreamPlayer" parent="."]
+numChannels = 8

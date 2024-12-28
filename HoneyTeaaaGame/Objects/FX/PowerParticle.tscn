@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bfd4q8o6andct"]
 
-[ext_resource type="Texture2D" uid="uid://bo8op4rqge160" path="res://Art/GemParticle.png" id="1_y2tex"]
+[ext_resource type="Texture2D" uid="uid://bo8op4rqge160" path="res://Art/Battle/UI/Gems/GemParticle.png" id="1_y2tex"]
 [ext_resource type="Theme" uid="uid://ddsjysqmrnx18" path="res://Themes/QuirkyRPG.tres" id="2_wj4q2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3rxul"]

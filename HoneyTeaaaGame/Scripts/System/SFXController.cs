@@ -3,15 +3,18 @@ using System;
 
 public partial class SFXController : Node
 {
+	[Export] public int numChannels;
 	public static SFXController sfx;
     public override void _Ready()
     {
 		sfx = this;
+		for(int i = 0; i < numChannels; i++) {
+			AudioStreamPlayer player = new AudioStreamPlayer();
+			AddChild(player);
+		}
     }
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-    }
+
+	//Call this with a loaded sound to play it
     public static AudioStreamPlayer PlaySound(AudioStream sound) {
 		foreach(var node in sfx.GetChildren()) {
 			AudioStreamPlayer audio = node as AudioStreamPlayer;

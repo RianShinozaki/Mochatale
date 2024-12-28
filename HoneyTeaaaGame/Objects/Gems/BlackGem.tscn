@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cflcdwqvudlhq"]
 
-[ext_resource type="Script" path="res://Scripts/RedGem.cs" id="2_wkl41"]
+[ext_resource type="Script" path="res://Scripts/Battle/Gems/RedGem.cs" id="2_wkl41"]
 [ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_afq8q"]
-[ext_resource type="Texture2D" uid="uid://ygackhns1sqf" path="res://Art/gemss4.png" id="3_dyvyo"]
+[ext_resource type="Texture2D" uid="uid://ygackhns1sqf" path="res://Art/Battle/UI/Gems/gemss4.png" id="3_dyvyo"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]
 blend_mode = 1

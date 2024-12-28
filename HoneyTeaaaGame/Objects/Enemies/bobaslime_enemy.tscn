@@ -1,0 +1,49 @@
+[gd_scene load_steps=12 format=3 uid="uid://crtw0rpmcmk"]
+
+[ext_resource type="Script" path="res://Data/Enemies/Mel/Mel.cs" id="1_tql7j"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/BasicAttack.cs" id="2_x72j0"]
+[ext_resource type="Script" path="res://Data/Curses/SweetCurse.cs" id="3_ov8k5"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/CastCurse.cs" id="4_1ovth"]
+[ext_resource type="AudioStream" uid="uid://b2mrmhhg68ep8" path="res://Audio/Sounds/Hurt.wav" id="5_butou"]
+[ext_resource type="Texture2D" uid="uid://c64tbnijl5fhd" path="res://Art/Battle/Characters/BobaSlime.png" id="5_jt13l"]
+[ext_resource type="PackedScene" uid="uid://c0hn3wcj1hxab" path="res://Objects/Enemies/enemy_data.tscn" id="6_rjrr3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f8lg8"]
+
+[sub_resource type="Resource" id="Resource_4l4jr"]
+script = ExtResource("2_x72j0")
+DamageValue = 10
+Range = 4
+DialogueID = "CustomAttack"
+customText = "slimes you!"
+
+[sub_resource type="Resource" id="Resource_hdfhl"]
+script = ExtResource("3_ov8k5")
+weakMultiply = 0.5
+strongMultiply = 1.5
+tag = "Attacks get 0.5x mult, heals get 1.5x mult! "
+
+[sub_resource type="Resource" id="Resource_86ia4"]
+script = ExtResource("4_1ovth")
+DialogueID = "CustomAttack"
+myCurse = SubResource("Resource_hdfhl")
+customText = "curses you with a sickly sweet spell..."
+
+[node name="BobaSlime Enemy" type="Node2D"]
+material = SubResource("CanvasItemMaterial_f8lg8")
+position = Vector2(808, 67)
+script = ExtResource("1_tql7j")
+basicAttack = SubResource("Resource_4l4jr")
+curseAttack = SubResource("Resource_86ia4")
+MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
+name = "Boba Slime"
+maxHP = 1.0
+level = 1
+description = "[b]Lv. 1 Boba Slime[/b]
+Max HP: 20
+
+Are the tapioca bubbles its eyes? Its brain? Its organelles? Either way, smells delicious."
+battleImage = ExtResource("5_jt13l")
+hurtSound = ExtResource("5_butou")
+
+[node name="EnemyData" parent="." instance=ExtResource("6_rjrr3")]

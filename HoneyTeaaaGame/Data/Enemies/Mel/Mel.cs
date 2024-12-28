@@ -25,7 +25,5 @@ public partial class Mel : Enemy
 			await ToSignal(basicAttack, "AttackEnded");
 			EmitSignal(SignalName.EnemyTurnFinished);
 		}
-
-		
 	}
 }

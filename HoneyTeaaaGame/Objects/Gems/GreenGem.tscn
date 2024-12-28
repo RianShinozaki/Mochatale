@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://uxlonj1t05vu"]
 
-[ext_resource type="Texture2D" uid="uid://b32opy6nmbkyo" path="res://Art/gemss1.png" id="1_o3tkf"]
-[ext_resource type="Texture2D" uid="uid://0uq3fm1sgyjp" path="res://Art/gemss10.png" id="1_ovume"]
-[ext_resource type="Script" path="res://Scripts/GreenGem.cs" id="2_ics21"]
+[ext_resource type="Texture2D" uid="uid://b32opy6nmbkyo" path="res://Art/Battle/UI/Gems/gemss1.png" id="1_o3tkf"]
+[ext_resource type="Texture2D" uid="uid://0uq3fm1sgyjp" path="res://Art/Battle/UI/Gems/gemss10.png" id="1_ovume"]
+[ext_resource type="Script" path="res://Scripts/Battle/Gems/GreenGem.cs" id="2_ics21"]
 [ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_2fwmk"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]

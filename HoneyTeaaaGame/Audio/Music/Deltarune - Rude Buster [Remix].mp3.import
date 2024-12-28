@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dtdseng8yyg3h"
+path="res://.godot/imported/Deltarune - Rude Buster [Remix].mp3-cccfd5dff2f57593f99797da2158578e.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Deltarune - Rude Buster [Remix].mp3"
+dest_files=["res://.godot/imported/Deltarune - Rude Buster [Remix].mp3-cccfd5dff2f57593f99797da2158578e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

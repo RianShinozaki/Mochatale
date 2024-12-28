@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_cb1df")
 starts = {
+"CustomAttack": &"0_6",
 "Lose": &"0_4",
 "MenacingGlare": &"0_5",
 "Swinging": &"0_1",
@@ -36,6 +37,11 @@ nodes = {
 "link": &"1_5",
 "offset": Vector2(-720, -200),
 "start_id": "MenacingGlare"
+},
+"0_6": {
+"link": &"1_6",
+"offset": Vector2(230.132, -648.404),
+"start_id": "CustomAttack"
 },
 "1_1": {
 "dialogue": "{{EnemyName}} goes in swinging!",
@@ -102,6 +108,19 @@ nodes = {
 "size": Vector2(300, 240),
 "speaker": ""
 },
+"1_6": {
+"dialogue": "{{EnemyName}} {{Text}}",
+"offset": Vector2(700, -640),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": ""
+},
 "2_1": {
 "comment": "Battle status",
 "offset": Vector2(-1240, -960),
@@ -115,6 +134,10 @@ nodes = {
 }
 variables = {
 "EnemyName": {
+"type": 4,
+"value": ""
+},
+"Text": {
 "type": 4,
 "value": ""
 }
