@@ -1,57 +1,113 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6bg7ve3osrbm"]
+[gd_scene load_steps=29 format=3 uid="uid://c6bg7ve3osrbm"]
 
 [ext_resource type="Script" path="res://Scripts/GameController.cs" id="1_4s7qt"]
-[ext_resource type="PackedScene" uid="uid://dp3pvy7i0eem3" path="res://Scenes/OverworldTest.tscn" id="1_60yno"]
 [ext_resource type="Script" path="res://Scripts/System/PlayerData.cs" id="3_ekobp"]
 [ext_resource type="Script" path="res://Scripts/System/PlayerLevelData.cs" id="4_dx678"]
+[ext_resource type="PackedScene" uid="uid://8coe3hjahvt7" path="res://Objects/Gems/RedGem.tscn" id="4_shou1"]
+[ext_resource type="Script" path="res://Scripts/System/CutsceneManager.cs" id="5_mnexa"]
+[ext_resource type="PackedScene" uid="uid://cflcdwqvudlhq" path="res://Objects/Gems/BlackGem.tscn" id="5_slxcv"]
+[ext_resource type="PackedScene" uid="uid://dmo0lwb4wwo2x" path="res://Objects/Gems/WhiteGem.tscn" id="6_g3w5a"]
+[ext_resource type="PackedScene" uid="uid://do063x0tonmta" path="res://Objects/System/DialogueBridge.tscn" id="6_gjy6e"]
+[ext_resource type="PackedScene" uid="uid://c4hjuiitiu1te" path="res://Objects/Gems/BlueGem.tscn" id="7_0qs75"]
+[ext_resource type="Theme" uid="uid://ddsjysqmrnx18" path="res://Themes/QuirkyRPG.tres" id="7_ekg67"]
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/DialogueBox.gd" id="7_f8k18"]
+[ext_resource type="PackedScene" uid="uid://uxlonj1t05vu" path="res://Objects/Gems/GreenGem.tscn" id="8_c0ate"]
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/bbcodeWait.gd" id="8_fclrr"]
+[ext_resource type="PackedScene" uid="uid://ccagrqkua56el" path="res://Objects/Gems/RainbowGem.tscn" id="9_1qp22"]
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/bbcodeGhost.gd" id="9_ufcj0"]
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/bbcodeMatrix.gd" id="10_v0ne6"]
+[ext_resource type="PackedScene" uid="uid://buoc5exy7fs5r" path="res://Scenes/HearthCafeDungeon.tscn" id="17_lnkk7"]
 
 [sub_resource type="Resource" id="Resource_4maeh"]
 script = ExtResource("4_dx678")
-expNeeded = -1.0
-maxHP = 0.0
-maxMP = 0.0
-handSize = 0
+expNeeded = -2.0
+maxHP = 1000.0
+maxMP = 1000.0
+handSize = 8
 
 [sub_resource type="Resource" id="Resource_kxkof"]
 script = ExtResource("4_dx678")
-expNeeded = 0.0
-maxHP = 100.0
-maxMP = 30.0
+expNeeded = -1.0
+maxHP = 50.0
+maxMP = 25.0
 handSize = 5
 
 [sub_resource type="Resource" id="Resource_qrwt6"]
 script = ExtResource("4_dx678")
-expNeeded = 10.0
-maxHP = 110.0
+expNeeded = 8.0
+maxHP = 70.0
 maxMP = 35.0
 handSize = 6
 
 [sub_resource type="Resource" id="Resource_sq6l2"]
 script = ExtResource("4_dx678")
-expNeeded = 25.0
-maxHP = 120.0
-maxMP = 40.0
+expNeeded = 20.0
+maxHP = 90.0
+maxMP = 45.0
 handSize = 6
 
 [sub_resource type="Resource" id="Resource_cn2p1"]
 script = ExtResource("4_dx678")
-expNeeded = 50.0
-maxHP = 130.0
-maxMP = 45.0
+expNeeded = 40.0
+maxHP = 110.0
+maxMP = 55.0
 handSize = 7
 
 [sub_resource type="Resource" id="Resource_jg2iq"]
 script = ExtResource("4_dx678")
-expNeeded = 80.0
-maxHP = 140.0
-maxMP = 50.0
+expNeeded = 65.0
+maxHP = 130.0
+maxMP = 65.0
 handSize = 7
+
+[sub_resource type="Resource" id="Resource_fqviw"]
+script = ExtResource("4_dx678")
+expNeeded = 90.0
+maxHP = 150.0
+maxMP = 75.0
+handSize = 8
+
+[sub_resource type="Resource" id="Resource_jsa2l"]
+script = ExtResource("4_dx678")
+expNeeded = 100000.0
+maxHP = 0.0
+maxMP = 0.0
+handSize = 0
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_vhpyj"]
+script = ExtResource("8_fclrr")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_qf4ua"]
+script = ExtResource("9_ufcj0")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_xva60"]
+script = ExtResource("10_v0ne6")
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_4s7qt")
 
-[node name="Overworld" parent="." instance=ExtResource("1_60yno")]
-
 [node name="PlayerData" type="Node" parent="."]
 script = ExtResource("3_ekobp")
-levels = [SubResource("Resource_4maeh"), SubResource("Resource_kxkof"), SubResource("Resource_qrwt6"), SubResource("Resource_sq6l2"), SubResource("Resource_cn2p1"), SubResource("Resource_jg2iq")]
+exp = 40
+levels = [SubResource("Resource_4maeh"), SubResource("Resource_kxkof"), SubResource("Resource_qrwt6"), SubResource("Resource_sq6l2"), SubResource("Resource_cn2p1"), SubResource("Resource_jg2iq"), SubResource("Resource_fqviw"), SubResource("Resource_jsa2l"), null, null, null, null, null, null, null, null, null, null, null, null]
+gemsEquipped = Array[PackedScene]([ExtResource("4_shou1"), ExtResource("5_slxcv"), ExtResource("6_g3w5a"), ExtResource("7_0qs75"), ExtResource("8_c0ate"), ExtResource("9_1qp22")])
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("5_mnexa")
+
+[node name="DialogueBridge" parent="." node_paths=PackedStringArray("dialogueBox") instance=ExtResource("6_gjy6e")]
+dialogueBox = NodePath("../CanvasLayer/DialogueBox")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogueBox" type="Panel" parent="CanvasLayer"]
+visible = false
+offset_left = 192.0
+offset_top = 408.0
+offset_right = 960.0
+offset_bottom = 576.0
+theme = ExtResource("7_ekg67")
+script = ExtResource("7_f8k18")
+custom_effects = Array[RichTextEffect]([SubResource("RichTextEffect_vhpyj"), SubResource("RichTextEffect_qf4ua"), SubResource("RichTextEffect_xva60")])
+
+[node name="Overworld" parent="." instance=ExtResource("17_lnkk7")]

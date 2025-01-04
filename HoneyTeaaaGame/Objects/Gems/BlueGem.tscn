@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4hjuiitiu1te"]
+[gd_scene load_steps=6 format=3 uid="uid://c4hjuiitiu1te"]
 
 [ext_resource type="Texture2D" uid="uid://bmktyncu8iksv" path="res://Art/Battle/UI/Gems/gemss5.png" id="1_bqrhf"]
+[ext_resource type="Texture2D" uid="uid://cpnta1axectic" path="res://Art/Battle/UI/Gems/gemss12.png" id="1_w3aq2"]
 [ext_resource type="Script" path="res://Scripts/Battle/Gems/BlueGem.cs" id="2_nryvv"]
 [ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_30v35"]
 
@@ -14,7 +15,7 @@ offset_right = 80.0
 offset_bottom = 80.0
 scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(40, 40)
-texture = ExtResource("1_bqrhf")
+texture = ExtResource("1_w3aq2")
 expand_mode = 2
 script = ExtResource("2_nryvv")
 magicHeal = 8.0
@@ -23,6 +24,7 @@ description = "[color=red][b] BLUE FLOURITE [/b]
 
 [u]Sequence modifier (x[/0])[/u]
 [color=white] Recovers [color=cyan] [/1] magic [/color]"
+color = "Blue"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

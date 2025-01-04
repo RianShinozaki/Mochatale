@@ -26,6 +26,7 @@ description = "[color=#ebd1d3][b] WHITE FLOURITE [/b]
 [color=white] Costs [color=cyan] [/2] magic [/color]
 
 Doesn't affect cost."
+color = "White"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

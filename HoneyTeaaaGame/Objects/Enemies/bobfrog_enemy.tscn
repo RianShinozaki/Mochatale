@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://tjpar308ye27"]
+
+[ext_resource type="Script" path="res://Data/Enemies/BasicEnemy.cs" id="1_07xhk"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/BasicAttack.cs" id="2_ewry7"]
+[ext_resource type="Texture2D" uid="uid://dm3tdbqqh5mdf" path="res://Art/Battle/Characters/BobFrog.png" id="5_6hu73"]
+[ext_resource type="PackedScene" uid="uid://c0hn3wcj1hxab" path="res://Objects/Enemies/enemy_data.tscn" id="5_gv1ed"]
+[ext_resource type="AudioStream" uid="uid://b2mrmhhg68ep8" path="res://Audio/Sounds/Hurt.wav" id="6_8w0ew"]
+[ext_resource type="AudioStream" uid="uid://df2hn40x6u67s" path="res://Audio/Sounds/033 Enemy die.wav" id="7_hslld"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f8lg8"]
+
+[sub_resource type="Resource" id="Resource_ohryh"]
+script = ExtResource("2_ewry7")
+DamageValue = 10
+Range = 3
+DialogueID = "CustomAttack"
+customText = "hops on you!"
+
+[node name="BobFrrog Enemy" type="Node2D"]
+material = SubResource("CanvasItemMaterial_f8lg8")
+position = Vector2(808, 67)
+script = ExtResource("1_07xhk")
+attacks = Array[Object]([SubResource("Resource_ohryh")])
+moveRatios = PackedInt32Array(1)
+MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
+name = "Bobfrog"
+maxHP = 30.0
+level = 1
+description = "[b]Lv. 2 Bobfrog[/b]
+Max HP: 30
+
+This is where your boba comes from. Is it worth it?"
+expWorth = 5
+battleImage = ExtResource("5_6hu73")
+hurtSound = ExtResource("6_8w0ew")
+dieSound = ExtResource("7_hslld")
+
+[node name="EnemyData" parent="." instance=ExtResource("5_gv1ed")]

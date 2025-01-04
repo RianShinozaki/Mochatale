@@ -1,0 +1,51 @@
+[gd_scene load_steps=13 format=3 uid="uid://dqdvq48qf40so"]
+
+[ext_resource type="Script" path="res://Data/Enemies/BasicEnemy.cs" id="1_jfijl"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/BasicAttack.cs" id="2_v1dkx"]
+[ext_resource type="Script" path="res://Data/Curses/LegCurse.cs" id="3_anp3w"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/CastCurse.cs" id="4_edp3j"]
+[ext_resource type="Texture2D" uid="uid://dksvv7ia3a8h4" path="res://Art/Battle/Characters/BeegPant.png" id="5_41csf"]
+[ext_resource type="AudioStream" uid="uid://b2mrmhhg68ep8" path="res://Audio/Sounds/Hurt.wav" id="6_1jtyi"]
+[ext_resource type="AudioStream" uid="uid://df2hn40x6u67s" path="res://Audio/Sounds/033 Enemy die.wav" id="7_onyyh"]
+[ext_resource type="PackedScene" uid="uid://c0hn3wcj1hxab" path="res://Objects/Enemies/enemy_data.tscn" id="8_ts2js"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f8lg8"]
+
+[sub_resource type="Resource" id="Resource_niuy2"]
+script = ExtResource("2_v1dkx")
+DamageValue = 9
+Range = 4
+DialogueID = "CustomAttack"
+customText = "goes for a flying kick!"
+
+[sub_resource type="Resource" id="Resource_wnjpb"]
+script = ExtResource("3_anp3w")
+strongMultiply = 2.0
+tag = "Last fluorite costs x2!"
+
+[sub_resource type="Resource" id="Resource_llxlv"]
+script = ExtResource("4_edp3j")
+DialogueID = "CustomAttack"
+myCurse = SubResource("Resource_wnjpb")
+customText = "casts a curse, flexing his legs..."
+
+[node name="BeegPant" type="Node2D"]
+material = SubResource("CanvasItemMaterial_f8lg8")
+position = Vector2(808, 67)
+script = ExtResource("1_jfijl")
+attacks = Array[Object]([SubResource("Resource_niuy2"), SubResource("Resource_llxlv")])
+moveRatios = PackedInt32Array(2, 1)
+MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
+name = "BEEG PANT"
+maxHP = 50.0
+level = 4
+description = "[b]Lv. 4 BEEG PANT[/b]
+Max HP: 50
+
+The long legs of the hive law."
+expWorth = 20
+battleImage = ExtResource("5_41csf")
+hurtSound = ExtResource("6_1jtyi")
+dieSound = ExtResource("7_onyyh")
+
+[node name="EnemyData" parent="." instance=ExtResource("8_ts2js")]

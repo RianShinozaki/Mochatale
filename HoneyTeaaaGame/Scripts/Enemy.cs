@@ -6,9 +6,10 @@ public partial class Enemy : Node2D
 	public enum StatusEffect {
 		None,
 		Burn,
-		Shock,
 		Drench,
-		Bind
+		Shock,
+		Bind,
+		Instakill
 	}
 
 	// SIGNALS
@@ -43,6 +44,7 @@ public partial class Enemy : Node2D
 	float HP;
 	public bool active = true;
 	float shakeLevel;
+	public float cumulativeDamage;
 
 	// MEMBER REFERENCES
 	ProgressBar progBar;
@@ -72,6 +74,13 @@ public partial class Enemy : Node2D
 		dieSound = GD.Load<AudioStream>("res://Audio/Sounds/033 Enemy die.wav");
 		
 		GetNode<Label>("EnemyData/Name").Text = "Lv. " + level + " " + name;
+
+		if(currentEffect != StatusEffect.None) {
+			GetNode<Sprite2D>("EnemyData/ProgressBar/FXIcon").Visible = true;
+			GetNode<Label>("EnemyData/ProgressBar/FXIcon/FXLvl").Text = effectLevel.ToString("0.00");
+		} else {
+			GetNode<Sprite2D>("EnemyData/ProgressBar/FXIcon").Visible = false;
+		}
     }
     public override void _Process(double delta)
     {
@@ -79,13 +88,69 @@ public partial class Enemy : Node2D
 		shakeLevel = Mathf.MoveToward(shakeLevel, 0, (float)delta*20);
 		sprite.Offset = new Vector2(rand.RandfRange(-shakeLevel, shakeLevel), 0);
     }
-    public bool TakeDamage(float damage) {
+    public bool TakeDamage(float damage, StatusEffect type = StatusEffect.None) {
+		
+		if(type == StatusEffect.Shock && currentEffect == StatusEffect.Drench) {
+			damage *= 1 + effectLevel*0.5f;
+			effectLevel = 0;
+			currentEffect = StatusEffect.None;
+		}
+		else if(type == StatusEffect.None && currentEffect == StatusEffect.Shock) {
+			damage *= 1 + effectLevel*0.5f;
+			effectLevel = 0;
+			currentEffect = StatusEffect.None;
+		}
+		else if(type == StatusEffect.Burn && currentEffect == StatusEffect.Bind) {
+			damage *= 1 + effectLevel*0.5f;
+			effectLevel = 0;
+			currentEffect = StatusEffect.None;
+		}
+		else if(type == StatusEffect.Burn && currentEffect == StatusEffect.Drench) {
+			damage = 0;
+			effectLevel = 0;
+			currentEffect = StatusEffect.None;
+		}
+		else if(type == StatusEffect.Drench && currentEffect == StatusEffect.Bind) {
+			damage *= 1 + effectLevel*0.5f;
+			effectLevel = 0;
+			currentEffect = StatusEffect.None;
+		}
+		else if(type == StatusEffect.Bind && currentEffect == StatusEffect.Drench) {
+			Battle.Instance.player.ChangeHP(damage/2);
+			effectLevel = 0;
+			currentEffect = StatusEffect.None;
+		}
+		else if(type == StatusEffect.Instakill) {
+			if(cumulativeDamage >= maxHP/2)
+				damage = 9999;
+			else
+				damage = 0;
+		}
+		else if(type == currentEffect) {
+			effectLevel += damage/4;
+		}
+		else if(type != Enemy.StatusEffect.None) {
+			effectLevel = damage/4;
+			currentEffect = type;
+		}
+
 		anim.Play("default");
 		anim.Play("Hit");
 		HP = Mathf.Clamp(HP - damage, 0, maxHP);
+		cumulativeDamage += damage;
 		progBar.Value = HP/maxHP;
 		progBar.GetNode<Label>("Mult").Text = "Health: " + HP + " / " + maxHP;
 		shakeLevel = 10;
+
+		if(currentEffect != StatusEffect.None) {
+			GetNode<Sprite2D>("EnemyData/ProgressBar/FXIcon").Visible = true;
+			GetNode<Sprite2D>("EnemyData/ProgressBar/FXIcon").Frame = (int)currentEffect-1;
+			GetNode<Label>("EnemyData/ProgressBar/FXIcon/FXLvl").Text = effectLevel.ToString("0.00");
+		} else {
+			GetNode<Sprite2D>("EnemyData/ProgressBar/FXIcon").Visible = false;
+		}
+
+
 		if(HP <= 0) {
 			Die();
 			return true;
@@ -99,7 +164,6 @@ public partial class Enemy : Node2D
 	public virtual string GetDescription() { return description;}
 
 	public async virtual void EnemyTurn() {
-		
 	}
 	public async void Die() {
 		SFXController.PlaySound(dieSound);

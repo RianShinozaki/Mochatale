@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://dll22v6p78tyu"]
+
+[ext_resource type="Texture2D" uid="uid://bmktyncu8iksv" path="res://Art/Battle/UI/Gems/gemss5.png" id="1_2rlgs"]
+[ext_resource type="Script" path="res://Scripts/Battle/Gems/AttackGem.cs" id="2_3qs78"]
+[ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_m3f71"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]
+blend_mode = 1
+
+[node name="Water Gem" type="TextureRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(40, 40)
+texture = ExtResource("1_2rlgs")
+expand_mode = 2
+script = ExtResource("2_3qs78")
+cost = 6.0
+thisEffect = 2
+myColor = "Blue"
+description = "[color=red][b] WATER FLOURITE [/b]
+[color=white] Deals [color=red] 4 water damage [/color]
+[color=white] Costs [color=cyan] 6 magic [/color]
+
+[u]Sequence modifier (x[/0])[/u]
+[color=white] Deals [color=red] [/1] water damage [/color]
+[color=white] Costs [color=cyan] [/2] magic [/color]"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"Gems": ExtResource("3_m3f71")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_m0x8l")
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("1_2rlgs")

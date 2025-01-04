@@ -1,43 +1,44 @@
-[gd_scene load_steps=12 format=3 uid="uid://crtw0rpmcmk"]
+[gd_scene load_steps=13 format=3 uid="uid://crtw0rpmcmk"]
 
-[ext_resource type="Script" path="res://Data/Enemies/Mel/Mel.cs" id="1_tql7j"]
+[ext_resource type="Script" path="res://Data/Enemies/BasicEnemy.cs" id="1_o8o3g"]
 [ext_resource type="Script" path="res://Data/Attacks/Scripts/BasicAttack.cs" id="2_x72j0"]
 [ext_resource type="Script" path="res://Data/Curses/SweetCurse.cs" id="3_ov8k5"]
 [ext_resource type="Script" path="res://Data/Attacks/Scripts/CastCurse.cs" id="4_1ovth"]
 [ext_resource type="AudioStream" uid="uid://b2mrmhhg68ep8" path="res://Audio/Sounds/Hurt.wav" id="5_butou"]
 [ext_resource type="Texture2D" uid="uid://c64tbnijl5fhd" path="res://Art/Battle/Characters/BobaSlime.png" id="5_jt13l"]
 [ext_resource type="PackedScene" uid="uid://c0hn3wcj1hxab" path="res://Objects/Enemies/enemy_data.tscn" id="6_rjrr3"]
+[ext_resource type="AudioStream" uid="uid://df2hn40x6u67s" path="res://Audio/Sounds/033 Enemy die.wav" id="7_yc1dh"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f8lg8"]
 
-[sub_resource type="Resource" id="Resource_4l4jr"]
+[sub_resource type="Resource" id="Resource_niuy2"]
 script = ExtResource("2_x72j0")
-DamageValue = 10
-Range = 4
+DamageValue = 6
+Range = 2
 DialogueID = "CustomAttack"
 customText = "slimes you!"
 
-[sub_resource type="Resource" id="Resource_hdfhl"]
+[sub_resource type="Resource" id="Resource_khq4x"]
 script = ExtResource("3_ov8k5")
 weakMultiply = 0.5
-strongMultiply = 1.5
-tag = "Attacks get 0.5x mult, heals get 1.5x mult! "
+strongMultiply = 2.0
+tag = "0.5x on attacks, 2x on heals!"
 
-[sub_resource type="Resource" id="Resource_86ia4"]
+[sub_resource type="Resource" id="Resource_llxlv"]
 script = ExtResource("4_1ovth")
 DialogueID = "CustomAttack"
-myCurse = SubResource("Resource_hdfhl")
-customText = "curses you with a sickly sweet spell..."
+myCurse = SubResource("Resource_khq4x")
+customText = "casts a sickly sweet curse..."
 
 [node name="BobaSlime Enemy" type="Node2D"]
 material = SubResource("CanvasItemMaterial_f8lg8")
 position = Vector2(808, 67)
-script = ExtResource("1_tql7j")
-basicAttack = SubResource("Resource_4l4jr")
-curseAttack = SubResource("Resource_86ia4")
+script = ExtResource("1_o8o3g")
+attacks = Array[Object]([SubResource("Resource_niuy2"), SubResource("Resource_llxlv")])
+moveRatios = PackedInt32Array(2, 1)
 MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
 name = "Boba Slime"
-maxHP = 25.0
+maxHP = 20.0
 level = 1
 description = "[b]Lv. 1 Boba Slime[/b]
 Max HP: 20
@@ -46,5 +47,6 @@ Are the tapioca bubbles its eyes? Its brain? Its organelles? Either way, smells 
 expWorth = 3
 battleImage = ExtResource("5_jt13l")
 hurtSound = ExtResource("5_butou")
+dieSound = ExtResource("7_yc1dh")
 
 [node name="EnemyData" parent="." instance=ExtResource("6_rjrr3")]

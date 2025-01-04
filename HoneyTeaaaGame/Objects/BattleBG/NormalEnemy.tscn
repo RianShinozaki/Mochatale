@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://tuky7sxhisj6"]
+
+[ext_resource type="Script" path="res://Scripts/Battle/Environment/SpinningSurface.cs" id="1_q4u6v"]
+[ext_resource type="Texture2D" uid="uid://wiv031qeytk4" path="res://Art/Grid.png" id="2_pdjcd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_spdy3"]
+sky_top_color = Color(0.774881, 0.129148, 0.486681, 1)
+ground_bottom_color = Color(0.245268, 0.0644872, 0.355622, 1)
+
+[sub_resource type="Sky" id="Sky_1ascf"]
+sky_material = SubResource("ProceduralSkyMaterial_spdy3")
+
+[sub_resource type="Environment" id="Environment_jfidn"]
+background_mode = 2
+sky = SubResource("Sky_1ascf")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bvo5x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ew20d"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.996055, 0.555616, 0.710296, 1)
+albedo_texture = ExtResource("2_pdjcd")
+uv1_scale = Vector3(10, 10, 10)
+texture_filter = 0
+
+[node name="BattleBG" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.991445, -0.130526, 0, 0.118774, 0.902176, -0.414693, 0.0541283, 0.411145, 0.909961, 0, 0, 4.21)
+current = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jfidn")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.847817, -0.530289, 0, 0.530289, 0.847817, 0, 0.971559, 0)
+
+[node name="Node3D" type="Node3D" parent="Node3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+script = ExtResource("1_q4u6v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_bvo5x")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ew20d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.002, 0)
+mesh = SubResource("PlaneMesh_bvo5x")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ew20d")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Node3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.002, 0)
+mesh = SubResource("PlaneMesh_bvo5x")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ew20d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.551937, 0.689691, 0.468714, 0, -0.562084, 0.82708, 0.833886, -0.456496, -0.310235, 0, 0, 0)
+light_color = Color(0.930468, 0.819524, 0.598096, 1)

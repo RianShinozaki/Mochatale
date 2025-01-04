@@ -12,7 +12,7 @@
 
 [sub_resource type="Resource" id="Resource_4l4jr"]
 script = ExtResource("2_6odn8")
-DamageValue = 14
+DamageValue = 8
 Range = 4
 DialogueID = "CustomAttack"
 customText = "goes in swinging!"
@@ -31,12 +31,13 @@ basicAttack = SubResource("Resource_4l4jr")
 curseAttack = SubResource("Resource_86ia4")
 MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
 name = "Mel"
-maxHP = 45.0
-level = 2
-description = "[b]Lv. 1 Mel[/b]
-Max HP: 30
+maxHP = 50.0
+level = 3
+description = "[b]Lv. 3 Mel[/b]
+Max HP: 50
 
-Things have been rough for this guy lately. He's locked in a legal battle over the rights to his own existence. "
+Things have been rough for this guy lately. He's locked in a legal battle over the rights to his own existence. 
+Basically, he's mad."
 expWorth = 5
 battleImage = ExtResource("3_xxlcl")
 hurtSound = ExtResource("3_a8sk7")

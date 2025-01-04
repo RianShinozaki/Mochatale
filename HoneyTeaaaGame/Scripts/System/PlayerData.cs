@@ -15,6 +15,8 @@ public partial class PlayerData : Node
 
 	[ExportGroup("Member References")]
 	public static PlayerData Instance;
+	[Export] public Godot.Collections.Array<PackedScene> gemsEquipped;
+
     public override void _Ready()
     {
         base._Ready();
@@ -26,7 +28,7 @@ public partial class PlayerData : Node
 	}
 	public int GetLevelInst() {
 		int potentialLevel = 0;
-		while(levels[potentialLevel].expNeeded < exp) {
+		while(exp >= levels[potentialLevel+1].expNeeded) {
 			potentialLevel++;
 		}
 		level = potentialLevel;

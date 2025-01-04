@@ -1,0 +1,51 @@
+[gd_scene load_steps=13 format=3 uid="uid://b1m6xlt6r6en4"]
+
+[ext_resource type="Script" path="res://Data/Enemies/BasicEnemy.cs" id="1_nsp1w"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/BasicAttack.cs" id="2_4w03x"]
+[ext_resource type="Script" path="res://Data/Curses/ArmCurse.cs" id="3_klooa"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/CastCurse.cs" id="4_r7xru"]
+[ext_resource type="Texture2D" uid="uid://ckpuov167lrdu" path="res://Art/Battle/Characters/BeegJakt.png" id="5_ssxqm"]
+[ext_resource type="AudioStream" uid="uid://b2mrmhhg68ep8" path="res://Audio/Sounds/Hurt.wav" id="6_ui7e4"]
+[ext_resource type="AudioStream" uid="uid://df2hn40x6u67s" path="res://Audio/Sounds/033 Enemy die.wav" id="7_n7ihj"]
+[ext_resource type="PackedScene" uid="uid://c0hn3wcj1hxab" path="res://Objects/Enemies/enemy_data.tscn" id="8_2i6rp"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f8lg8"]
+
+[sub_resource type="Resource" id="Resource_niuy2"]
+script = ExtResource("2_4w03x")
+DamageValue = 9
+Range = 4
+DialogueID = "CustomAttack"
+customText = "puts you in a headlock!"
+
+[sub_resource type="Resource" id="Resource_0c7ay"]
+script = ExtResource("3_klooa")
+strongMultiply = 2.0
+tag = "First fluorite costs x2!"
+
+[sub_resource type="Resource" id="Resource_llxlv"]
+script = ExtResource("4_r7xru")
+DialogueID = "CustomAttack"
+myCurse = SubResource("Resource_0c7ay")
+customText = "casts a curse, flexing his arms..."
+
+[node name="BeegJakt" type="Node2D"]
+material = SubResource("CanvasItemMaterial_f8lg8")
+position = Vector2(808, 67)
+script = ExtResource("1_nsp1w")
+attacks = Array[Object]([SubResource("Resource_niuy2"), SubResource("Resource_llxlv")])
+moveRatios = PackedInt32Array(2, 1)
+MyDialogueDataResource = "res://Data/Enemies/Mel/MelEnemyDialogue.tres"
+name = "BEEG JAKT"
+maxHP = 50.0
+level = 4
+description = "[b]Lv. 4 BEEG JAKT[/b]
+Max HP: 50
+
+The long arm of the hive law."
+expWorth = 20
+battleImage = ExtResource("5_ssxqm")
+hurtSound = ExtResource("6_ui7e4")
+dieSound = ExtResource("7_n7ihj")
+
+[node name="EnemyData" parent="." instance=ExtResource("8_2i6rp")]

@@ -43,6 +43,8 @@ public partial class Battle : Node2D
 	public float speedMult = 1f;
 	public Phase currentPhase = Phase.PlayerChoice;
 	public float seqCostMult = 1;
+	public float currentGemIndex = 0;
+	public float totalGems = 0;
 	[Export] public int expEarned;
 
 
@@ -185,9 +187,7 @@ public partial class Battle : Node2D
 				tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Elastic);
 				tween.TweenProperty(playerUI, "position", new Vector2(0, 0), 0.75f);
 				await ToSignal(tween, "finished");
-
-				if(player.MP < player.maxMP/5)
-					player.ChangeMagic(player.maxMP/5 - player.MP);
+				player.ChangeMagic(player.maxMP/5);
 				SwitchState(Phase.PlayerChoice);
 				break;
 
@@ -215,6 +215,7 @@ public partial class Battle : Node2D
 				for(int i = 0; i < enemies.GetChildCount(); i++) {
 					if(!player.alive) break;
 					Enemy enemy = GetEnemy(i);
+					enemy.cumulativeDamage = 0;
 					enemy.CallDeferred("EnemyTurn");
 					await ToSignal(enemy, "EnemyTurnFinished");
 				}
@@ -311,7 +312,8 @@ public partial class Battle : Node2D
 		if(GameController.Instance.godMode) speedMult = 0.1f;
 
 		Gem thisGem;
-
+		totalGems = activeHand.GetChildCount();
+		currentGemIndex = 0;
 		while(attacking && activeHand.GetChildCount() > 0) {
 			bool successful = true;
 			thisGem = (Gem)activeHand.GetChild(0);
@@ -340,6 +342,7 @@ public partial class Battle : Node2D
 				if(attacking) {
 					seqPowerMult += multIncrement;
 					seqCostMult += multIncrement;
+					currentGemIndex+=1;
 					var tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Elastic);
 					tween.TweenProperty(multFX, "scale", Vector2.One * Mathf.Sqrt(seqPowerMult*0.5f) * 0.5f, 0.25f * speedMult);
 					await ToSignal(tween, "finished");
@@ -352,6 +355,7 @@ public partial class Battle : Node2D
 				await ToSignal(thisGem, "FinishedTrigger");
 				speedMult = Mathf.Clamp(speedMult-0.1f, 0.3f, 1);
 			}
+
 		}
 		curses.Clear();
 
@@ -365,7 +369,6 @@ public partial class Battle : Node2D
 	}
 
 	public void PrepareBattle(EnemySet enemySet) {
-		MusicController.StartMusic(enemySet.battleMusic, 0);
 		for(int i = 0; i < enemies.GetChildCount(); i++) {
 			enemies.GetChild(i).QueueFree();
 		}
@@ -375,6 +378,12 @@ public partial class Battle : Node2D
 			enemies.AddChild(thisEnemy);
 			thisEnemy.Position = spawnPos[i];
 		}
+		PackedScene battleBG = enemySet.battleBG;
+		if(enemySet.battleBG == null) {
+			battleBG = GD.Load<PackedScene>("res://Objects/BattleBG/NormalEnemy.tscn");
+		}
+		Node bg = battleBG.Instantiate();
+		GetNode<SubViewport>("../SubViewport").AddChild(bg);
 
 	}
 

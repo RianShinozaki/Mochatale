@@ -1,0 +1,397 @@
+[gd_scene load_steps=48 format=4 uid="uid://dp3pvy7i0eem3"]
+
+[ext_resource type="Script" path="res://Scripts/System/OverworldData.cs" id="1_apji6"]
+[ext_resource type="TileSet" uid="uid://cmvcae1f5ywhi" path="res://Art/Tilesets/CafeTileset.tres" id="1_frl3o"]
+[ext_resource type="Texture2D" uid="uid://ceydj2rk30fk4" path="res://Art/Overworld/MochaOverworld.png" id="1_tpcus"]
+[ext_resource type="AudioStream" uid="uid://dwaug671fgfen" path="res://Audio/Music/spotifydown.com - Home.mp3" id="2_7vmki"]
+[ext_resource type="Script" path="res://Scripts/Overworld/PlayCutsceneOnLoad.cs" id="5_ihp53"]
+[ext_resource type="Texture2D" uid="uid://dbu7dkdhxnrg7" path="res://Art/Overworld/Characters/Sugar.png" id="5_q58ct"]
+[ext_resource type="Script" path="res://Data/Cutscenes/AnimationEvent.cs" id="6_7st14"]
+[ext_resource type="PackedScene" uid="uid://buoc5exy7fs5r" path="res://Scenes/HearthCafeDungeon.tscn" id="6_m6k6w"]
+[ext_resource type="Script" path="res://Data/Cutscenes/LoadWorldEvent.cs" id="7_f4gk5"]
+[ext_resource type="Script" path="res://Data/Cutscenes/WaitEvent.cs" id="7_xgpjl"]
+[ext_resource type="Script" path="res://Data/Cutscenes/StartDialogueEvent.cs" id="8_bqgj4"]
+[ext_resource type="Texture2D" uid="uid://b24a6xh2xfwmt" path="res://Art/MochaTale-1-1-2025.png" id="8_et6du"]
+[ext_resource type="Script" path="res://Data/Cutscenes/SetDialogueEvent.cs" id="8_kyri2"]
+[ext_resource type="Texture2D" uid="uid://bab7wbtddfdsd" path="res://Art/Overworld/Characters/Mystery.png" id="14_anhvc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0iukf"]
+atlas = ExtResource("5_q58ct")
+region = Rect2(0, 0, 34, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iywn7"]
+atlas = ExtResource("5_q58ct")
+region = Rect2(34, 0, 34, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oj1sh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0iukf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iywn7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_tlq5w"]
+script = ExtResource("6_7st14")
+animPlayer = NodePath("../AnimationPlayer")
+animationName = "animation"
+
+[sub_resource type="Resource" id="Resource_vhxb5"]
+script = ExtResource("7_xgpjl")
+time = 1.0
+
+[sub_resource type="Resource" id="Resource_sefb4"]
+script = ExtResource("8_kyri2")
+dialoguePath = "res://Data/Dialogue/HearthCafe.tres"
+
+[sub_resource type="Resource" id="Resource_tx0xm"]
+script = ExtResource("8_bqgj4")
+startID = "startGame"
+
+[sub_resource type="Resource" id="Resource_e4hjv"]
+script = ExtResource("7_xgpjl")
+time = 1.0
+
+[sub_resource type="Resource" id="Resource_js1ie"]
+script = ExtResource("8_bqgj4")
+startID = "startGame2"
+
+[sub_resource type="Resource" id="Resource_wwh77"]
+script = ExtResource("7_xgpjl")
+time = 0.5
+
+[sub_resource type="Resource" id="Resource_65hfn"]
+script = ExtResource("6_7st14")
+animPlayer = NodePath("../AnimationPlayer")
+animationName = "mysteryIntro"
+
+[sub_resource type="Resource" id="Resource_kulss"]
+script = ExtResource("8_bqgj4")
+startID = "startGame3"
+
+[sub_resource type="Resource" id="Resource_xc27u"]
+script = ExtResource("6_7st14")
+animPlayer = NodePath("../AnimationPlayer")
+animationName = "makeCoffee"
+
+[sub_resource type="Resource" id="Resource_s5qmf"]
+script = ExtResource("8_bqgj4")
+startID = "startGame4"
+
+[sub_resource type="Resource" id="Resource_8ve2u"]
+script = ExtResource("7_xgpjl")
+time = 2.0
+
+[sub_resource type="Resource" id="Resource_qb8o0"]
+script = ExtResource("8_bqgj4")
+startID = "startGame5"
+
+[sub_resource type="Resource" id="Resource_q4gns"]
+script = ExtResource("7_xgpjl")
+time = 1.0
+
+[sub_resource type="Resource" id="Resource_ohf8p"]
+script = ExtResource("8_bqgj4")
+startID = "startGame6"
+
+[sub_resource type="Resource" id="Resource_wr0v0"]
+script = ExtResource("6_7st14")
+animPlayer = NodePath("../AnimationPlayer")
+animationName = "think"
+
+[sub_resource type="Resource" id="Resource_rsfd8"]
+script = ExtResource("8_bqgj4")
+startID = "startGame7"
+
+[sub_resource type="Resource" id="Resource_vyn5i"]
+script = ExtResource("7_f4gk5")
+overworld = ExtResource("6_m6k6w")
+
+[sub_resource type="Gradient" id="Gradient_gid7r"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bkvtt"]
+gradient = SubResource("Gradient_gid7r")
+
+[sub_resource type="Animation" id="Animation_oggsp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mystery:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mystery:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-26.6667, 93.3333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mystery:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:vframes")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_es63f"]
+resource_name = "animation"
+length = 4.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xnbdw"]
+resource_name = "makeCoffee"
+length = 2.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 0]
+}
+
+[sub_resource type="Animation" id="Animation_8pxno"]
+resource_name = "mysteryIntro"
+length = 5.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mystery:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mystery:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-26.6667, 93.3333), Vector2(-26.6667, 10.6667)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mystery:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"default", &"new_animation"]
+}
+
+[sub_resource type="Animation" id="Animation_fo8t8"]
+resource_name = "think"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:vframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhrqx"]
+_data = {
+"RESET": SubResource("Animation_oggsp"),
+"animation": SubResource("Animation_es63f"),
+"makeCoffee": SubResource("Animation_xnbdw"),
+"mysteryIntro": SubResource("Animation_8pxno"),
+"think": SubResource("Animation_fo8t8")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4b0dl"]
+atlas = ExtResource("14_anhvc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3ooa"]
+atlas = ExtResource("14_anhvc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7pp6"]
+atlas = ExtResource("14_anhvc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_72g2l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4b0dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3ooa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7pp6")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Overworld" type="Node2D"]
+y_sort_enabled = true
+texture_filter = 1
+scale = Vector2(3, 3)
+script = ExtResource("1_apji6")
+overworldTrack = ExtResource("2_7vmki")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+z_index = -2
+y_sort_enabled = true
+texture_filter = 1
+tile_map_data = PackedByteArray("AAABAAAAAAABAAMAAAAAAAAAAAABAAMAAAD//wAAAAABAAMAAAD+/wAAAAABAAMAAAACAAAAAAABAAMAAAD9/wAAAAABAAMAAAD8/wAAAAADAAQAAAD8////AAADAAQAAAD9////AAADAAQAAAD+////AAADAAQAAAD/////AAADAAQAAAAAAP//AAADAAQAAAABAP//AAADAAQAAAACAP//AAADAAQAAAD7/wAAAAABAAMAAAD9//7/AAABAAIAAAD+//7/AAABAAIAAAD///7/AAABAAIAAAAAAP7/AAABAAIAAAABAP7/AAABAAIAAAACAP7/AAABAAIAAAAFAP7/AAADAAEAAAAGAP7/AAAEAAEAAAD6//7/AAAEAAEAAAD6////AAAEAAIAAAD6/wAAAAADAAQAAAAFAAAAAAADAAQAAAAFAP//AAADAAIAAAAGAP//AAAEAAIAAAAGAAAAAAADAAQAAAD6//3/AAABAAEAAAD7//3/AAABAAEAAAD6//z/AAABAAEAAAD7//z/AAABAAEAAAD8//z/AAABAAEAAAD9//z/AAABAAEAAAD+//z/AAABAAEAAAD///3/AAABAAEAAAAAAP3/AAABAAEAAAD+//3/AAAEAAMAAAD9//3/AAAEAAMAAAD8//3/AAABAAEAAAABAP3/AAABAAEAAAACAP3/AAABAAEAAAADAP3/AAABAAEAAAAAAPz/AAABAAEAAAD///z/AAABAAEAAAABAPz/AAABAAEAAAACAPz/AAABAAEAAAADAPz/AAABAAEAAAAEAPz/AAABAAEAAAAFAPz/AAABAAEAAAAGAPz/AAABAAEAAAAGAP3/AAABAAEAAAAFAP3/AAABAAEAAAAEAP3/AAABAAEAAAD6//v/AAABAAAAAAD7//v/AAABAAAAAAD8//v/AAABAAAAAAD9//v/AAABAAAAAAD+//v/AAABAAAAAAD///v/AAABAAAAAAAAAPv/AAABAAAAAAABAPv/AAABAAAAAAACAPv/AAABAAAAAAADAPv/AAABAAAAAAAEAPv/AAABAAAAAAAFAPv/AAABAAAAAAAGAPv/AAABAAAAAAAHAPv/AAACAAAAAAAHAPz/AAACAAEAAAAHAP3/AAACAAEAAAAHAP7/AAACAAEAAAAHAP//AAACAAEAAAAHAAAAAAACAAEAAAD5//v/AAABAAAAAAD5//z/AAABAAEAAAD5//3/AAABAAEAAAD5//7/AAADAAEAAAD5////AAADAAIAAAD5/wAAAAADAAQAAAD4//z/AAAAAAEAAAD4//3/AAAAAAEAAAD4//7/AAAAAAEAAAD4////AAAAAAEAAAD4/wAAAAAAAAEAAAD4//v/AAAAAAAAAAD7//7/AAABAAIAAAD8//7/AAABAAIAAAADAP7/AAABAAIAAAAEAP7/AAABAAIAAAD7////AAADAAQAAAAEAAAAAAABAAMAAAADAAAAAAABAAMAAAADAP//AAADAAQAAAAEAP//AAADAAQAAAD4/wQAAAAAAAMAAAD5/wQAAAABAAMAAAD6/wQAAAABAAMAAAD7/wQAAAABAAMAAAD8/wQAAAABAAMAAAD9/wQAAAABAAMAAAD+/wQAAAABAAMAAAD//wQAAAABAAMAAAAAAAQAAAABAAMAAAABAAQAAAABAAMAAAACAAQAAAABAAMAAAADAAQAAAABAAMAAAAEAAQAAAABAAMAAAAFAAQAAAABAAMAAAAGAAQAAAABAAMAAAAHAAQAAAACAAMAAAD4/wUAAAAAAAMAAAD4/wYAAAAAAAMAAAD4/wcAAAAAAAUAAAD5/wUAAAABAAMAAAD5/wYAAAABAAMAAAD5/wcAAAABAAUAAAD6/wUAAAABAAMAAAD6/wYAAAABAAMAAAD6/wcAAAABAAUAAAD7/wUAAAABAAMAAAD7/wYAAAABAAMAAAD7/wcAAAABAAUAAAD8/wUAAAABAAMAAAD8/wYAAAABAAMAAAD8/wcAAAABAAUAAAD9/wUAAAABAAMAAAD9/wYAAAABAAMAAAD9/wcAAAABAAUAAAD+/wUAAAABAAMAAAD+/wYAAAABAAMAAAD+/wcAAAABAAUAAAD//wUAAAABAAMAAAD//wYAAAABAAMAAAD//wcAAAABAAUAAAAAAAUAAAABAAMAAAAAAAYAAAABAAMAAAAAAAcAAAABAAUAAAABAAUAAAABAAMAAAABAAYAAAABAAMAAAABAAcAAAABAAUAAAACAAUAAAABAAMAAAACAAYAAAABAAMAAAACAAcAAAABAAUAAAADAAUAAAABAAMAAAADAAYAAAABAAMAAAADAAcAAAABAAUAAAAEAAUAAAABAAMAAAAEAAYAAAABAAMAAAAEAAcAAAABAAUAAAAFAAUAAAABAAMAAAAFAAYAAAABAAMAAAAFAAcAAAABAAUAAAAGAAUAAAABAAMAAAAGAAYAAAABAAMAAAAGAAcAAAABAAUAAAAHAAUAAAACAAMAAAAHAAYAAAACAAMAAAAHAAcAAAACAAUAAAD4/wMAAAAAAAIAAAD4/wIAAAAAAAEAAAD4/wEAAAAAAAEAAAAHAAMAAAACAAIAAAAHAAIAAAACAAEAAAAHAAEAAAACAAEAAAD5/wMAAAABAAMAAAD5/wIAAAABAAMAAAD5/wEAAAABAAMAAAD6/wEAAAABAAMAAAD7/wEAAAABAAMAAAD7/wIAAAABAAMAAAD8/wIAAAABAAMAAAD8/wMAAAABAAMAAAD7/wMAAAABAAMAAAD8/wEAAAADAAQAAAD9/wEAAAADAAQAAAD9/wIAAAABAAMAAAD9/wMAAAABAAMAAAD6/wIAAAABAAMAAAADAAMAAAABAAMAAAAEAAMAAAABAAMAAAAFAAMAAAABAAMAAAAGAAMAAAABAAMAAAAGAAIAAAABAAMAAAAGAAEAAAABAAMAAAAFAAEAAAABAAMAAAAEAAEAAAABAAMAAAADAAEAAAADAAQAAAACAAEAAAADAAQAAAABAAEAAAADAAQAAAAAAAEAAAADAAQAAAD//wEAAAADAAQAAAD+/wEAAAADAAQAAAD+/wIAAAABAAMAAAD//wMAAAABAAMAAAAAAAMAAAABAAMAAAABAAMAAAABAAMAAAACAAMAAAABAAMAAAAFAAIAAAABAAMAAAAEAAIAAAABAAMAAAADAAIAAAABAAMAAAACAAIAAAABAAMAAAABAAIAAAABAAMAAAAAAAIAAAABAAMAAAD//wIAAAABAAMAAAD+/wMAAAABAAMAAAD6/wMAAAABAAMAAAA=")
+tile_set = ExtResource("1_frl3o")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD+/wAAAAAFAAMAAAD//wAAAAAHAAMAAAAAAAAAAAAGAAMAAAABAAAAAAAGAAMAAAD9/wAAAAAGAAMAAAACAAAAAAAFAAMAAAD8/wAAAAAFAAMAAAADAAAAAAAFAAMAAAD7////AAAHAAEAAAAEAP//AAAHAAEAAAD5/wIAAAAHAAEAAAAGAAIAAAAHAAEAAAA=")
+tile_set = ExtResource("1_frl3o")
+
+[node name="CollisionTiles" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_set = ExtResource("1_frl3o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-10.6667, -16)
+texture = ExtResource("1_tpcus")
+hframes = 4
+vframes = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(13.3333, 13.3333)
+sprite_frames = SubResource("SpriteFrames_oj1sh")
+autoplay = "default"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 26.6667)
+
+[node name="CutsceneTrigger" type="Area2D" parent="."]
+script = ExtResource("5_ihp53")
+cutsceneEvents = Array[Object]([SubResource("Resource_tlq5w"), SubResource("Resource_vhxb5"), SubResource("Resource_sefb4"), SubResource("Resource_tx0xm"), SubResource("Resource_e4hjv"), SubResource("Resource_js1ie"), SubResource("Resource_wwh77"), SubResource("Resource_65hfn"), SubResource("Resource_kulss"), SubResource("Resource_xc27u"), SubResource("Resource_s5qmf"), SubResource("Resource_8ve2u"), SubResource("Resource_qb8o0"), SubResource("Resource_q4gns"), SubResource("Resource_ohf8p"), SubResource("Resource_wr0v0"), SubResource("Resource_rsfd8"), SubResource("Resource_vyn5i")])
+
+[node name="Title" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+
+[node name="MochaTale-1-1-2025" type="Sprite2D" parent="Title"]
+z_index = 10
+position = Vector2(9.53674e-07, 16)
+scale = Vector2(0.341441, 0.341441)
+texture = ExtResource("8_et6du")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Title"]
+position = Vector2(2.66668, 32)
+scale = Vector2(1.625, 250.667)
+texture = SubResource("GradientTexture1D_bkvtt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qhrqx")
+}
+
+[node name="Mystery" type="AnimatedSprite2D" parent="."]
+visible = false
+y_sort_enabled = true
+position = Vector2(-26.6667, 93.3333)
+sprite_frames = SubResource("SpriteFrames_72g2l")
+autoplay = "default"

@@ -26,6 +26,7 @@ description = "[color=green][b] GREEN FLOURITE [/b]
 [u]Sequence modifier (x[/0])[/u]
 [color=white] Heals [color=green] [/1] damage [/color]
 [color=white] Costs [color=cyan] [/2] magic [/color]"
+color = "Green"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

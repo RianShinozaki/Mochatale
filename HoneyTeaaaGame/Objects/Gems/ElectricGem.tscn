@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://iwa2t6d8x3cx"]
+
+[ext_resource type="Texture2D" uid="uid://begglt73thcig" path="res://Art/Battle/UI/Gems/gemss11.png" id="1_1ie4n"]
+[ext_resource type="Script" path="res://Scripts/Battle/Gems/AttackGem.cs" id="2_cdcci"]
+[ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_rtdb0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]
+blend_mode = 1
+
+[node name="Electric Gem" type="TextureRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(40, 40)
+texture = ExtResource("1_1ie4n")
+expand_mode = 2
+script = ExtResource("2_cdcci")
+cost = 6.0
+thisEffect = 3
+description = "[color=red][b] ELECTRIC FLOURITE [/b]
+[color=white] Deals [color=red] 4 electric damage [/color]
+[color=white] Costs [color=cyan] 6 magic [/color]
+
+[u]Sequence modifier (x[/0])[/u]
+[color=white] Deals [color=red] [/1] electric damage [/color]
+[color=white] Costs [color=cyan] [/2] magic [/color]"
+color = "Yellow"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"Gems": ExtResource("3_rtdb0")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_m0x8l")
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("1_1ie4n")

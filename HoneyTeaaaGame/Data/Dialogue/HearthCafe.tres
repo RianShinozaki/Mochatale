@@ -1,0 +1,706 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3 uid="uid://3cefjmwaow0y"]
+
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/DialogueData.gd" id="1_5s55p"]
+
+[resource]
+script = ExtResource("1_5s55p")
+starts = {
+"Test1": &"0_1",
+"Test2": &"0_2",
+"afterBoss": &"0_6",
+"boss1": &"0_3",
+"boss2": &"0_4",
+"boss3": &"0_5",
+"hMiniboss": &"0_8",
+"hiveBoss1": &"0_16",
+"joke": &"0_7",
+"postBoss1": &"0_17",
+"startGame": &"0_9",
+"startGame2": &"0_10",
+"startGame3": &"0_11",
+"startGame4": &"0_12",
+"startGame5": &"0_13",
+"startGame6": &"0_14",
+"startGame7": &"0_15"
+}
+nodes = {
+"0_1": {
+"link": &"1_1",
+"offset": Vector2(-830, 97),
+"start_id": "Test1"
+},
+"0_10": {
+"link": &"1_18",
+"offset": Vector2(-1245.82, 3537.9),
+"start_id": "startGame2"
+},
+"0_11": {
+"link": &"1_21",
+"offset": Vector2(-1298.18, 3956),
+"start_id": "startGame3"
+},
+"0_12": {
+"link": &"1_27",
+"offset": Vector2(-1281.62, 4329.25),
+"start_id": "startGame4"
+},
+"0_13": {
+"link": &"1_22",
+"offset": Vector2(-940, 4700),
+"start_id": "startGame5"
+},
+"0_14": {
+"link": &"1_24",
+"offset": Vector2(-1360, 4980),
+"start_id": "startGame6"
+},
+"0_15": {
+"link": &"1_38",
+"offset": Vector2(-1400, 5300),
+"start_id": "startGame7"
+},
+"0_16": {
+"link": &"1_46",
+"offset": Vector2(-1040, 6040),
+"start_id": "hiveBoss1"
+},
+"0_17": {
+"link": &"1_47",
+"offset": Vector2(-1088.79, 6464.65),
+"start_id": "postBoss1"
+},
+"0_2": {
+"link": &"1_2",
+"offset": Vector2(-864, 376),
+"start_id": "Test2"
+},
+"0_3": {
+"link": &"1_3",
+"offset": Vector2(-905.585, 855.45),
+"start_id": "boss1"
+},
+"0_4": {
+"link": &"1_4",
+"offset": Vector2(-860, 980),
+"start_id": "boss2"
+},
+"0_5": {
+"link": &"1_5",
+"offset": Vector2(-800, 1120),
+"start_id": "boss3"
+},
+"0_6": {
+"link": &"1_6",
+"offset": Vector2(-766.73, 1864.79),
+"start_id": "afterBoss"
+},
+"0_7": {
+"link": &"1_11",
+"offset": Vector2(-768.087, 2299.47),
+"start_id": "joke"
+},
+"0_8": {
+"link": &"1_12",
+"offset": Vector2(-809.86, 2897.35),
+"start_id": "hMiniboss"
+},
+"0_9": {
+"link": &"1_20",
+"offset": Vector2(-1400, 3160),
+"start_id": "startGame"
+},
+"1_1": {
+"dialogue": "Testing dialogue in a cutscene!",
+"offset": Vector2(-480, 0),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_10": {
+"dialogue": "The next cafe on Mocha's quest is the famouse HIve cafe. Mocha heads there now...",
+"offset": Vector2(200, 1840),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_11": {
+"dialogue": "Wow. That was fast.",
+"offset": Vector2(-330.213, 2325.19),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_12": {
+"dialogue": "Now, what do we have here?",
+"offset": Vector2(-520, 2860),
+"options": {
+0: {
+"condition": {},
+"link": &"1_13",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_13": {
+"dialogue": "No pants, no jacket? That just won't do.",
+"offset": Vector2(-100, 2900),
+"options": {
+0: {
+"condition": {},
+"link": &"1_14",
+"text": ""
+}
+},
+"size": Vector2(420, 274),
+"speaker": "???"
+},
+"1_14": {
+"dialogue": "The Hive Cafe has a strict dress code. Time for you to leave!",
+"offset": Vector2(340, 2920),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_15": {
+"dialogue": "...Guess running a cafe comes with a lot of risks in this day and age.
+",
+"offset": Vector2(-560, 3140),
+"options": {
+0: {
+"condition": {},
+"link": &"1_16",
+"text": ""
+}
+},
+"size": Vector2(320, 320),
+"speaker": "Sugar"
+},
+"1_16": {
+"dialogue": "For what it's worth, I think you're doing great so far.",
+"offset": Vector2(-180, 3220),
+"options": {
+0: {
+"condition": {},
+"link": &"1_19",
+"text": ""
+}
+},
+"size": Vector2(300, 300),
+"speaker": "Sugar"
+},
+"1_17": {
+"dialogue": "...
+",
+"offset": Vector2(540, 3220),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Mocha"
+},
+"1_18": {
+"dialogue": "Did you ever consider...?",
+"offset": Vector2(-860, 3580),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Sugar"
+},
+"1_19": {
+"dialogue": "I hope you can keep the place afloat. Really.",
+"offset": Vector2(180, 3220),
+"options": {
+0: {
+"condition": {},
+"link": &"1_17",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Sugar"
+},
+"1_2": {
+"dialogue": "And again!",
+"offset": Vector2(-452, 463),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_20": {
+"dialogue": "At this point, one unlucky week and it could all be over, huh?",
+"offset": Vector2(-900, 3140),
+"options": {
+0: {
+"condition": {},
+"link": &"1_15",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Sugar"
+},
+"1_21": {
+"dialogue": "Just a coffee, if you would. Extra sugar.",
+"offset": Vector2(-820, 3960),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_22": {
+"dialogue": "Couldn't help but overhear your plight.",
+"offset": Vector2(-400, 4300),
+"options": {
+0: {
+"condition": {},
+"link": &"1_23",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_23": {
+"dialogue": "What...? How...? Weren't you just outside?",
+"offset": Vector2(-20, 4300),
+"options": {
+0: {
+"condition": {},
+"link": &"1_25",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Sugar"
+},
+"1_24": {
+"dialogue": "What, the Nitro Boba?",
+"offset": Vector2(-920, 4960),
+"options": {
+0: {
+"condition": {},
+"link": &"1_31",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Sugar"
+},
+"1_25": {
+"dialogue": "Nevermind that.",
+"offset": Vector2(360, 4300),
+"options": {
+0: {
+"condition": {},
+"link": &"1_26",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_26": {
+"dialogue": "Everyone wants their own cafe these days. Special ones, too.",
+"offset": Vector2(700, 4300),
+"options": {
+0: {
+"condition": {},
+"link": &"1_30",
+"text": ""
+}
+},
+"size": Vector2(360, 300),
+"speaker": "???"
+},
+"1_27": {
+"dialogue": "Thanks.
+",
+"offset": Vector2(-840, 4300),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_3": {
+"dialogue": "So that's it. You've completed the tutorial. Isn't that right?",
+"offset": Vector2(-460, 800),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_30": {
+"dialogue": "But there is one thing nobody's dared do, yet. Do you know?",
+"offset": Vector2(1360, 4280),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(360, 380),
+"speaker": "???"
+},
+"1_31": {
+"dialogue": "...Eh? You do know?",
+"offset": Vector2(-560, 4960),
+"options": {
+0: {
+"condition": {},
+"link": &"1_32",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_32": {
+"dialogue": "...
+",
+"offset": Vector2(-180, 4960),
+"options": {
+0: {
+"condition": {},
+"link": &"1_33",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Mocha"
+},
+"1_33": {
+"dialogue": "Mocha was one of the four that nearly created it.",
+"offset": Vector2(180, 4960),
+"options": {
+0: {
+"condition": {},
+"link": &"1_34",
+"text": ""
+}
+},
+"size": Vector2(340, 280),
+"speaker": "Sugar"
+},
+"1_34": {
+"dialogue": "And you didn't?",
+"offset": Vector2(583.825, 4955.14),
+"options": {
+0: {
+"condition": {},
+"link": &"1_35",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_35": {
+"dialogue": "...
+",
+"offset": Vector2(1040, 4980),
+"options": {
+0: {
+"condition": {},
+"link": &"1_36",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Mocha"
+},
+"1_36": {
+"dialogue": "They agreed it was too powerful. They each took an ingredient from the Nitro Boba with them and agreed they would never be combined.",
+"offset": Vector2(1420, 5000),
+"options": {
+0: {
+"condition": {},
+"link": &"1_37",
+"text": ""
+}
+},
+"size": Vector2(400, 380),
+"speaker": "Sugar"
+},
+"1_37": {
+"dialogue": "The Crystal Boba is still here, in the back of the store.",
+"offset": Vector2(1900, 5000),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Sugar"
+},
+"1_38": {
+"dialogue": "...What's that look, Mocha? Wasn't it you who said it was too powerful?",
+"offset": Vector2(-960, 5300),
+"options": {
+0: {
+"condition": {},
+"link": &"1_39",
+"text": ""
+}
+},
+"size": Vector2(420, 300),
+"speaker": "Sugar"
+},
+"1_39": {
+"dialogue": "...",
+"offset": Vector2(-460, 5340),
+"options": {
+0: {
+"condition": {},
+"link": &"1_40",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Mocha"
+},
+"1_4": {
+"dialogue": "You think this is over? Tutorial finished, congrats, onto the big leagues?",
+"offset": Vector2(-480, 1140),
+"options": {
+0: {
+"condition": {},
+"link": &"1_8",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_40": {
+"dialogue": "I know what you're thinking. \"What do I have to lose at this point?\"",
+"offset": Vector2(-100, 5320),
+"options": {
+0: {
+"condition": {},
+"link": &"1_41",
+"text": ""
+}
+},
+"size": Vector2(360, 300),
+"speaker": "???"
+},
+"1_41": {
+"dialogue": "I say, do it or don't. If you aren't gonna do it, forget about it. If you are, don't stop this time.",
+"offset": Vector2(300, 5360),
+"options": {
+0: {
+"condition": {},
+"link": &"1_42",
+"text": ""
+}
+},
+"size": Vector2(360, 340),
+"speaker": "???"
+},
+"1_42": {
+"dialogue": "It's like, waaaay deep in the back of the shop. If it comes down to it, you still have time to change your mind...",
+"offset": Vector2(720, 5360),
+"options": {
+0: {
+"condition": {},
+"link": &"1_43",
+"text": ""
+}
+},
+"size": Vector2(360, 320),
+"speaker": "Sugar"
+},
+"1_43": {
+"dialogue": "...
+",
+"offset": Vector2(1120, 5440),
+"options": {
+0: {
+"condition": {},
+"link": &"1_44",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "Mocha"
+},
+"1_44": {
+"dialogue": "But it's at least worth a look, huh?",
+"offset": Vector2(1460, 5440),
+"options": {
+0: {
+"condition": {},
+"link": &"1_45",
+"text": ""
+}
+},
+"size": Vector2(340, 280),
+"speaker": "Sugar"
+},
+"1_45": {
+"dialogue": "And so, Mocha heads for the back of the store, where the Crystal Boba awaits...",
+"offset": Vector2(1840, 5460),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_46": {
+"dialogue": "Suddenly, warping out of space and time, a boss fight appears!",
+"offset": Vector2(-460, 6000),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": ""
+},
+"1_47": {
+"dialogue": "And then Mocha went on to defeat the other two guys also! Congratulations Mocha woo",
+"offset": Vector2(-448.791, 6440.65),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": ""
+},
+"1_5": {
+"dialogue": "I DON'T THINK SO.",
+"offset": Vector2(-500, 1480),
+"options": {
+0: {
+"condition": {},
+"link": &"1_9",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_6": {
+"dialogue": "And so, Mocha triumphed over the rampaging Mel, and received the Crystal Boba.",
+"offset": Vector2(-540, 1840),
+"options": {
+0: {
+"condition": {},
+"link": &"1_7",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_7": {
+"dialogue": "Which they already owned. But anyway.",
+"offset": Vector2(-160, 1840),
+"options": {
+0: {
+"condition": {},
+"link": &"1_10",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": ""
+},
+"1_8": {
+"dialogue": "Think you can trample me and leave me for nothing?",
+"offset": Vector2(-60, 1100),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+},
+"1_9": {
+"dialogue": "YOUR QUEST ENDS HERE -- BEFORE IT EVEN BEGINS!",
+"offset": Vector2(-140, 1440),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 274),
+"speaker": "???"
+}
+}
+variables = {}
+strays = Array[String]([])
+characters = ""

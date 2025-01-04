@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0hn3wcj1hxab"]
+[gd_scene load_steps=14 format=3 uid="uid://c0hn3wcj1hxab"]
 
 [ext_resource type="Texture2D" uid="uid://26apshtbh5eo" path="res://Art/Battle/Characters/Enemy.png" id="1_qlwg1"]
 [ext_resource type="Texture2D" uid="uid://dfjqsn5ethtp1" path="res://Art/Battle/UI/Bash.png" id="2_cqxfg"]
 [ext_resource type="Theme" uid="uid://ddsjysqmrnx18" path="res://Themes/QuirkyRPG.tres" id="3_sjxia"]
+[ext_resource type="Texture2D" uid="uid://d175pmega02ot" path="res://Art/Battle/UI/FXIcons.png" id="4_eqwg5"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2wmyg"]
 resource_local_to_scene = true
@@ -146,6 +147,24 @@ offset_bottom = 22.0
 theme = ExtResource("3_sjxia")
 theme_override_font_sizes/font_size = 25
 text = "Health: 100 / 100"
+
+[node name="FXIcon" type="Sprite2D" parent="ProgressBar"]
+texture_filter = 1
+position = Vector2(24, 44)
+scale = Vector2(6, 6)
+texture = ExtResource("4_eqwg5")
+hframes = 4
+
+[node name="FXLvl" type="Label" parent="ProgressBar/FXIcon"]
+offset_left = -0.833333
+offset_top = -2.16667
+offset_right = 153.167
+offset_bottom = 35.8333
+scale = Vector2(0.167, 0.167)
+theme = ExtResource("3_sjxia")
+theme_override_font_sizes/font_size = 25
+text = "1
+"
 
 [node name="Label" type="Label" parent="."]
 visible = false

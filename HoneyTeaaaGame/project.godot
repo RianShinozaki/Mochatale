@@ -8,6 +8,11 @@
 
 config_version=5
 
+[animation]
+
+warnings/check_invalid_track_paths=false
+warnings/check_angle_interpolation_type_conflicting=false
+
 [application]
 
 config/name="HoneyTeaaaGame"
@@ -37,6 +42,7 @@ enabled=PackedStringArray("res://addons/dialogue_nodes/plugin.cfg", "res://addon
 2d_physics/layer_1="Environment"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
+2d_physics/layer_4="EnvironmentEnemies"
 
 [rendering]
 

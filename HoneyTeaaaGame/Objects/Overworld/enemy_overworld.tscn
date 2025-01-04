@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7vs0hagf5fq1"]
+
+[ext_resource type="Script" path="res://Scripts/Overworld/OverworldEnemy.cs" id="1_bv7xw"]
+[ext_resource type="AudioStream" uid="uid://dtdseng8yyg3h" path="res://Audio/Music/Deltarune - Rude Buster [Remix].mp3" id="2_kdrrd"]
+[ext_resource type="PackedScene" uid="uid://c42lh7w1dmkgk" path="res://Objects/Enemies/melTutorial_enemy.tscn" id="3_42xqx"]
+[ext_resource type="Script" path="res://Data/EnemySet.cs" id="4_7ygh4"]
+[ext_resource type="Texture2D" uid="uid://57iyxrnbcyls" path="res://Art/Overworld/Characters/Mel.png" id="5_mvvhb"]
+
+[sub_resource type="Resource" id="Resource_bhuqv"]
+resource_local_to_scene = true
+script = ExtResource("4_7ygh4")
+enemies = Array[PackedScene]([ExtResource("3_42xqx")])
+battleMusic = ExtResource("2_kdrrd")
+battleMusicVolume = -5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0iiu3"]
+size = Vector2(16, 16)
+
+[node name="EnemyOverworld" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 9
+motion_mode = 1
+script = ExtResource("1_bv7xw")
+myEnemySet = SubResource("Resource_bhuqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.33333)
+shape = SubResource("RectangleShape2D_0iiu3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -11)
+texture = ExtResource("5_mvvhb")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -8.33333)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_0iiu3")

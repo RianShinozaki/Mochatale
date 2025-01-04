@@ -14,6 +14,7 @@ public partial class Gem : TextureRect
 	public float scaleup = 0.5f;
 	public float costMult = 1;
 	public float powerMult = 1;
+	[Export] public string color;
 	public override void _Ready()
 	{
 		MouseEntered += _on_mouse_entered;

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccagrqkua56el"]
+
+[ext_resource type="Texture2D" uid="uid://0wlbols4ujpi" path="res://Art/Battle/UI/Gems/gemss8.png" id="1_dsswl"]
+[ext_resource type="Script" path="res://Scripts/Battle/Gems/AttackGem.cs" id="2_d7o5u"]
+[ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_368wu"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]
+blend_mode = 1
+
+[node name="RainbowGem" type="TextureRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(40, 40)
+texture = ExtResource("1_dsswl")
+expand_mode = 2
+script = ExtResource("2_d7o5u")
+damage = 0.0
+cost = 2.0
+thisEffect = 5
+description = "[color=red][b] RAINBOW FLOURITE [/b]
+
+[color=white]Instakill enemy that has lost 1/2 its max HP this turn.[/color]
+Costs [color=cyan] 2 magic [/color]
+
+[u]Sequence modifier (x[/0])[/u]
+[color=white] Costs [color=cyan] [/2] magic [/color]"
+color = "Rainbow"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"Gems": ExtResource("3_368wu")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_m0x8l")
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("1_dsswl")

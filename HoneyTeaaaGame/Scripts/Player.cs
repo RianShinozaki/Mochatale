@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 
 public partial class Player : Node2D
 {
@@ -13,12 +14,12 @@ public partial class Player : Node2D
 	public ProgressBar magicBar;
 	public ProgressBar healthBar;
 	public AnimationPlayer anim;
-	[Export] public Godot.Collections.Dictionary<String, PackedScene> gems;
-
+	[Export] public Godot.Collections.Array<PackedScene> gems;
+	[Export] public Godot.Collections.Array<PackedScene> gemsEquipped;
 	public int pullNumber = 6;
-	[Export] public Godot.Collections.Array<String> gemPool;
-	public Godot.Collections.Array<String> removedGems;
-	public Godot.Collections.Array<String> removedGemsTemp;
+	[Export] public Godot.Collections.Array<int> gemPool;
+	public Godot.Collections.Array<int> removedGems;
+	public Godot.Collections.Array<int> removedGemsTemp;
 	public Godot.Collections.Array<Gem> pocketedGems;
 	public AnimationPlayer hitFXAnim;
 	public Sprite2D sprite;
@@ -54,12 +55,14 @@ public partial class Player : Node2D
 		sprite = GetNode<Sprite2D>("MochaBack");
 		rand = new RandomNumberGenerator();
 
-		gemPool = new Godot.Collections.Array<String>();
-		removedGems = new Godot.Collections.Array<String>();
+		gemPool = new Godot.Collections.Array<int>();
+		removedGems = new Godot.Collections.Array<int>();
 		pocketedGems = new Godot.Collections.Array<Gem>();
-		foreach(KeyValuePair<String, PackedScene> gem in gems) {
-			for(int i = 0; i < 4; i++) {
-				gemPool.Add(gem.Key);
+
+		gemsEquipped = PlayerData.Instance.gemsEquipped;
+		for(int ii = 0; ii < gemsEquipped.Count; ii++) {
+			for(int i = 0; i < 2; i++) {
+				gemPool.Add(ii);
 			}
 		}
 
@@ -115,24 +118,27 @@ public partial class Player : Node2D
 			Battle.Instance.activeHand.GetChild(i).QueueFree();
 		}
 
-		removedGemsTemp = removedGems;
-		removedGems.Clear();
+		//removedGemsTemp = removedGems;
+		//removedGems.Clear();
 		for(int i = 0; i < pullNumber - pocketedGems.Count; i++) {
 			RandomNumberGenerator rand = new RandomNumberGenerator();
 			int pull = rand.RandiRange(0, gemPool.Count-1);
-
-			Gem thisGem = gems[gemPool[pull]].Instantiate() as Gem;
+			Gem thisGem = gemsEquipped[gemPool[pull]].Instantiate() as Gem;
 			Battle.Instance.hand.AddChild(thisGem);
 			removedGems.Add(gemPool[pull]);
+			int thePull = gemPool[pull];
 			gemPool.RemoveAt(pull);
+			GD.Print(thePull, " ", gemPool);
+
 		}
 		for(int i = 0; i < pocketedGems.Count; i++) {
 			Battle.Instance.hand.AddChild(pocketedGems[i]);
 		}
 		pocketedGems.Clear();
-		for(int i = 0; i < removedGemsTemp.Count; i++) {
-			gemPool.Add(removedGemsTemp[i]);
+		for(int i = 0; i < removedGems.Count; i++) {
+			gemPool.Add(removedGems[i]);
 		}
+		removedGems.Clear();
 
 	}
 }

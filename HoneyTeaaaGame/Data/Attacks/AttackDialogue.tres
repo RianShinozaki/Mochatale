@@ -57,7 +57,7 @@ nodes = {
 "speaker": ""
 },
 "1_2": {
-"dialogue": "{{EnemyName}} teeters forward menacingly!",
+"dialogue": "{{EnemyName}} approaches!",
 "offset": Vector2(-1260, -720),
 "options": {
 0: {
@@ -131,7 +131,7 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(300, 240),
+"size": Vector2(300, 274),
 "speaker": ""
 },
 "1_8": {
@@ -147,7 +147,7 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(300, 240),
+"size": Vector2(300, 274),
 "speaker": ""
 },
 "1_9": {
@@ -160,7 +160,7 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(300, 240),
+"size": Vector2(300, 274),
 "speaker": ""
 },
 "2_1": {

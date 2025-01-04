@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfd1r3ool0kqi"]
+
+[ext_resource type="Texture2D" uid="uid://cpxg1ot7eq865" path="res://Art/Battle/UI/Gems/gemss9.png" id="1_33oup"]
+[ext_resource type="Script" path="res://Scripts/Battle/Gems/AttackGem.cs" id="2_160q7"]
+[ext_resource type="AnimationLibrary" uid="uid://ckn10o8fgyvvj" path="res://AnimationLibs/Gems.res" id="3_qtsyh"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0x8l"]
+blend_mode = 1
+
+[node name="Fire Gem" type="TextureRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(40, 40)
+texture = ExtResource("1_33oup")
+expand_mode = 2
+script = ExtResource("2_160q7")
+cost = 6.0
+thisEffect = 1
+description = "[color=red][b] FIRE FLOURITE [/b]
+[color=white] Deals [color=red] 4 fire damage [/color]
+[color=white] Costs [color=cyan] 6 magic [/color]
+
+[u]Sequence modifier (x[/0])[/u]
+[color=white] Deals [color=red] [/1] fire damage [/color]
+[color=white] Costs [color=cyan] [/2] magic [/color]"
+color = "Pink"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"Gems": ExtResource("3_qtsyh")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_m0x8l")
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("1_33oup")

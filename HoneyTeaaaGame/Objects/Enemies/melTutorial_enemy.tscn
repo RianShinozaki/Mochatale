@@ -1,0 +1,34 @@
+[gd_scene load_steps=9 format=3 uid="uid://c42lh7w1dmkgk"]
+
+[ext_resource type="Script" path="res://Data/Enemies/BasicEnemy.cs" id="1_wke65"]
+[ext_resource type="Script" path="res://Data/Attacks/Scripts/SpeakAttack.cs" id="2_pla2o"]
+[ext_resource type="AudioStream" uid="uid://df2hn40x6u67s" path="res://Audio/Sounds/033 Enemy die.wav" id="5_c5sos"]
+[ext_resource type="Texture2D" uid="uid://26apshtbh5eo" path="res://Art/Battle/Characters/Enemy.png" id="5_ersbr"]
+[ext_resource type="AudioStream" uid="uid://b2mrmhhg68ep8" path="res://Audio/Sounds/Hurt.wav" id="6_6nthw"]
+[ext_resource type="PackedScene" uid="uid://c0hn3wcj1hxab" path="res://Objects/Enemies/enemy_data.tscn" id="7_12g61"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f8lg8"]
+
+[sub_resource type="Resource" id="Resource_q0cll"]
+script = ExtResource("2_pla2o")
+customText = "just stares..."
+
+[node name="Mel Enemy" type="Node2D"]
+material = SubResource("CanvasItemMaterial_f8lg8")
+position = Vector2(808, 67)
+script = ExtResource("1_wke65")
+attacks = Array[Object]([SubResource("Resource_q0cll")])
+moveRatios = PackedInt32Array(1)
+name = "Mel"
+maxHP = 20.0
+level = 1
+description = "[b]Lv. 1 Mel[/b]
+Max HP: 20
+
+He's here."
+expWorth = 1
+battleImage = ExtResource("5_ersbr")
+hurtSound = ExtResource("6_6nthw")
+dieSound = ExtResource("5_c5sos")
+
+[node name="EnemyData" parent="." instance=ExtResource("7_12g61")]
