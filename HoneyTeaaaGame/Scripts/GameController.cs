@@ -46,11 +46,11 @@ public partial class GameController : Node
 		Instance.EmitSignal(SignalName.BattleEnded, won);
 	}
 	public static void LoadOverworld(PackedScene overworld) {
-		if(Instance.GetNode<OverworldData>("Overworld") != null) {
-			Instance.GetNode<OverworldData>("Overworld").QueueFree();
+		if(Instance.GetNode<Node2D>("OverworldSocket").GetChildCount() > 0) {
+			Instance.GetNode<Node2D>("OverworldSocket").GetChild(0).QueueFree();
 		}
 		OverworldData newOverworld = overworld.Instantiate() as OverworldData;
-		Instance.CallDeferred(MethodName.AddChild, newOverworld);
+		Instance.GetNode<Node2D>("OverworldSocket").CallDeferred(MethodName.AddChild, newOverworld);
 	}
 
 }

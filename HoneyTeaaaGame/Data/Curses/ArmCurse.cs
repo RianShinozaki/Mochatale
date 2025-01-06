@@ -9,5 +9,5 @@ public partial class ArmCurse : Curse
 	public override float SetGemCostMult(Gem theGem) {
 		if(Battle.Instance.currentGemIndex == 0) return strongMultiply;
 		return 1f;
-	}---
+	}
 }

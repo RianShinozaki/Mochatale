@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://dp3pvy7i0eem3"]
+[gd_scene load_steps=60 format=4 uid="uid://dp3pvy7i0eem3"]
 
 [ext_resource type="Script" path="res://Scripts/System/OverworldData.cs" id="1_apji6"]
 [ext_resource type="TileSet" uid="uid://cmvcae1f5ywhi" path="res://Art/Tilesets/CafeTileset.tres" id="1_frl3o"]
@@ -13,28 +13,55 @@
 [ext_resource type="Script" path="res://Data/Cutscenes/StartDialogueEvent.cs" id="8_bqgj4"]
 [ext_resource type="Texture2D" uid="uid://b24a6xh2xfwmt" path="res://Art/MochaTale-1-1-2025.png" id="8_et6du"]
 [ext_resource type="Script" path="res://Data/Cutscenes/SetDialogueEvent.cs" id="8_kyri2"]
+[ext_resource type="Script" path="res://Data/Cutscenes/SetSpriteFramesEvent.cs" id="10_7ph0v"]
+[ext_resource type="Script" path="res://Scripts/Cutscene/HearthCafeCutsceneScripts.cs" id="13_to5jj"]
 [ext_resource type="Texture2D" uid="uid://bab7wbtddfdsd" path="res://Art/Overworld/Characters/Mystery.png" id="14_anhvc"]
+[ext_resource type="Texture2D" uid="uid://3mlo47simw43" path="res://Art/Overworld/Characters/HearthCafe/Auta.png" id="15_61h3u"]
+[ext_resource type="Texture2D" uid="uid://cah82e0sdlwv" path="res://Art/Overworld/Characters/HearthCafe/Poly.png" id="16_7aeq0"]
+[ext_resource type="Texture2D" uid="uid://byup5005fej6h" path="res://Art/Overworld/Characters/HearthCafe/Terri.png" id="16_boco7"]
+[ext_resource type="Texture2D" uid="uid://cj8chv60xd805" path="res://Art/Overworld/Characters/HearthCafe/Red.png" id="18_u26gs"]
+[ext_resource type="Texture2D" uid="uid://kvsr04ymhjxu" path="res://Art/Overworld/Characters/HearthCafe/idk.png" id="19_m1mhl"]
+[ext_resource type="Texture2D" uid="uid://dwtl4q44nthw5" path="res://Art/Overworld/Characters/HearthCafe/rat.png" id="20_pd2hi"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0iukf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rcd6"]
 atlas = ExtResource("5_q58ct")
-region = Rect2(0, 0, 34, 38)
+region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iywn7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kevpo"]
 atlas = ExtResource("5_q58ct")
-region = Rect2(34, 0, 34, 38)
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n8qy"]
+atlas = ExtResource("5_q58ct")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpfvg"]
+atlas = ExtResource("5_q58ct")
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oj1sh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0iukf")
+"texture": SubResource("AtlasTexture_5rcd6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_iywn7")
+"texture": SubResource("AtlasTexture_kevpo")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8n8qy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpfvg")
+}],
+"loop": true,
+"name": &"talk",
+"speed": 3.0
 }]
 
 [sub_resource type="Resource" id="Resource_tlq5w"]
@@ -50,9 +77,19 @@ time = 1.0
 script = ExtResource("8_kyri2")
 dialoguePath = "res://Data/Dialogue/HearthCafe.tres"
 
+[sub_resource type="Resource" id="Resource_304ap"]
+script = ExtResource("10_7ph0v")
+animatedSprite2D = NodePath("../Sugar")
+animationName = "talk"
+
 [sub_resource type="Resource" id="Resource_tx0xm"]
 script = ExtResource("8_bqgj4")
 startID = "startGame"
+
+[sub_resource type="Resource" id="Resource_joka6"]
+script = ExtResource("10_7ph0v")
+animatedSprite2D = NodePath("../Sugar")
+animationName = "default"
 
 [sub_resource type="Resource" id="Resource_e4hjv"]
 script = ExtResource("7_xgpjl")
@@ -113,12 +150,6 @@ startID = "startGame7"
 script = ExtResource("7_f4gk5")
 overworld = ExtResource("6_m6k6w")
 
-[sub_resource type="Gradient" id="Gradient_gid7r"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_bkvtt"]
-gradient = SubResource("Gradient_gid7r")
-
 [sub_resource type="Animation" id="Animation_oggsp"]
 length = 0.001
 tracks/0/type = "value"
@@ -172,7 +203,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:frame")
+tracks/4/path = NodePath("Mocha:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -184,7 +215,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite2D:vframes")
+tracks/5/path = NodePath("Mocha:vframes")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -218,7 +249,7 @@ step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Mocha:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -254,7 +285,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(1, 2.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-26.6667, 93.3333), Vector2(-26.6667, 10.6667)]
+"values": [Vector2(-12, 93.333), Vector2(-12, 10.667)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -275,7 +306,7 @@ step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:vframes")
+tracks/0/path = NodePath("Mocha:vframes")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -328,6 +359,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_gid7r"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bkvtt"]
+gradient = SubResource("Gradient_gid7r")
+
 [node name="Overworld" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
@@ -339,50 +376,43 @@ overworldTrack = ExtResource("2_7vmki")
 z_index = -2
 y_sort_enabled = true
 texture_filter = 1
-tile_map_data = PackedByteArray("AAABAAAAAAABAAMAAAAAAAAAAAABAAMAAAD//wAAAAABAAMAAAD+/wAAAAABAAMAAAACAAAAAAABAAMAAAD9/wAAAAABAAMAAAD8/wAAAAADAAQAAAD8////AAADAAQAAAD9////AAADAAQAAAD+////AAADAAQAAAD/////AAADAAQAAAAAAP//AAADAAQAAAABAP//AAADAAQAAAACAP//AAADAAQAAAD7/wAAAAABAAMAAAD9//7/AAABAAIAAAD+//7/AAABAAIAAAD///7/AAABAAIAAAAAAP7/AAABAAIAAAABAP7/AAABAAIAAAACAP7/AAABAAIAAAAFAP7/AAADAAEAAAAGAP7/AAAEAAEAAAD6//7/AAAEAAEAAAD6////AAAEAAIAAAD6/wAAAAADAAQAAAAFAAAAAAADAAQAAAAFAP//AAADAAIAAAAGAP//AAAEAAIAAAAGAAAAAAADAAQAAAD6//3/AAABAAEAAAD7//3/AAABAAEAAAD6//z/AAABAAEAAAD7//z/AAABAAEAAAD8//z/AAABAAEAAAD9//z/AAABAAEAAAD+//z/AAABAAEAAAD///3/AAABAAEAAAAAAP3/AAABAAEAAAD+//3/AAAEAAMAAAD9//3/AAAEAAMAAAD8//3/AAABAAEAAAABAP3/AAABAAEAAAACAP3/AAABAAEAAAADAP3/AAABAAEAAAAAAPz/AAABAAEAAAD///z/AAABAAEAAAABAPz/AAABAAEAAAACAPz/AAABAAEAAAADAPz/AAABAAEAAAAEAPz/AAABAAEAAAAFAPz/AAABAAEAAAAGAPz/AAABAAEAAAAGAP3/AAABAAEAAAAFAP3/AAABAAEAAAAEAP3/AAABAAEAAAD6//v/AAABAAAAAAD7//v/AAABAAAAAAD8//v/AAABAAAAAAD9//v/AAABAAAAAAD+//v/AAABAAAAAAD///v/AAABAAAAAAAAAPv/AAABAAAAAAABAPv/AAABAAAAAAACAPv/AAABAAAAAAADAPv/AAABAAAAAAAEAPv/AAABAAAAAAAFAPv/AAABAAAAAAAGAPv/AAABAAAAAAAHAPv/AAACAAAAAAAHAPz/AAACAAEAAAAHAP3/AAACAAEAAAAHAP7/AAACAAEAAAAHAP//AAACAAEAAAAHAAAAAAACAAEAAAD5//v/AAABAAAAAAD5//z/AAABAAEAAAD5//3/AAABAAEAAAD5//7/AAADAAEAAAD5////AAADAAIAAAD5/wAAAAADAAQAAAD4//z/AAAAAAEAAAD4//3/AAAAAAEAAAD4//7/AAAAAAEAAAD4////AAAAAAEAAAD4/wAAAAAAAAEAAAD4//v/AAAAAAAAAAD7//7/AAABAAIAAAD8//7/AAABAAIAAAADAP7/AAABAAIAAAAEAP7/AAABAAIAAAD7////AAADAAQAAAAEAAAAAAABAAMAAAADAAAAAAABAAMAAAADAP//AAADAAQAAAAEAP//AAADAAQAAAD4/wQAAAAAAAMAAAD5/wQAAAABAAMAAAD6/wQAAAABAAMAAAD7/wQAAAABAAMAAAD8/wQAAAABAAMAAAD9/wQAAAABAAMAAAD+/wQAAAABAAMAAAD//wQAAAABAAMAAAAAAAQAAAABAAMAAAABAAQAAAABAAMAAAACAAQAAAABAAMAAAADAAQAAAABAAMAAAAEAAQAAAABAAMAAAAFAAQAAAABAAMAAAAGAAQAAAABAAMAAAAHAAQAAAACAAMAAAD4/wUAAAAAAAMAAAD4/wYAAAAAAAMAAAD4/wcAAAAAAAUAAAD5/wUAAAABAAMAAAD5/wYAAAABAAMAAAD5/wcAAAABAAUAAAD6/wUAAAABAAMAAAD6/wYAAAABAAMAAAD6/wcAAAABAAUAAAD7/wUAAAABAAMAAAD7/wYAAAABAAMAAAD7/wcAAAABAAUAAAD8/wUAAAABAAMAAAD8/wYAAAABAAMAAAD8/wcAAAABAAUAAAD9/wUAAAABAAMAAAD9/wYAAAABAAMAAAD9/wcAAAABAAUAAAD+/wUAAAABAAMAAAD+/wYAAAABAAMAAAD+/wcAAAABAAUAAAD//wUAAAABAAMAAAD//wYAAAABAAMAAAD//wcAAAABAAUAAAAAAAUAAAABAAMAAAAAAAYAAAABAAMAAAAAAAcAAAABAAUAAAABAAUAAAABAAMAAAABAAYAAAABAAMAAAABAAcAAAABAAUAAAACAAUAAAABAAMAAAACAAYAAAABAAMAAAACAAcAAAABAAUAAAADAAUAAAABAAMAAAADAAYAAAABAAMAAAADAAcAAAABAAUAAAAEAAUAAAABAAMAAAAEAAYAAAABAAMAAAAEAAcAAAABAAUAAAAFAAUAAAABAAMAAAAFAAYAAAABAAMAAAAFAAcAAAABAAUAAAAGAAUAAAABAAMAAAAGAAYAAAABAAMAAAAGAAcAAAABAAUAAAAHAAUAAAACAAMAAAAHAAYAAAACAAMAAAAHAAcAAAACAAUAAAD4/wMAAAAAAAIAAAD4/wIAAAAAAAEAAAD4/wEAAAAAAAEAAAAHAAMAAAACAAIAAAAHAAIAAAACAAEAAAAHAAEAAAACAAEAAAD5/wMAAAABAAMAAAD5/wIAAAABAAMAAAD5/wEAAAABAAMAAAD6/wEAAAABAAMAAAD7/wEAAAABAAMAAAD7/wIAAAABAAMAAAD8/wIAAAABAAMAAAD8/wMAAAABAAMAAAD7/wMAAAABAAMAAAD8/wEAAAADAAQAAAD9/wEAAAADAAQAAAD9/wIAAAABAAMAAAD9/wMAAAABAAMAAAD6/wIAAAABAAMAAAADAAMAAAABAAMAAAAEAAMAAAABAAMAAAAFAAMAAAABAAMAAAAGAAMAAAABAAMAAAAGAAIAAAABAAMAAAAGAAEAAAABAAMAAAAFAAEAAAABAAMAAAAEAAEAAAABAAMAAAADAAEAAAADAAQAAAACAAEAAAADAAQAAAABAAEAAAADAAQAAAAAAAEAAAADAAQAAAD//wEAAAADAAQAAAD+/wEAAAADAAQAAAD+/wIAAAABAAMAAAD//wMAAAABAAMAAAAAAAMAAAABAAMAAAABAAMAAAABAAMAAAACAAMAAAABAAMAAAAFAAIAAAABAAMAAAAEAAIAAAABAAMAAAADAAIAAAABAAMAAAACAAIAAAABAAMAAAABAAIAAAABAAMAAAAAAAIAAAABAAMAAAD//wIAAAABAAMAAAD+/wMAAAABAAMAAAD6/wMAAAABAAMAAAA=")
+tile_map_data = PackedByteArray("AAABAAAAAAABAAMAAAAAAAAAAAABAAMAAAD//wAAAAABAAMAAAD+/wAAAAABAAMAAAACAAAAAAABAAMAAAD9/wAAAAABAAMAAAD8/wAAAAADAAQAAAD8////AAADAAQAAAD9////AAADAAQAAAD+////AAADAAQAAAD/////AAADAAQAAAAAAP//AAADAAQAAAABAP//AAADAAQAAAACAP//AAADAAQAAAD7/wAAAAABAAMAAAD9//7/AAABAAIAAAD+//7/AAABAAIAAAD///7/AAABAAIAAAAAAP7/AAABAAIAAAABAP7/AAABAAIAAAACAP7/AAABAAIAAAAFAP7/AAADAAEAAAAGAP7/AAAEAAEAAAD6//7/AAAEAAEAAAD6////AAAEAAIAAAD6/wAAAAADAAQAAAAFAAAAAAADAAQAAAAFAP//AAADAAIAAAAGAP//AAAEAAIAAAAGAAAAAAADAAQAAAD6//3/AAABAAEAAAD7//3/AAABAAEAAAD6//z/AAABAAEAAAD7//z/AAABAAEAAAD8//z/AAABAAEAAAD9//z/AAABAAEAAAD+//z/AAABAAEAAAD///3/AAABAAEAAAAAAP3/AAABAAEAAAD+//3/AAAEAAMAAAD9//3/AAAEAAMAAAD8//3/AAABAAEAAAABAP3/AAABAAEAAAACAP3/AAABAAEAAAADAP3/AAAFAAAAAAAAAPz/AAABAAEAAAD///z/AAABAAEAAAABAPz/AAABAAEAAAACAPz/AAABAAEAAAADAPz/AAABAAEAAAAEAPz/AAABAAEAAAAFAPz/AAABAAEAAAAGAPz/AAABAAEAAAAGAP3/AAABAAEAAAAFAP3/AAABAAEAAAAEAP3/AAABAAEAAAD6//v/AAABAAAAAAD7//v/AAABAAAAAAD8//v/AAABAAAAAAD9//v/AAABAAAAAAD+//v/AAABAAAAAAD///v/AAABAAAAAAAAAPv/AAABAAAAAAABAPv/AAABAAAAAAACAPv/AAABAAAAAAADAPv/AAABAAAAAAAEAPv/AAABAAAAAAAFAPv/AAABAAAAAAAGAPv/AAABAAAAAAAHAPv/AAACAAAAAAAHAPz/AAACAAEAAAAHAP3/AAACAAEAAAAHAP7/AAACAAEAAAAHAP//AAACAAEAAAAHAAAAAAACAAEAAAD5//v/AAABAAAAAAD5//z/AAABAAEAAAD5//3/AAABAAEAAAD5//7/AAADAAEAAAD5////AAADAAIAAAD5/wAAAAADAAQAAAD4//z/AAAAAAEAAAD4//3/AAAAAAEAAAD4//7/AAAAAAEAAAD4////AAAAAAEAAAD4/wAAAAAAAAEAAAD4//v/AAAAAAAAAAD7//7/AAABAAIAAAD8//7/AAABAAIAAAADAP7/AAAFAAEAAAAEAP7/AAABAAIAAAD7////AAADAAQAAAAEAAAAAAABAAMAAAADAAAAAAABAAMAAAADAP//AAADAAQAAAAEAP//AAADAAQAAAD4/wQAAAAAAAMAAAD5/wQAAAABAAMAAAD6/wQAAAABAAMAAAD7/wQAAAABAAMAAAD8/wQAAAABAAMAAAD9/wQAAAABAAMAAAD+/wQAAAABAAMAAAD//wQAAAACAAQAAAAAAAQAAAABAAMAAAABAAQAAAABAAMAAAACAAQAAAABAAMAAAADAAQAAAABAAMAAAAEAAQAAAABAAMAAAAFAAQAAAABAAMAAAAGAAQAAAABAAMAAAAHAAQAAAACAAMAAAD4/wUAAAAAAAMAAAD4/wYAAAAAAAMAAAD4/wcAAAAAAAUAAAD5/wUAAAABAAMAAAD5/wYAAAABAAMAAAD5/wcAAAABAAUAAAD6/wUAAAABAAMAAAD6/wYAAAACAAQAAAD6/wcAAAABAAUAAAD7/wUAAAABAAMAAAD7/wYAAAABAAMAAAD7/wcAAAABAAUAAAD8/wUAAAABAAMAAAD8/wYAAAABAAMAAAD8/wcAAAABAAUAAAD9/wUAAAABAAMAAAD9/wYAAAABAAMAAAD9/wcAAAABAAUAAAD+/wUAAAABAAMAAAD+/wYAAAABAAMAAAD+/wcAAAABAAUAAAD//wUAAAABAAMAAAD//wYAAAABAAMAAAD//wcAAAABAAUAAAAAAAUAAAABAAMAAAAAAAYAAAABAAMAAAAAAAcAAAABAAUAAAABAAUAAAABAAMAAAABAAYAAAABAAMAAAABAAcAAAABAAUAAAACAAUAAAABAAMAAAACAAYAAAABAAMAAAACAAcAAAABAAUAAAADAAUAAAABAAMAAAADAAYAAAABAAMAAAADAAcAAAABAAUAAAAEAAUAAAABAAMAAAAEAAYAAAABAAMAAAAEAAcAAAABAAUAAAAFAAUAAAABAAMAAAAFAAYAAAABAAMAAAAFAAcAAAABAAUAAAAGAAUAAAABAAMAAAAGAAYAAAABAAMAAAAGAAcAAAABAAUAAAAHAAUAAAACAAMAAAAHAAYAAAACAAMAAAAHAAcAAAACAAUAAAD4/wMAAAAAAAIAAAD4/wIAAAAAAAEAAAD4/wEAAAAAAAEAAAAHAAMAAAACAAIAAAAHAAIAAAACAAEAAAAHAAEAAAACAAEAAAD5/wMAAAABAAMAAAD5/wIAAAABAAMAAAD5/wEAAAABAAMAAAD6/wEAAAABAAMAAAD7/wEAAAAHAAcAAAD8/wEAAAADAAQAAAD9/wEAAAADAAQAAAD9/wIAAAABAAMAAAD9/wMAAAABAAMAAAADAAMAAAABAAMAAAAEAAMAAAABAAMAAAAFAAMAAAAHAAcAAAAGAAMAAAABAAMAAAAGAAIAAAABAAMAAAAGAAEAAAABAAMAAAAFAAEAAAABAAMAAAAEAAEAAAACAAQAAAADAAEAAAADAAQAAAACAAEAAAADAAQAAAABAAEAAAADAAQAAAAAAAEAAAADAAQAAAD//wEAAAADAAQAAAD+/wEAAAADAAQAAAD+/wIAAAABAAMAAAD//wMAAAABAAMAAAAAAAMAAAABAAMAAAABAAMAAAABAAMAAAACAAMAAAABAAMAAAAFAAIAAAABAAMAAAAEAAIAAAABAAMAAAADAAIAAAABAAMAAAACAAIAAAABAAMAAAABAAIAAAABAAMAAAAAAAIAAAABAAMAAAD//wIAAAABAAMAAAD+/wMAAAABAAMAAAD8/wMAAAABAAMAAAD7/wMAAAABAAMAAAD6/wMAAAABAAMAAAD6/wIAAAABAAMAAAD7/wIAAAABAAMAAAD8/wIAAAABAAMAAAA=")
 tile_set = ExtResource("1_frl3o")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="."]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD+/wAAAAAFAAMAAAD//wAAAAAHAAMAAAAAAAAAAAAGAAMAAAABAAAAAAAGAAMAAAD9/wAAAAAGAAMAAAACAAAAAAAFAAMAAAD8/wAAAAAFAAMAAAADAAAAAAAFAAMAAAD7////AAAHAAEAAAAEAP//AAAHAAEAAAD5/wIAAAAHAAEAAAAGAAIAAAAHAAEAAAA=")
+tile_map_data = PackedByteArray("AAD+/wAAAAAFAAMAAAD//wAAAAAHAAMAAAAAAAAAAAAGAAMAAAABAAAAAAAGAAMAAAD9/wAAAAAGAAMAAAACAAAAAAAFAAMAAAD7////AAAHAAEAAAAEAP//AAAHAAEAAAD5/wIAAAAHAAEAAAAGAAIAAAAHAAEAAAD6/wUAAAAAAAYAAAD8/wUAAAAAAAYAAAD9/wUAAAAAAAYAABADAAUAAAAAAAYAAAAEAAUAAAAAAAYAABD8/wIAAAABAAYAAAACAAIAAAABAAYAAAD7/wIAAAACAAYAAAD9/wIAAAACAAYAAAABAAIAAAACAAYAAAADAAIAAAACAAYAAAD7/wUAAAAAAAYAABD8/wYAAAACAAYAAAD8/wAAAAAHAAUAAAADAAAAAAAHAAUAABAAAP7/AAADAAYAABD///7/AAAEAAYAABD+//7/AAAFAAYAAAD9//7/AAAGAAYAAAABAP7/AAAGAAYAAAACAP7/AAAGAAYAAAD8//7/AAAGAAYAAAA=")
 tile_set = ExtResource("1_frl3o")
 
 [node name="CollisionTiles" type="TileMapLayer" parent="."]
 y_sort_enabled = true
 tile_set = ExtResource("1_frl3o")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Mocha" type="Sprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(-10.6667, -16)
 texture = ExtResource("1_tpcus")
 hframes = 4
 vframes = 4
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sugar" type="AnimatedSprite2D" parent="."]
 position = Vector2(13.3333, 13.3333)
 sprite_frames = SubResource("SpriteFrames_oj1sh")
+animation = &"talk"
 autoplay = "default"
+frame = 1
+frame_progress = 0.230434
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 position = Vector2(0, 26.6667)
 
 [node name="CutsceneTrigger" type="Area2D" parent="."]
 script = ExtResource("5_ihp53")
-cutsceneEvents = Array[Object]([SubResource("Resource_tlq5w"), SubResource("Resource_vhxb5"), SubResource("Resource_sefb4"), SubResource("Resource_tx0xm"), SubResource("Resource_e4hjv"), SubResource("Resource_js1ie"), SubResource("Resource_wwh77"), SubResource("Resource_65hfn"), SubResource("Resource_kulss"), SubResource("Resource_xc27u"), SubResource("Resource_s5qmf"), SubResource("Resource_8ve2u"), SubResource("Resource_qb8o0"), SubResource("Resource_q4gns"), SubResource("Resource_ohf8p"), SubResource("Resource_wr0v0"), SubResource("Resource_rsfd8"), SubResource("Resource_vyn5i")])
+cutsceneEvents = Array[Object]([SubResource("Resource_tlq5w"), SubResource("Resource_vhxb5"), SubResource("Resource_sefb4"), SubResource("Resource_304ap"), SubResource("Resource_tx0xm"), SubResource("Resource_joka6"), SubResource("Resource_e4hjv"), SubResource("Resource_js1ie"), SubResource("Resource_wwh77"), SubResource("Resource_65hfn"), SubResource("Resource_kulss"), SubResource("Resource_xc27u"), SubResource("Resource_s5qmf"), SubResource("Resource_8ve2u"), SubResource("Resource_qb8o0"), SubResource("Resource_q4gns"), SubResource("Resource_ohf8p"), SubResource("Resource_wr0v0"), SubResource("Resource_rsfd8"), SubResource("Resource_vyn5i")])
 
-[node name="Title" type="Node2D" parent="."]
-modulate = Color(1, 1, 1, 0)
-
-[node name="MochaTale-1-1-2025" type="Sprite2D" parent="Title"]
-z_index = 10
-position = Vector2(9.53674e-07, 16)
-scale = Vector2(0.341441, 0.341441)
-texture = ExtResource("8_et6du")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Title"]
-position = Vector2(2.66668, 32)
-scale = Vector2(1.625, 250.667)
-texture = SubResource("GradientTexture1D_bkvtt")
+[node name="Node2D" type="Node2D" parent="CutsceneTrigger"]
+script = ExtResource("13_to5jj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -395,3 +425,61 @@ y_sort_enabled = true
 position = Vector2(-26.6667, 93.3333)
 sprite_frames = SubResource("SpriteFrames_72g2l")
 autoplay = "default"
+
+[node name="LittleGuys" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Auta" type="Sprite2D" parent="LittleGuys"]
+y_sort_enabled = true
+position = Vector2(-72, 72)
+texture = ExtResource("15_61h3u")
+offset = Vector2(0, -9)
+
+[node name="Poly" type="Sprite2D" parent="LittleGuys"]
+y_sort_enabled = true
+position = Vector2(-82.3333, 98.3333)
+texture = ExtResource("16_7aeq0")
+offset = Vector2(0, -9)
+
+[node name="Terri" type="Sprite2D" parent="LittleGuys"]
+y_sort_enabled = true
+position = Vector2(-101.333, 77.3333)
+texture = ExtResource("16_boco7")
+offset = Vector2(0, -9)
+
+[node name="Red" type="Sprite2D" parent="LittleGuys"]
+y_sort_enabled = true
+position = Vector2(-48, 60)
+texture = ExtResource("18_u26gs")
+
+[node name="Idk" type="Sprite2D" parent="LittleGuys"]
+y_sort_enabled = true
+position = Vector2(-26, 79.6667)
+texture = ExtResource("19_m1mhl")
+offset = Vector2(0, -9)
+
+[node name="Rat" type="Sprite2D" parent="LittleGuys"]
+position = Vector2(37.6667, 87)
+texture = ExtResource("20_pd2hi")
+offset = Vector2(0, -14)
+
+[node name="Rat2" type="Sprite2D" parent="LittleGuys"]
+position = Vector2(90.3333, 87)
+texture = ExtResource("20_pd2hi")
+offset = Vector2(0, -14)
+flip_h = true
+
+[node name="Title" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 5
+
+[node name="MochaTale-1-1-2025" type="Sprite2D" parent="Title"]
+z_index = 10
+position = Vector2(9.53674e-07, 16)
+scale = Vector2(0.341441, 0.341441)
+texture = ExtResource("8_et6du")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Title"]
+position = Vector2(2.66668, 32)
+scale = Vector2(1.625, 250.667)
+texture = SubResource("GradientTexture1D_bkvtt")
